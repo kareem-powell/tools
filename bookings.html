@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>OM Booking Checklist</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --fg:#111111;--fg2:#2d2d2d;--fg3:#5a5a5a;--fg4:#999;
+  --bg:#ffffff;--bg2:#f8f8f6;--bg3:#f0f0ec;
+  --bdr:#e2e2e2;--bdr2:#c8c8c8;
+  --acc:#0369a1;--acc-bg:#e8f4fb;
+  --green:#15803d;--green-bg:#dcfce7;
+  --orange:#c2410c;--orange-bg:#fff7ed;
+  --red:#b91c1c;--red-bg:#fef2f2;
+  --cherry:#9f1239;--cherry-light:#fce7f3;
+  --r:10px;
+}
+html,body{min-height:100%;font-size:15px;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;}
+
+/* BLOSSOMS */
+.blossom-tr{position:fixed;top:0;right:0;width:300px;height:300px;pointer-events:none;z-index:0;opacity:.45;}
+.blossom-bl{position:fixed;bottom:0;left:0;width:180px;height:180px;pointer-events:none;z-index:0;opacity:.22;transform:rotate(180deg);}
+
+/* APP */
+.app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;}
+
+/* NAV */
+.nav{
+  background:rgba(255,255,255,.97);backdrop-filter:blur(14px);
+  border-bottom:1px solid var(--bdr);
+  display:flex;align-items:center;height:52px;padding:0 24px;gap:12px;
+  position:sticky;top:0;z-index:200;flex-shrink:0;
+}
+.nav-back{font-size:14px;font-weight:500;color:var(--fg3);text-decoration:none;padding-right:14px;border-right:1px solid var(--bdr);display:flex;align-items:center;gap:4px;white-space:nowrap;}
+.nav-back:hover{color:var(--fg);}
+.nav-bc{font-size:11px;font-family:'DM Mono',monospace;color:var(--fg4);display:flex;align-items:center;gap:6px;}
+.nav-bc-sep{color:var(--bdr2);}
+.nav-bc-cur{color:var(--fg2);font-weight:600;}
+.nav-title{margin-left:auto;font-size:13px;color:var(--fg3);font-family:'DM Mono',monospace;}
+
+/* CONTENT */
+.content{flex:1;padding:32px 32px;max-width:840px;margin:0 auto;width:100%;}
+
+/* PAGE HEADER */
+.ph{margin-bottom:24px;}
+.ph-title{font-size:24px;font-weight:800;letter-spacing:-.04em;margin-bottom:6px;}
+.ph-sub{font-size:14px;color:var(--fg3);}
+
+/* BANNER */
+.banner{padding:14px 18px;border-radius:var(--r);font-size:14px;line-height:1.65;margin-bottom:22px;display:flex;align-items:center;gap:10px;}
+.banner-blue{background:var(--acc-bg);border:1px solid #93c5fd;}
+.banner a{color:var(--acc);font-weight:700;text-decoration:none;}
+.banner a:hover{text-decoration:underline;}
+
+/* DEAL FORM */
+.deal-form{background:var(--bg);border:1.5px solid var(--bdr);border-radius:var(--r);padding:22px;margin-bottom:24px;}
+.form-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--fg4);font-family:'DM Mono',monospace;margin-bottom:16px;}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px;}
+.form-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;margin-bottom:14px;}
+@media(max-width:620px){.form-grid,.form-grid-3{grid-template-columns:1fr;}}
+.field{display:flex;flex-direction:column;gap:5px;}
+.field-label{font-size:11px;font-weight:700;color:var(--fg3);text-transform:uppercase;letter-spacing:.07em;font-family:'DM Mono',monospace;}
+.field-input{
+  padding:10px 13px;border:1.5px solid var(--bdr2);border-radius:var(--r);
+  font-family:'DM Sans',sans-serif;font-size:14px;outline:none;
+  background:var(--bg);color:var(--fg);transition:border-color .15s;
+}
+.field-input:focus{border-color:var(--acc);}
+select.field-input{cursor:pointer;}
+.sfdc-link-row{margin-top:6px;font-size:13px;}
+.sfdc-link-row a{color:var(--acc);text-decoration:none;font-weight:600;}
+.sfdc-link-row a:hover{text-decoration:underline;}
+
+/* CHECKLIST HEADER */
+.checklist-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:14px;}
+.checklist-label-text{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--fg4);font-family:'DM Mono',monospace;}
+.checklist-progress-text{font-size:14px;font-weight:600;font-family:'DM Mono',monospace;color:var(--fg3);}
+
+/* PROGRESS BAR */
+.prog-wrap{background:var(--bg3);border-radius:4px;height:6px;margin-bottom:20px;overflow:hidden;}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--acc),var(--cherry));border-radius:4px;transition:width .35s;}
+
+/* STEP CARDS — core design element */
+.step{
+  border:1.5px solid var(--bdr);border-radius:var(--r);
+  margin-bottom:10px;overflow:hidden;
+  transition:border-color .15s;
+}
+.step.done{border-color:#86efac;background:#f8fff8;}
+.step.issue{border-color:#fed7aa;background:#fffbf5;}
+.step.na{opacity:.6;}
+
+/* Step header — clearly the clickable part */
+.step-header{
+  display:flex;align-items:center;gap:12px;
+  padding:14px 18px;cursor:pointer;user-select:none;
+}
+.step-header:hover{background:rgba(0,0,0,.02);}
+.done .step-header{background:rgba(21,128,61,.03);}
+.issue .step-header{background:rgba(194,65,12,.03);}
+
+/* Step number badge */
+.step-num{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--bg3);color:var(--fg3);
+  font-size:12px;font-weight:700;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'DM Mono',monospace;flex-shrink:0;
+  border:1.5px solid var(--bdr);
+}
+.done .step-num{background:var(--green);color:#fff;border-color:var(--green);}
+.issue .step-num{background:var(--orange);color:#fff;border-color:var(--orange);}
+
+.step-label{font-size:15px;font-weight:600;flex:1;}
+.done .step-label{color:var(--green);}
+.issue .step-label{color:var(--orange);}
+
+/* Status dropdown — visually distinct as a form element, not a nav item */
+.step-status{
+  font-size:13px;border:1.5px solid var(--bdr2);border-radius:8px;
+  padding:5px 10px;background:var(--bg);cursor:pointer;
+  font-family:'DM Sans',sans-serif;color:var(--fg);
+  flex-shrink:0;
+}
+.done .step-status{border-color:var(--green);color:var(--green);background:var(--green-bg);}
+.issue .step-status{border-color:var(--orange);color:var(--orange);background:var(--orange-bg);}
+
+/* Expand/collapse chevron */
+.step-chevron{font-size:13px;color:var(--fg4);transition:transform .2s;flex-shrink:0;margin-left:4px;}
+.step-chevron.open{transform:rotate(180deg);}
+
+/* Step body */
+.step-body{
+  padding:16px 18px 18px;border-top:1px solid var(--bdr);
+  font-size:14px;line-height:1.75;color:var(--fg2);display:none;
+}
+.step-body.open{display:block;}
+.step-body-why{font-size:13px;color:var(--fg3);margin-bottom:14px;font-style:italic;}
+.step-verify-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--fg4);margin:0 0 8px;font-family:'DM Mono',monospace;}
+.step-check{display:flex;align-items:flex-start;gap:9px;padding:6px 0;border-bottom:1px solid var(--bg3);font-size:13px;}
+.step-check:last-of-type{border-bottom:none;}
+.step-check::before{content:'□';font-size:14px;color:var(--fg4);flex-shrink:0;margin-top:1px;font-family:'DM Mono',monospace;}
+.step-note-wrap{margin-top:12px;}
+.step-note-wrap label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--fg4);font-family:'DM Mono',monospace;display:block;margin-bottom:5px;}
+.step-note{
+  width:100%;padding:9px 11px;border:1.5px solid var(--bdr2);border-radius:var(--r);
+  font-family:'DM Mono',monospace;font-size:13px;resize:vertical;
+  outline:none;background:var(--bg);color:var(--fg);line-height:1.5;
+}
+.step-note:focus{border-color:var(--acc);}
+
+/* ACTION BAR */
+.action-bar{display:flex;gap:10px;align-items:center;margin-top:22px;flex-wrap:wrap;}
+.btn{
+  display:inline-flex;align-items:center;gap:6px;
+  padding:10px 20px;border-radius:var(--r);
+  font-family:'DM Sans',sans-serif;font-size:14px;font-weight:600;
+  cursor:pointer;border:none;transition:opacity .15s,transform .1s;
+}
+.btn:hover{opacity:.87;}
+.btn:active{transform:scale(.98);}
+.btn-primary{background:var(--fg);color:#fff;}
+.btn-secondary{background:var(--bg2);color:var(--fg2);border:1.5px solid var(--bdr2);}
+.btn-green{background:var(--green);color:#fff;}
+.btn-danger{background:var(--red);color:#fff;}
+.submit-status{font-size:13px;color:var(--fg3);flex:1;}
+
+/* ARCHIVE */
+.archive-header{display:flex;align-items:center;justify-content:space-between;margin:28px 0 14px;}
+.archive-header-title{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--fg4);font-family:'DM Mono',monospace;}
+.archive-empty{font-size:14px;color:var(--fg4);padding:12px 0;}
+.archive-item{
+  border:1.5px solid var(--bdr);border-radius:var(--r);
+  padding:14px 18px;margin-bottom:8px;
+  display:flex;align-items:center;gap:12px;
+}
+.archive-item:hover{border-color:var(--bdr2);}
+.archive-acct{font-size:14px;font-weight:700;flex:1;}
+.archive-meta{font-family:'DM Mono',monospace;font-size:12px;color:var(--fg4);}
+.badge{padding:3px 9px;border-radius:20px;font-size:11px;font-weight:700;font-family:'DM Mono',monospace;}
+.badge-done{background:var(--green-bg);color:var(--green);}
+.badge-issue{background:var(--orange-bg);color:var(--orange);}
+.badge-pending{background:var(--bg3);color:var(--fg3);}
+
+/* FOOTER */
+.footer{border-top:1px solid var(--bdr);padding:14px 32px;display:flex;align-items:center;gap:18px;flex-shrink:0;background:rgba(255,255,255,.97);}
+.footer a{font-size:13px;color:var(--fg3);text-decoration:none;font-weight:500;}
+.footer a:hover{color:var(--fg);}
+.footer-sep{color:var(--bdr2);}
+.footer-date{margin-left:auto;font-family:'DM Mono',monospace;font-size:11px;color:var(--fg4);}
+</style>
+</head>
+<body>
+
+<!-- BLOSSOM TR -->
+<svg class="blossom-tr" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <path d="M288 0 Q235 60 182 118 Q138 164 122 232" stroke="#d4a0a8" stroke-width="1.5" fill="none" opacity=".45"/>
+  <path d="M240 25 Q204 78 170 96" stroke="#d4a0a8" stroke-width="1" fill="none" opacity=".3"/>
+  <g transform="translate(182,116) rotate(-22)">
+    <ellipse rx="13" ry="7.5" fill="#fce4ec" opacity=".78"/><ellipse transform="rotate(72)" rx="13" ry="7.5" fill="#f8bbd0" opacity=".73"/>
+    <ellipse transform="rotate(144)" rx="13" ry="7.5" fill="#fce4ec" opacity=".78"/><ellipse transform="rotate(216)" rx="13" ry="7.5" fill="#f48fb1" opacity=".58"/>
+    <ellipse transform="rotate(288)" rx="13" ry="7.5" fill="#fce4ec" opacity=".78"/>
+    <circle r="3.8" fill="#fff" opacity=".94"/><circle r="1.9" fill="#f48fb1" opacity=".82"/>
+  </g>
+  <g transform="translate(232,58) rotate(14)">
+    <ellipse rx="10" ry="6" fill="#f8bbd0" opacity=".68"/><ellipse transform="rotate(72)" rx="10" ry="6" fill="#fce4ec" opacity=".7"/>
+    <ellipse transform="rotate(144)" rx="10" ry="6" fill="#f8bbd0" opacity=".68"/><ellipse transform="rotate(216)" rx="10" ry="6" fill="#fce4ec" opacity=".7"/>
+    <ellipse transform="rotate(288)" rx="10" ry="6" fill="#f8bbd0" opacity=".68"/>
+    <circle r="3" fill="#fff" opacity=".94"/><circle r="1.5" fill="#e91e8c" opacity=".62"/>
+  </g>
+  <ellipse cx="136" cy="52" rx="7" ry="4" fill="#fce4ec" opacity=".38" transform="rotate(-18 136 52)"/>
+  <ellipse cx="108" cy="78" rx="6" ry="3" fill="#f8bbd0" opacity=".35" transform="rotate(28 108 78)"/>
+  <ellipse cx="218" cy="175" rx="6" ry="3.5" fill="#f8bbd0" opacity=".28" transform="rotate(12 218 175)"/>
+</svg>
+<svg class="blossom-bl" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 180 Q44 126 98 75" stroke="#d4a0a8" stroke-width="1.2" fill="none" opacity=".3"/>
+  <g transform="translate(98,75) rotate(28)">
+    <ellipse rx="9" ry="5.5" fill="#fce4ec" opacity=".52"/><ellipse transform="rotate(72)" rx="9" ry="5.5" fill="#f8bbd0" opacity=".48"/>
+    <ellipse transform="rotate(144)" rx="9" ry="5.5" fill="#fce4ec" opacity=".52"/><ellipse transform="rotate(216)" rx="9" ry="5.5" fill="#f8bbd0" opacity=".48"/>
+    <ellipse transform="rotate(288)" rx="9" ry="5.5" fill="#fce4ec" opacity=".52"/>
+    <circle r="2.8" fill="#fff" opacity=".9"/>
+  </g>
+</svg>
+
+<div class="app">
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="index.html" class="nav-back">← OM Hub</a>
+  <div class="nav-bc">
+    <span>FP&A</span><span class="nav-bc-sep">›</span>
+    <span>Sales Finance</span><span class="nav-bc-sep">›</span>
+    <span>Order Management</span><span class="nav-bc-sep">›</span>
+    <span class="nav-bc-cur">Booking Checklist</span>
+  </div>
+  <div class="nav-title" id="nav-date"></div>
+</nav>
+
+<div class="content">
+
+  <div class="ph">
+    <div class="ph-title">OM Booking Checklist</div>
+    <div class="ph-sub">7-step deal validation before submitting to the OM team · Direct, Reseller & AWS Marketplace</div>
+  </div>
+
+  <!-- BANNER -->
+  <div class="banner banner-blue">
+    <span style="font-size:18px;">📋</span>
+    <span><strong>Start here:</strong> Check the <a href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">O.M. Case Queue →</a> before beginning a booking. Confirm the case is assigned and ready to process.</span>
+  </div>
+
+  <!-- DEAL FORM -->
+  <div class="deal-form">
+    <div class="form-title">Deal Details</div>
+    <div class="form-grid">
+      <div class="field">
+        <label class="field-label">Account / Opportunity Name</label>
+        <input class="field-input" id="f-opp" placeholder="e.g. Acme Corp — Renewal FY27" oninput="updateMeta()"/>
+      </div>
+      <div class="field">
+        <label class="field-label">SFDC Opportunity ID</label>
+        <input class="field-input" id="f-sfdc" placeholder="006Xxxxxxxxxxxxxxxxx" oninput="updateMeta()"/>
+      </div>
+    </div>
+    <div class="form-grid-3">
+      <div class="field">
+        <label class="field-label">ACV / Deal Value</label>
+        <input class="field-input" id="f-acv" placeholder="$200,000" oninput="updateMeta()"/>
+      </div>
+      <div class="field">
+        <label class="field-label">Deal Type</label>
+        <select class="field-input" id="f-type" onchange="onDealTypeChange()">
+          <option value="Direct">Direct</option>
+          <option value="Reseller">Reseller</option>
+          <option value="AWS Marketplace">AWS Marketplace</option>
+          <option value="Partner">Partner</option>
+          <option value="Co-Term">Co-Term</option>
+        </select>
+      </div>
+      <div class="field">
+        <label class="field-label">Close Date</label>
+        <input class="field-input" id="f-close" type="date"/>
+      </div>
+    </div>
+    <div id="sfdc-link-row" class="sfdc-link-row" style="display:none;">
+      <a id="sfdc-link" href="#" target="_blank">↗ Open Opportunity in SFDC</a>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="checklist-header">
+    <div class="checklist-label-text">7-Step Checklist</div>
+    <div class="checklist-progress-text" id="steps-count">0 / 7 complete</div>
+  </div>
+  <div class="prog-wrap"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+
+  <div id="steps-container"></div>
+
+  <!-- ACTION BAR -->
+  <div class="action-bar">
+    <button class="btn btn-green" onclick="submitBooking()">✓ Submit to Sheets</button>
+    <button class="btn btn-secondary" onclick="archiveDeal(false)">📁 Archive</button>
+    <button class="btn btn-secondary" onclick="copySlackMsg()">📋 Slack Message</button>
+    <button class="btn btn-danger" onclick="resetForm()" style="margin-left:auto;">↺ Reset</button>
+  </div>
+  <div id="submit-status" class="submit-status" style="margin-top:10px;"></div>
+
+  <!-- ARCHIVE -->
+  <div class="archive-header">
+    <div class="archive-header-title">Archive</div>
+    <button class="btn btn-secondary" onclick="clearArchive()" style="padding:6px 12px;font-size:12px;">Clear All</button>
+  </div>
+  <div id="archive-list"></div>
+
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <a href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">📋 O.M. Case Queue</a>
+  <span class="footer-sep">·</span>
+  <a href="https://drive.google.com/drive/folders/0AIH8MNQ95VLhUk9PVA" target="_blank">📁 Sales Finance Drive</a>
+  <span class="footer-sep">·</span>
+  <a href="workbud.html">🗂️ Work Bud</a>
+  <div class="footer-date" id="footer-date"></div>
+</div>
+
+</div><!-- end app -->
+
+<script>
+const STEPS = [
+  {
+    id:1, label:'OM Case Queue — Confirm & Assign',
+    why:'Every booking starts in the OM Case Queue. If there\'s no case, the deal isn\'t ready to be processed.',
+    checks:{
+      default:['Case exists in the OM Case Queue in SFDC','Case is assigned to you (or you\'ve been asked to process it)','Case status is ready — not blocked on missing info','Opportunity is marked Closed Won in SFDC']
+    }
+  },
+  {
+    id:2, label:'Order Form Review — Contract vs. SFDC',
+    why:'Every field in SFDC must match the signed Order Form exactly. Discrepancies cause billing errors and revenue recognition problems.',
+    checks:{
+      default:['Product(s) match the Order Form exactly','ACV / deal value matches','Contract start and end dates match','Billing frequency matches (annual, monthly, etc.)','Any discounts or special pricing are reflected in SFDC']
+    }
+  },
+  {
+    id:3, label:'Deal Type Classification',
+    why:'Different deal types have different booking rules. Reseller and AWS Marketplace require special handling — booking them as Direct creates revenue recognition errors.',
+    checks:{
+      'Direct':['Deal type = Direct in SFDC','No reseller or partner fields required','Standard billing flow applies'],
+      'Reseller':['Reseller name and entity are documented','Revenue recognition reflects net margin (not gross partner price)','Partner agreement on file and referenced'],
+      'AWS Marketplace':['AWS transaction ID documented','AWS provisioning flow initiated (separate from standard SFDC)','AWS commission/fee accounted for'],
+      'Partner':['Partner entity name documented','Revenue split / margin structure noted','Partner agreement referenced'],
+      'Co-Term':['Proration calculated correctly for partial year','Aligns to existing contract end date','Partial-year ACV confirmed in SFDC']
+    }
+  },
+  {
+    id:4, label:'PS Carve-Out Check',
+    why:'Professional Services [PS] revenue is one-time, not recurring. Including it in ARR overstates recurring revenue, which cascades into bad forecasting and quota attainment errors.',
+    checks:{
+      default:['Check the Order Form for any PS / Professional Services line items','If PS is present: the PS amount is carved out from subscription ACV','PS amount is booked to the correct one-time revenue category','Subscription ACV does NOT include the PS component']
+    }
+  },
+  {
+    id:5, label:'ATR Field Verification',
+    why:'At-Risk Revenue [ATR] = the exit year ACV of the prior contract. The system often sets it to the average ARR instead — especially on Volume Ramp [Vol Ramp] deals. Wrong ATR means wrong renewal risk reporting for Sales Finance.',
+    checks:{
+      default:['ATR field is populated (not blank or $0)','For Vol Ramp deals: ATR = exit year ACV (NOT average ARR across years)','ATR matches what the customer was paying in their final contract year','If ATR looks wrong, flag it to the OM team before proceeding']
+    }
+  },
+  {
+    id:6, label:'Systems Entry — NetSuite Booking',
+    why:'NetSuite is the source of truth for Amplitude\'s revenue records. A booking error here doesn\'t just look wrong — it causes incorrect billing, revenue recognition in the wrong quarter, and downstream finance model errors.',
+    checks:{
+      default:['All fields entered in NetSuite match the Order Form','Revenue recognition start date matches the contract start','Subscription line items match the products in SFDC','Any manual overrides are documented with a reason']
+    }
+  },
+  {
+    id:7, label:'Post-Close Verification',
+    why:'A booking isn\'t done until it\'s confirmed end-to-end: NetSuite accepted, customer provisioned, AE notified, case closed. Skipping this step leaves loose ends that become support tickets.',
+    checks:{
+      default:['NetSuite booking status = Accepted / Active','Customer has been provisioned in Amplitude','AE has been notified that booking is complete','SFDC opportunity updated to reflect booking completion','OM Case Queue case is closed']
+    }
+  }
+];
+
+let stepStates = {};
+let stepNotes = {};
+let dealType = 'Direct';
+
+function updateMeta(){
+  const sfdc = document.getElementById('f-sfdc').value.trim();
+  const row = document.getElementById('sfdc-link-row');
+  const link = document.getElementById('sfdc-link');
+  if(sfdc){
+    row.style.display='block';
+    link.href=`https://amplitude.lightning.force.com/lightning/r/Opportunity/${sfdc}/view`;
+  }else{
+    row.style.display='none';
+  }
+}
+
+function onDealTypeChange(){
+  dealType = document.getElementById('f-type').value;
+  renderSteps();
+}
+
+function renderSteps(){
+  const c = document.getElementById('steps-container');
+  c.innerHTML='';
+  let done=0;
+  STEPS.forEach(step=>{
+    const st = stepStates[step.id]||'pending';
+    const isOpen = !!stepStates['open_'+step.id];
+    if(st==='done') done++;
+    const isDone = st==='done', isIssue = st==='issue', isNA = st==='na';
+    const checks = step.checks[dealType]||step.checks['default']||[];
+    const cls = isDone?'done':isIssue?'issue':isNA?'na':'';
+    const numContent = isDone?'✓':isIssue?'!':step.id;
+
+    const div = document.createElement('div');
+    div.className='step '+cls;
+    div.innerHTML=`
+      <div class="step-header" onclick="toggleStep(${step.id})">
+        <div class="step-num">${numContent}</div>
+        <div class="step-label">${step.label}</div>
+        <select class="step-status" onclick="event.stopPropagation()" onchange="setStatus(${step.id},this.value)">
+          <option value="pending"${st==='pending'?' selected':''}>— Pending</option>
+          <option value="done"${st==='done'?' selected':''}>✓ Done</option>
+          <option value="issue"${st==='issue'?' selected':''}>⚠ Issue</option>
+          <option value="na"${st==='na'?' selected':''}>N/A</option>
+        </select>
+        <div class="step-chevron${isOpen?' open':''}">▾</div>
+      </div>
+      <div class="step-body${isOpen?' open':''}">
+        <div class="step-body-why">${step.why}</div>
+        <div class="step-verify-title">Verify</div>
+        ${checks.map(ch=>`<div class="step-check">${ch}</div>`).join('')}
+        <div class="step-note-wrap">
+          <label>Notes for this step</label>
+          <textarea class="step-note" rows="2" placeholder="Any issues, exceptions, or follow-ups…" onblur="saveNote(${step.id},this.value)">${stepNotes[step.id]||''}</textarea>
+        </div>
+      </div>`;
+    c.appendChild(div);
+  });
+
+  const pct = Math.round(done/7*100);
+  document.getElementById('prog-fill').style.width=pct+'%';
+  document.getElementById('steps-count').textContent=done+' / 7 complete';
+}
+
+function toggleStep(id){
+  stepStates['open_'+id]=!stepStates['open_'+id];
+  renderSteps();
+}
+
+function setStatus(id,val){
+  stepStates[id]=val;
+  renderSteps();
+}
+
+function saveNote(id,val){ stepNotes[id]=val; }
+
+function getFormData(){
+  return{
+    opp:document.getElementById('f-opp').value.trim(),
+    sfdc:document.getElementById('f-sfdc').value.trim(),
+    acv:document.getElementById('f-acv').value.trim(),
+    type:document.getElementById('f-type').value,
+    close:document.getElementById('f-close').value,
+    stepStates:{...stepStates},stepNotes:{...stepNotes},
+    ts:new Date().toISOString()
+  };
+}
+
+async function submitBooking(){
+  const data=getFormData();
+  const status=document.getElementById('submit-status');
+  const url=localStorage.getItem('kp_bookings_url');
+  if(!url){
+    status.style.color='var(--orange)';
+    status.textContent='⚠ No Apps Script URL configured. Go to Work Bud → Config → Settings and add the URL.';
+    return;
+  }
+  status.style.color='var(--fg3)';status.textContent='Submitting…';
+  try{
+    await fetch(url,{method:'POST',mode:'no-cors',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)});
+    status.style.color='var(--green)';status.textContent='✅ Submitted to Google Sheets!';
+    archiveDeal(true);
+  }catch(e){
+    status.style.color='var(--orange)';status.textContent='⚠ Submission error. Check your Apps Script URL in Work Bud → Settings.';
+  }
+}
+
+function archiveDeal(silent){
+  const data=getFormData();
+  if(!data.opp&&!data.sfdc){if(!silent)alert('Add at least a deal name or SFDC ID first.');return;}
+  const archive=JSON.parse(localStorage.getItem('kp_booking_archive')||'[]');
+  const doneCount=STEPS.filter(s=>stepStates[s.id]==='done').length;
+  const hasIssue=STEPS.some(s=>stepStates[s.id]==='issue');
+  archive.unshift({...data,doneCount,displayStatus:hasIssue?'issue':doneCount>=7?'done':'pending',archiveDate:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})});
+  if(archive.length>50)archive.pop();
+  localStorage.setItem('kp_booking_archive',JSON.stringify(archive));
+  renderArchive();
+  if(!silent)resetForm();
+}
+
+function copySlackMsg(){
+  const data=getFormData();
+  const doneCount=STEPS.filter(s=>stepStates[s.id]==='done').length;
+  const url=data.sfdc?`https://amplitude.lightning.force.com/lightning/r/Opportunity/${data.sfdc}/view`:'[SFDC link pending]';
+  const msg=`Hi team 👋 — booking validation complete for the below deal.\n\nOpportunity: ${data.opp||'[Name]'}\nSFDC: ${url}\nACV: ${data.acv||'[value]'}\nDeal Type: ${data.type}\nClose Date: ${data.close||'[date]'}\n\nChecklist: ${doneCount}/7 steps verified ✅\n\nReady to process. Let me know if anything needs a second look!\n\n— Kareem Powell, Sales Finance`;
+  navigator.clipboard.writeText(msg);
+  const s=document.getElementById('submit-status');
+  s.style.color='var(--green)';s.textContent='📋 Slack message copied to clipboard!';
+  setTimeout(()=>s.textContent='',3500);
+}
+
+function resetForm(){
+  ['f-opp','f-sfdc','f-acv','f-close'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-type').value='Direct';
+  document.getElementById('sfdc-link-row').style.display='none';
+  document.getElementById('submit-status').textContent='';
+  stepStates={};stepNotes={};dealType='Direct';
+  renderSteps();
+}
+
+function renderArchive(){
+  const archive=JSON.parse(localStorage.getItem('kp_booking_archive')||'[]');
+  const list=document.getElementById('archive-list');
+  if(!archive.length){list.innerHTML='<div class="archive-empty">No archived deals yet.</div>';return;}
+  list.innerHTML=archive.map((a,i)=>{
+    const bc=a.displayStatus==='done'?'badge-done':a.displayStatus==='issue'?'badge-issue':'badge-pending';
+    const bt=a.displayStatus==='done'?'Complete':a.displayStatus==='issue'?'Has Issues':'Pending';
+    const su=a.sfdc?`https://amplitude.lightning.force.com/lightning/r/Opportunity/${a.sfdc}/view`:'#';
+    return`<div class="archive-item">
+      <div class="archive-acct">${a.opp||'Unnamed deal'}</div>
+      <div class="archive-meta">${a.type} · ${a.acv||'—'}</div>
+      <div class="archive-meta">${a.archiveDate}</div>
+      ${a.sfdc?`<a href="${su}" target="_blank" style="font-size:12px;color:var(--acc);text-decoration:none;font-weight:600;">SFDC →</a>`:''}
+      <span class="badge ${bc}">${bt}</span>
+      <button onclick="deleteArchive(${i})" style="background:none;border:none;cursor:pointer;color:var(--fg4);font-size:18px;line-height:1;padding:0 4px;">×</button>
+    </div>`;
+  }).join('');
+}
+
+function deleteArchive(i){
+  const a=JSON.parse(localStorage.getItem('kp_booking_archive')||'[]');
+  a.splice(i,1);localStorage.setItem('kp_booking_archive',JSON.stringify(a));renderArchive();
+}
+function clearArchive(){
+  if(confirm('Clear all archived deals?')){localStorage.removeItem('kp_booking_archive');renderArchive();}
+}
+
+function updateDateTime(){
+  const d=new Date();
+  const s=d.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' · '+d.toLocaleTimeString('en-US',{hour:'2-digit',minute:'2-digit'});
+  ['nav-date','footer-date'].forEach(id=>{const e=document.getElementById(id);if(e)e.textContent=s;});
+}
+
+// Init
+renderSteps();
+renderArchive();
+updateDateTime();
+setInterval(updateDateTime,30000);
+</script>
+</body>
+</html>

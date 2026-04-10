@@ -4,346 +4,310 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Work Bud 🤙 — KP's Ops Center</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
-    :root {
-      --bg: #0e1117;
-      --surface: #161b22;
-      --surface2: #1c2230;
-      --border: #30363d;
-      --accent: #7c5cfc;
-      --accent2: #a78bfa;
-      --green: #3fb950;
-      --yellow: #e3b341;
-      --red: #f85149;
-      --blue: #58a6ff;
-      --text: #e6edf3;
-      --muted: #8b949e;
-      --tag-bg: #21262d;
+    *{box-sizing:border-box;margin:0;padding:0;}
+    :root{
+      --fg:#111111;--fg2:#2d2d2d;--fg3:#5a5a5a;--fg4:#999;
+      --bg:#ffffff;--bg2:#f8f8f6;--bg3:#f0f0ec;
+      --bdr:#e2e2e2;--bdr2:#c8c8c8;
+      --acc:#0369a1;--acc-bg:#e8f4fb;
+      --green:#15803d;--green-bg:#dcfce7;
+      --orange:#c2410c;--orange-bg:#fff7ed;
+      --red:#b91c1c;--red-bg:#fef2f2;
+      --yellow:#b45309;--yellow-bg:#fef9c3;
+      --cherry:#9f1239;--cherry-light:#fce7f3;
+      --r:10px;
     }
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+    html,body{min-height:100%;font-size:15px;}
+    body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);line-height:1.6;}
+
+    /* BLOSSOMS */
+    .blossom-tr{position:fixed;top:0;right:0;width:300px;height:300px;pointer-events:none;z-index:0;opacity:.35;}
+    .blossom-bl{position:fixed;bottom:0;left:0;width:180px;height:180px;pointer-events:none;z-index:0;opacity:.18;transform:rotate(180deg);}
 
     /* ── PASSWORD GATE ── */
-    #pw-gate {
-      position: fixed; inset: 0; background: var(--bg);
-      display: flex; align-items: center; justify-content: center; z-index: 999;
+    #pw-gate{
+      position:fixed;inset:0;background:rgba(255,255,255,.97);backdrop-filter:blur(8px);
+      display:flex;align-items:center;justify-content:center;z-index:999;
     }
-    .pw-box {
-      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
-      padding: 40px; text-align: center; width: 340px;
+    .pw-box{
+      background:var(--bg);border:1.5px solid var(--bdr);border-radius:16px;
+      padding:40px;text-align:center;width:340px;
+      box-shadow:0 8px 32px rgba(0,0,0,.06);
     }
-    .pw-box h2 { font-size: 1.4rem; margin-bottom: 6px; }
-    .pw-box p { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
-    .pw-box input {
-      width: 100%; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border);
-      border-radius: 8px; color: var(--text); font-size: 1rem; margin-bottom: 12px;
+    .pw-box h2{font-size:1.4rem;font-weight:800;margin-bottom:6px;color:var(--fg);}
+    .pw-box p{color:var(--fg3);font-size:.9rem;margin-bottom:24px;}
+    .pw-box input{
+      width:100%;padding:10px 14px;background:var(--bg2);border:1.5px solid var(--bdr2);
+      border-radius:var(--r);color:var(--fg);font-size:1rem;margin-bottom:12px;
+      font-family:'DM Sans',sans-serif;outline:none;transition:border-color .15s;
     }
-    .pw-box button {
-      width: 100%; padding: 10px; background: var(--accent); border: none; border-radius: 8px;
-      color: #fff; font-size: 1rem; cursor: pointer; font-weight: 600;
+    .pw-box input:focus{border-color:var(--acc);}
+    .pw-box button{
+      width:100%;padding:10px;background:var(--fg);border:none;border-radius:var(--r);
+      color:#fff;font-size:1rem;cursor:pointer;font-weight:700;
+      font-family:'DM Sans',sans-serif;transition:opacity .15s;
     }
-    .pw-box button:hover { background: var(--accent2); }
-    .pw-err { color: var(--red); font-size: .85rem; margin-top: 8px; display: none; }
+    .pw-box button:hover{opacity:.82;}
+    .pw-err{color:var(--red);font-size:.85rem;margin-top:8px;display:none;}
 
     /* ── HEADER ── */
-    header {
-      background: var(--surface); border-bottom: 1px solid var(--border);
-      padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
-      position: sticky; top: 0; z-index: 100;
+    header{
+      background:rgba(255,255,255,.97);backdrop-filter:blur(14px);
+      border-bottom:1px solid var(--bdr);
+      padding:0 24px;height:52px;display:flex;align-items:center;justify-content:space-between;
+      position:sticky;top:0;z-index:100;
     }
-    .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; }
-    .logo span { font-size: 1.4rem; }
-    .logo sub { color: var(--muted); font-size: .75rem; font-weight: 400; }
-    .header-right { display: flex; gap: 10px; align-items: center; }
-    .header-right a {
-      color: var(--muted); font-size: .85rem; text-decoration: none; padding: 6px 12px;
-      border-radius: 6px; border: 1px solid var(--border);
+    .logo{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.05rem;color:var(--fg);}
+    .logo span{font-size:1.3rem;}
+    .logo sub{color:var(--fg4);font-size:.72rem;font-weight:400;font-family:'DM Mono',monospace;}
+    .header-right{display:flex;gap:8px;align-items:center;}
+    .header-right a{
+      color:var(--fg3);font-size:.82rem;text-decoration:none;padding:5px 11px;
+      border-radius:6px;border:1.5px solid var(--bdr);font-weight:500;transition:all .15s;
     }
-    .header-right a:hover { color: var(--text); border-color: var(--accent); }
+    .header-right a:hover{color:var(--acc);border-color:var(--acc);}
 
     /* ── NAV TABS ── */
-    .nav-tabs {
-      display: flex;
-      gap: 6px;
-      padding: 14px 32px;
-      background: var(--surface);
-      border-bottom: 1px solid var(--border);
-      overflow-x: auto;
+    .nav-tabs{
+      display:flex;gap:4px;padding:10px 24px;
+      background:var(--bg2);border-bottom:1px solid var(--bdr);
+      overflow-x:auto;position:sticky;top:52px;z-index:99;
     }
-    .tab-btn {
-      padding: 9px 20px;
-      border: none;
-      background: transparent;
-      color: var(--muted);
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: .88rem;
-      white-space: nowrap;
-      transition: all .15s;
+    .tab-btn{
+      padding:7px 18px;border:1.5px solid transparent;
+      background:transparent;color:var(--fg3);
+      border-radius:20px;cursor:pointer;font-size:.85rem;
+      white-space:nowrap;transition:all .15s;font-family:'DM Sans',sans-serif;font-weight:500;
     }
-    .tab-btn:hover { background: var(--tag-bg); color: var(--text); }
-    .tab-btn.active { background: var(--accent); color: #fff; font-weight: 600; }
+    .tab-btn:hover{background:var(--bg);border-color:var(--bdr);color:var(--fg);}
+    .tab-btn.active{background:var(--fg);color:#fff;font-weight:700;border-color:var(--fg);}
 
     /* ── MAIN CONTENT ── */
-    main { max-width: 960px; margin: 0 auto; padding: 40px 32px; }
-    .tab-panel { display: none; }
-    .tab-panel.active { display: block; }
+    main{max-width:960px;margin:0 auto;padding:40px 32px;position:relative;z-index:1;}
+    .tab-panel{display:none;}
+    .tab-panel.active{display:block;}
 
-    /* ── HOME / THE DEN ── */
-    .den-hero {
-      display: flex;
-      gap: 48px;
-      align-items: flex-start;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 40px 44px;
-      margin-bottom: 36px;
+    /* ── THE DEN ── */
+    .den-hero{
+      display:flex;gap:40px;align-items:flex-start;
+      background:var(--bg2);border:1.5px solid var(--bdr);
+      border-radius:14px;padding:36px 40px;margin-bottom:32px;
     }
-    .avatar-wrap { position: relative; flex-shrink: 0; }
-    .speech-bubble {
-      position: absolute; top: -52px; left: 50%; transform: translateX(-50%);
-      background: #fff; color: #111; border-radius: 14px; padding: 8px 14px;
-      font-size: .85rem; font-weight: 600; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,.3);
-      min-width: 200px; text-align: center;
+    .avatar-wrap{position:relative;flex-shrink:0;}
+    .speech-bubble{
+      position:absolute;top:-52px;left:50%;transform:translateX(-50%);
+      background:var(--fg);color:#fff;border-radius:12px;padding:8px 14px;
+      font-size:.83rem;font-weight:600;white-space:nowrap;
+      box-shadow:0 4px 14px rgba(0,0,0,.12);
+      min-width:200px;text-align:center;
     }
-    .speech-bubble::after {
-      content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
-      border: 10px solid transparent; border-top-color: #fff; border-bottom: 0;
+    .speech-bubble::after{
+      content:'';position:absolute;bottom:-9px;left:50%;transform:translateX(-50%);
+      border:9px solid transparent;border-top-color:var(--fg);border-bottom:0;
     }
-    /*
-      ── AVATAR ──
-      Replace the SVG below with your actual Bitmoji image:
-      <img src="YOUR_BITMOJI_URL" alt="Kareem" width="110" style="border-radius:50%">
-
-      Get your Bitmoji URL from Snapchat → Profile → Bitmoji → right-click → Copy Image Address
-    */
-    .avatar-svg {
-      width: 110px; height: 130px; border-radius: 50% 50% 40% 40%;
-      overflow: hidden; background: var(--accent);
+    .avatar-svg{
+      width:110px;height:130px;border-radius:50% 50% 40% 40%;
+      overflow:hidden;background:var(--bg3);border:2px solid var(--bdr);
     }
-    .den-info { flex: 1; }
-    .den-info h2 { font-size: 1.5rem; margin-bottom: 10px; }
-    .den-info p { color: var(--muted); font-size: .95rem; line-height: 1.75; }
-    .den-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 14px;
-      margin-top: 24px;
+    .den-info{flex:1;}
+    .den-info h2{font-size:1.45rem;font-weight:800;margin-bottom:10px;color:var(--fg);}
+    .den-info p{color:var(--fg3);font-size:.93rem;line-height:1.75;}
+    .den-stats{
+      display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
+      gap:12px;margin-top:22px;
     }
-    .stat-card {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 18px 20px;
+    .stat-card{
+      background:var(--bg);border:1.5px solid var(--bdr);
+      border-radius:var(--r);padding:16px 18px;
     }
-    .stat-card .label { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
-    .stat-card .val { font-size: 1.6rem; font-weight: 800; margin-top: 2px; }
-    .stat-card .val.green { color: var(--green); }
-    .stat-card .val.yellow { color: var(--yellow); }
-    .stat-card .val.blue { color: var(--blue); }
+    .stat-card .label{color:var(--fg4);font-size:.75rem;text-transform:uppercase;letter-spacing:.05em;margin-bottom:5px;font-family:'DM Mono',monospace;}
+    .stat-card .val{font-size:1.5rem;font-weight:800;margin-top:2px;color:var(--fg);}
+    .stat-card .val.green{color:var(--green);}
+    .stat-card .val.amber{color:var(--yellow);}
+    .stat-card .val.blue{color:var(--acc);}
 
     /* Quick Links */
-    .quick-links { margin-top: 36px; }
-    .section-title {
-      font-size: .72rem;
-      font-weight: 600;
-      color: var(--muted);
-      text-transform: uppercase;
-      letter-spacing: .08em;
-      margin-bottom: 16px;
+    .quick-links{margin-top:32px;}
+    .section-title{
+      font-size:11px;font-weight:700;color:var(--fg4);
+      text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px;
+      font-family:'DM Mono',monospace;
     }
-    .link-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
-      gap: 12px;
+    .link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;}
+    .qlink{
+      display:flex;align-items:center;gap:12px;
+      background:var(--bg);border:1.5px solid var(--bdr);
+      border-radius:var(--r);padding:14px 16px;
+      text-decoration:none;color:var(--fg);font-size:.85rem;
+      transition:border-color .15s,box-shadow .15s;
     }
-    .qlink {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 16px 18px;
-      text-decoration: none;
-      color: var(--text);
-      font-size: .88rem;
-      transition: all .15s;
-    }
-    .qlink:hover { border-color: var(--accent); background: var(--surface2); }
-    .qlink .ico { font-size: 1.2rem; flex-shrink: 0; }
-    .qlink .lbl { font-weight: 600; }
-    .qlink .sub { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+    .qlink:hover{border-color:var(--acc);box-shadow:0 2px 10px rgba(3,105,161,.07);}
+    .qlink .ico{font-size:1.1rem;flex-shrink:0;}
+    .qlink .lbl{font-weight:700;color:var(--fg);}
+    .qlink .sub{font-size:.72rem;color:var(--fg4);margin-top:1px;font-family:'DM Mono',monospace;}
 
     /* ── DELIVERABLES ── */
-    .sub-tabs {
-      display: flex;
-      gap: 10px;
-      margin-bottom: 28px;
+    .sub-tabs{display:flex;gap:8px;margin-bottom:24px;flex-wrap:wrap;}
+    .sub-tab{
+      padding:7px 18px;border:1.5px solid var(--bdr2);
+      border-radius:20px;background:transparent;color:var(--fg3);
+      cursor:pointer;font-size:.85rem;transition:all .15s;
+      font-family:'DM Sans',sans-serif;font-weight:500;
     }
-    .sub-tab {
-      padding: 9px 22px;
-      border: 1px solid var(--border);
-      border-radius: 20px;
-      background: transparent;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: .88rem;
-      transition: all .15s;
-    }
-    .sub-tab:hover { color: var(--text); border-color: var(--muted); }
-    .sub-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
-    .sub-panel { display: none; }
-    .sub-panel.active { display: block; }
+    .sub-tab:hover{color:var(--fg);border-color:var(--fg);}
+    .sub-tab.active{background:var(--fg);color:#fff;border-color:var(--fg);font-weight:700;}
+    .sub-panel{display:none;}
+    .sub-panel.active{display:block;}
 
-    .deliverable-list { display: flex; flex-direction: column; gap: 14px; }
-    .d-item {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 22px;
-      display: flex;
-      align-items: flex-start;
-      gap: 18px;
+    .deliverable-list{display:flex;flex-direction:column;gap:10px;}
+    .d-item{
+      background:var(--bg);border:1.5px solid var(--bdr);
+      border-radius:var(--r);padding:18px 20px;
+      display:flex;align-items:flex-start;gap:16px;
+      transition:border-color .15s;
     }
-    .d-status { font-size: 1.1rem; flex-shrink: 0; margin-top: 3px; }
-    .d-info .d-title { font-weight: 700; font-size: .95rem; }
-    .d-info .d-desc { color: var(--muted); font-size: .85rem; margin-top: 6px; line-height: 1.65; }
-    .tag {
-      display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem;
-      font-weight: 600; margin-left: 8px;
+    .d-item:hover{border-color:var(--bdr2);}
+    a.d-item:hover{border-color:var(--acc);}
+    .d-status{font-size:1rem;flex-shrink:0;margin-top:2px;}
+    .d-info .d-title{font-weight:700;font-size:.93rem;color:var(--fg);}
+    .d-info .d-desc{color:var(--fg3);font-size:.83rem;margin-top:5px;line-height:1.65;}
+    .tag{
+      display:inline-block;padding:2px 7px;border-radius:4px;font-size:.72rem;
+      font-weight:700;margin-left:7px;font-family:'DM Mono',monospace;
     }
-    .tag.ip { background: rgba(88,166,255,.15); color: var(--blue); }
-    .tag.done { background: rgba(63,185,80,.15); color: var(--green); }
-    .tag.blocked { background: rgba(248,81,73,.15); color: var(--red); }
-    .tag.planning { background: rgba(227,179,65,.15); color: var(--yellow); }
+    .tag.ip{background:var(--acc-bg);color:var(--acc);}
+    .tag.done{background:var(--green-bg);color:var(--green);}
+    .tag.blocked{background:var(--red-bg);color:var(--red);}
+    .tag.planning{background:var(--yellow-bg);color:var(--yellow);}
 
     /* ── MEETING NOTES ── */
-    .notes-grid { display: flex; flex-direction: column; gap: 16px; }
-    .note-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      overflow: hidden;
+    .notes-grid{display:flex;flex-direction:column;gap:12px;}
+    .note-card{
+      background:var(--bg);border:1.5px solid var(--bdr);
+      border-radius:var(--r);overflow:hidden;
     }
-    .note-header {
-      padding: 20px 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      cursor: pointer;
-      transition: background .1s;
+    .note-header{
+      padding:18px 22px;display:flex;align-items:center;
+      justify-content:space-between;cursor:pointer;transition:background .1s;
     }
-    .note-header:hover { background: var(--surface2); }
-    .note-header h3 { font-size: .97rem; font-weight: 700; margin-bottom: 5px; }
-    .note-date { font-size: .8rem; color: var(--muted); }
-    .note-tag { font-size: .75rem; }
-    .note-body {
-      padding: 0 24px;
-      max-height: 0;
-      overflow: hidden;
-      transition: max-height .3s ease;
+    .note-header:hover{background:var(--bg2);}
+    .note-header h3{font-size:.95rem;font-weight:700;margin-bottom:4px;color:var(--fg);}
+    .note-date{font-size:.78rem;color:var(--fg4);font-family:'DM Mono',monospace;}
+    .note-tag{font-size:.75rem;}
+    .note-body{
+      padding:0 22px;max-height:0;overflow:hidden;transition:max-height .3s ease;
     }
-    .note-body.open { max-height: 600px; padding: 4px 24px 24px; }
-    .note-body ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
-    .note-body ul li::before { content: '→ '; color: var(--accent2); }
-    .note-body ul li { font-size: .88rem; color: var(--muted); line-height: 1.6; }
-    .note-body ul li strong { color: var(--text); }
+    .note-body.open{max-height:600px;padding:4px 22px 22px;}
+    .note-body ul{list-style:none;display:flex;flex-direction:column;gap:8px;}
+    .note-body ul li::before{content:'→ ';color:var(--acc);}
+    .note-body ul li{font-size:.86rem;color:var(--fg3);line-height:1.6;}
+    .note-body ul li strong{color:var(--fg2);}
 
     /* ── OM UNIVERSE ── */
-    .om-section { margin-bottom: 44px; }
-    .om-section h3 {
-      font-size: 1rem;
-      font-weight: 700;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .om-section{margin-bottom:40px;}
+    .om-section h3{
+      font-size:.97rem;font-weight:700;margin-bottom:14px;
+      display:flex;align-items:center;gap:8px;color:var(--fg);
     }
-    .resource-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
-      gap: 14px;
+    .resource-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:12px;}
+    .resource-card{
+      background:var(--bg);border:1.5px solid var(--bdr);
+      border-radius:var(--r);padding:18px 18px;
+      text-decoration:none;color:var(--fg);display:block;transition:border-color .15s,box-shadow .15s;
     }
-    .resource-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 20px 20px;
-      text-decoration: none;
-      color: var(--text);
-      display: block;
-      transition: all .15s;
-    }
-    .resource-card:hover { border-color: var(--accent); background: var(--surface2); }
-    .resource-card .r-title { font-weight: 700; font-size: .9rem; margin-bottom: 6px; }
-    .resource-card .r-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; }
-    .resource-card .r-source { font-size: .72rem; color: var(--accent2); margin-top: 12px; }
+    .resource-card:hover{border-color:var(--acc);box-shadow:0 2px 10px rgba(3,105,161,.07);}
+    .resource-card .r-title{font-weight:700;font-size:.88rem;margin-bottom:5px;color:var(--fg);}
+    .resource-card .r-desc{font-size:.8rem;color:var(--fg3);line-height:1.6;}
+    .resource-card .r-source{font-size:.72rem;color:var(--acc);margin-top:10px;font-family:'DM Mono',monospace;}
 
-    /* ── LOVABLE / AI BUILDER SECTION ── */
-    .lovable-banner {
-      background: linear-gradient(135deg, #7c5cfc22, #a78bfa11);
-      border: 1px solid var(--accent);
-      border-radius: 14px; padding: 20px 24px; margin-bottom: 20px;
-      display: flex; align-items: center; gap: 16px;
+    /* ── LOVABLE BUILDS ── */
+    .lovable-banner{
+      background:var(--cherry-light);border:1.5px solid #fda4af;
+      border-radius:12px;padding:18px 22px;margin-bottom:18px;
+      display:flex;align-items:center;gap:14px;
     }
-    .lovable-banner .lo-icon { font-size: 2rem; }
-    .lovable-banner .lo-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
-    .lovable-banner .lo-info p { font-size: .85rem; color: var(--muted); }
-    .lovable-banner .lo-btn {
-      margin-left: auto; padding: 8px 18px; background: var(--accent); border: none;
-      border-radius: 8px; color: #fff; font-weight: 600; cursor: pointer; text-decoration: none;
-      font-size: .88rem; white-space: nowrap;
+    .lovable-banner .lo-icon{font-size:1.8rem;}
+    .lovable-banner .lo-info h3{font-size:.97rem;font-weight:700;margin-bottom:3px;color:var(--cherry);}
+    .lovable-banner .lo-info p{font-size:.83rem;color:var(--fg3);}
+    .lovable-banner .lo-btn{
+      margin-left:auto;padding:7px 16px;background:var(--cherry);border:none;
+      border-radius:8px;color:#fff;font-weight:700;cursor:pointer;text-decoration:none;
+      font-size:.85rem;white-space:nowrap;font-family:'DM Sans',sans-serif;
+      transition:opacity .15s;
     }
-    .lovable-banner .lo-btn:hover { background: var(--accent2); }
+    .lovable-banner .lo-btn:hover{opacity:.85;}
 
     /* ── POSITIVE CALL-OUTS ── */
-    .callout-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 26px 28px 26px 32px;
-      margin-bottom: 16px;
-      position: relative;
-      overflow: hidden;
+    .callout-card{
+      background:var(--bg);border:1.5px solid var(--bdr);
+      border-radius:12px;padding:24px 26px 24px 30px;margin-bottom:14px;
+      position:relative;overflow:hidden;
     }
-    .callout-card::before {
-      content: '';
-      position: absolute;
-      left: 0; top: 0; bottom: 0;
-      width: 4px;
-      background: linear-gradient(to bottom, var(--accent), var(--accent2));
+    .callout-card::before{
+      content:'';position:absolute;left:0;top:0;bottom:0;width:4px;
+      background:linear-gradient(to bottom,var(--acc),var(--cherry));
     }
-    .callout-from { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
-    .callout-channel { font-size: .78rem; color: var(--muted); margin-bottom: 16px; }
-    .callout-quote {
-      font-style: italic;
-      color: var(--accent2);
-      font-size: .95rem;
-      background: var(--bg);
-      border-radius: 8px;
-      padding: 12px 16px;
-      margin-bottom: 16px;
-      line-height: 1.6;
+    .callout-from{font-weight:800;font-size:.97rem;margin-bottom:3px;color:var(--fg);}
+    .callout-channel{font-size:.75rem;color:var(--fg4);margin-bottom:14px;font-family:'DM Mono',monospace;}
+    .callout-quote{
+      font-style:italic;color:var(--acc);font-size:.93rem;
+      background:var(--acc-bg);border-radius:8px;padding:11px 14px;margin-bottom:14px;line-height:1.6;
     }
-    .callout-why { font-size: .87rem; color: var(--text); line-height: 1.75; }
+    .callout-why{font-size:.85rem;color:var(--fg2);line-height:1.75;}
 
     /* ── UTIL ── */
-    .empty-state { text-align: center; padding: 40px; color: var(--muted); }
-    .empty-state .ico { font-size: 2.5rem; margin-bottom: 10px; }
-    hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
-    .pill {
-      display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px;
-      background: var(--tag-bg); border-radius: 20px; font-size: .78rem; color: var(--muted);
+    .empty-state{text-align:center;padding:40px;color:var(--fg4);}
+    .empty-state .ico{font-size:2.5rem;margin-bottom:10px;}
+    hr{border:none;border-top:1px solid var(--bdr);margin:20px 0;}
+    .pill{
+      display:inline-flex;align-items:center;gap:6px;padding:3px 9px;
+      background:var(--bg3);border-radius:20px;font-size:.75rem;color:var(--fg4);
+      font-family:'DM Mono',monospace;
     }
-    .dot { width: 7px; height: 7px; border-radius: 50%; }
-    .dot.green { background: var(--green); }
-    .dot.yellow { background: var(--yellow); }
-    .dot.red { background: var(--red); }
+    .dot{width:7px;height:7px;border-radius:50%;}
+    .dot.green{background:var(--green);}
+    .dot.amber{background:var(--yellow);}
+    .dot.red{background:var(--red);}
+
+    /* progress bar wrapper */
+    .prog-wrap{background:var(--bg3);border-radius:4px;height:7px;overflow:hidden;}
+    .prog-fill{height:100%;border-radius:4px;transition:width .35s;}
   </style>
 </head>
 <body>
+
+<!-- BLOSSOMS -->
+<svg class="blossom-tr" viewBox="0 0 300 300" xmlns="http://www.w3.org/2000/svg">
+  <path d="M288 0 Q235 60 182 118 Q138 164 122 232" stroke="#d4a0a8" stroke-width="1.5" fill="none" opacity=".45"/>
+  <path d="M240 25 Q204 78 170 96" stroke="#d4a0a8" stroke-width="1" fill="none" opacity=".3"/>
+  <g transform="translate(182,116) rotate(-22)">
+    <ellipse rx="13" ry="7.5" fill="#fce4ec" opacity=".78"/><ellipse transform="rotate(72)" rx="13" ry="7.5" fill="#f8bbd0" opacity=".73"/>
+    <ellipse transform="rotate(144)" rx="13" ry="7.5" fill="#fce4ec" opacity=".78"/><ellipse transform="rotate(216)" rx="13" ry="7.5" fill="#f48fb1" opacity=".58"/>
+    <ellipse transform="rotate(288)" rx="13" ry="7.5" fill="#fce4ec" opacity=".78"/>
+    <circle r="3.8" fill="#fff" opacity=".94"/><circle r="1.9" fill="#f48fb1" opacity=".82"/>
+  </g>
+  <g transform="translate(232,58) rotate(14)">
+    <ellipse rx="10" ry="6" fill="#f8bbd0" opacity=".68"/><ellipse transform="rotate(72)" rx="10" ry="6" fill="#fce4ec" opacity=".7"/>
+    <ellipse transform="rotate(144)" rx="10" ry="6" fill="#f8bbd0" opacity=".68"/><ellipse transform="rotate(216)" rx="10" ry="6" fill="#fce4ec" opacity=".7"/>
+    <ellipse transform="rotate(288)" rx="10" ry="6" fill="#f8bbd0" opacity=".68"/>
+    <circle r="3" fill="#fff" opacity=".94"/><circle r="1.5" fill="#e91e8c" opacity=".62"/>
+  </g>
+  <ellipse cx="136" cy="52" rx="7" ry="4" fill="#fce4ec" opacity=".38" transform="rotate(-18 136 52)"/>
+  <ellipse cx="108" cy="78" rx="6" ry="3" fill="#f8bbd0" opacity=".35" transform="rotate(28 108 78)"/>
+  <ellipse cx="218" cy="175" rx="6" ry="3.5" fill="#f8bbd0" opacity=".28" transform="rotate(12 218 175)"/>
+</svg>
+<svg class="blossom-bl" viewBox="0 0 180 180" xmlns="http://www.w3.org/2000/svg">
+  <path d="M0 180 Q44 126 98 75" stroke="#d4a0a8" stroke-width="1.2" fill="none" opacity=".3"/>
+  <g transform="translate(98,75) rotate(28)">
+    <ellipse rx="9" ry="5.5" fill="#fce4ec" opacity=".52"/><ellipse transform="rotate(72)" rx="9" ry="5.5" fill="#f8bbd0" opacity=".48"/>
+    <ellipse transform="rotate(144)" rx="9" ry="5.5" fill="#fce4ec" opacity=".52"/><ellipse transform="rotate(216)" rx="9" ry="5.5" fill="#f8bbd0" opacity=".48"/>
+    <ellipse transform="rotate(288)" rx="9" ry="5.5" fill="#fce4ec" opacity=".52"/>
+    <circle r="2.8" fill="#fff" opacity=".9"/>
+  </g>
+</svg>
 
 <!-- ══════════ PASSWORD GATE ══════════ -->
 <div id="pw-gate">
@@ -368,7 +332,6 @@
   </div>
   <div class="header-right">
     <a href="https://amplitude.lightning.force.com" target="_blank">⚡ SFDC</a>
-    <a href="https://app.asana.com" target="_blank">📋 Asana</a>
     <a href="index.html">← O.M. Suite</a>
   </div>
 </header>
@@ -390,28 +353,21 @@
     <div class="den-hero">
       <div class="avatar-wrap">
         <div class="speech-bubble">Ready to run it, K. What are we locking in today? 🤙</div>
-        <!-- Replace the SVG below with your Bitmoji: <img src="YOUR_BITMOJI_URL" width="110" style="border-radius:20px"> -->
-        <svg class="avatar-svg" viewBox="0 0 110 130" xmlns="http://www.w3.org/2000/svg" style="margin-top:56px">
-          <rect width="110" height="130" rx="20" fill="#7c5cfc"/>
-          <!-- Face -->
-          <ellipse cx="55" cy="62" rx="32" ry="35" fill="#f5c6a0"/>
-          <!-- Hair -->
-          <ellipse cx="55" cy="32" rx="33" ry="20" fill="#1a1a1a"/>
-          <rect x="22" y="32" width="66" height="18" rx="0" fill="#1a1a1a"/>
-          <!-- Eyes -->
-          <ellipse cx="43" cy="60" rx="5" ry="5.5" fill="#1a1a1a"/>
-          <ellipse cx="67" cy="60" rx="5" ry="5.5" fill="#1a1a1a"/>
-          <ellipse cx="44.5" cy="58.5" rx="2" ry="2" fill="#fff"/>
-          <ellipse cx="68.5" cy="58.5" rx="2" ry="2" fill="#fff"/>
-          <!-- Smile -->
-          <path d="M43 75 Q55 85 67 75" stroke="#1a1a1a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-          <!-- Ears -->
-          <ellipse cx="23" cy="63" rx="5" ry="7" fill="#f5c6a0"/>
-          <ellipse cx="87" cy="63" rx="5" ry="7" fill="#f5c6a0"/>
-          <!-- Shirt / body hint -->
-          <path d="M20 118 Q55 106 90 118 L110 130 L0 130 Z" fill="#4f46e5"/>
-          <text x="42" y="128" font-size="11" fill="#a78bfa" font-weight="bold">KP</text>
-        </svg>
+        <!--
+          TO ADD YOUR HEADSHOT:
+          1. Drop your photo (e.g. kareem.jpg) into the tools/ folder alongside this file
+          2. Replace the div below with:
+             <img src="kareem.jpg" alt="Kareem" style="width:110px;height:110px;border-radius:50%;object-fit:cover;object-position:top;border:2px solid var(--bdr);margin-top:56px;display:block;">
+        -->
+        <div style="
+          width:110px;height:110px;border-radius:50%;
+          background:linear-gradient(135deg,#0369a1,#0c4a6e);
+          display:flex;align-items:center;justify-content:center;
+          margin-top:56px;border:2px solid var(--bdr);
+          flex-shrink:0;
+        ">
+          <span style="font-size:2rem;font-weight:800;color:#fff;letter-spacing:-.03em;font-family:'DM Sans',sans-serif;">KP</span>
+        </div>
       </div>
       <div class="den-info">
         <h2>What's good, Kareem 👋</h2>
@@ -423,7 +379,7 @@
           </div>
           <div class="stat-card">
             <div class="label">Vol Ramp Progress</div>
-            <div class="val yellow">~60%</div>
+            <div class="val amber">~60%</div>
           </div>
           <div class="stat-card">
             <div class="label">Open Cases</div>
@@ -446,7 +402,7 @@
         </a>
         <a class="qlink" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">
           <span class="ico">📊</span>
-          <div><div class="lbl">H1 Projects & Tracking</div><div class="sub">Google Sheets</div></div>
+          <div><div class="lbl">H1 Projects &amp; Tracking</div><div class="sub">Google Sheets</div></div>
         </a>
         <a class="qlink" href="https://drive.google.com/drive/folders/0AIH8MNQ95VLhUk9PVA" target="_blank">
           <span class="ico">📁</span>
@@ -464,9 +420,9 @@
           <span class="ico">🔍</span>
           <div><div class="lbl">Booking Checker</div><div class="sub">Deal Review Tool</div></div>
         </a>
-        <a class="qlink" href="https://app.asana.com" target="_blank">
+        <a class="qlink" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">
           <span class="ico">✅</span>
-          <div><div class="lbl">Asana Tasks</div><div class="sub">Project GID: 121375…</div></div>
+          <div><div class="lbl">Deliverables (Asana)</div><div class="sub">20 open · 34 done</div></div>
         </a>
         <a class="qlink" href="https://amplitude.zoom.us/rec/share/r3OEyUkuSHhf5Ucqg9HJeBhRzCfY8ecrW7CnfGxgy326hsZaBM43JJOP0lJ_J3dJ.17KnRULWeuSr0WmY" target="_blank">
           <span class="ico">🎥</span>
@@ -482,134 +438,290 @@
 
   <!-- ══ DELIVERABLES ══ -->
   <div class="tab-panel" id="tab-deliverables">
-    <h2 style="margin-bottom:18px">📋 Deliverables</h2>
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:18px;flex-wrap:wrap;gap:12px">
+      <div>
+        <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:4px;color:var(--fg)">📋 Deliverables</h2>
+        <p style="color:var(--fg4);font-size:.82rem;font-family:'DM Mono',monospace">Synced from Asana · Deliverables project · Sales Finance Internship</p>
+      </div>
+      <a href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank" style="padding:7px 14px;background:var(--bg2);border:1.5px solid var(--bdr2);border-radius:8px;color:var(--fg3);font-size:.8rem;text-decoration:none;white-space:nowrap;font-family:'DM Mono',monospace;transition:border-color .15s">Open in Asana ↗</a>
+    </div>
+
+    <!-- Progress bar -->
+    <div style="background:var(--bg2);border:1.5px solid var(--bdr);border-radius:var(--r);padding:16px 20px;margin-bottom:22px">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px">
+        <span style="font-size:11px;color:var(--fg4);font-weight:700;text-transform:uppercase;letter-spacing:.07em;font-family:'DM Mono',monospace">Overall Progress</span>
+        <span style="font-size:.8rem;color:var(--fg4);font-family:'DM Mono',monospace"><strong style="color:var(--green)">34</strong> done · <strong style="color:var(--acc)">20</strong> open · 54 total</span>
+      </div>
+      <div class="prog-wrap">
+        <div class="prog-fill" style="width:63%;background:linear-gradient(90deg,var(--acc),var(--green))"></div>
+      </div>
+    </div>
+
     <div class="sub-tabs">
-      <button class="sub-tab active" onclick="switchSub('sf',this)">💼 Sales Finance</button>
-      <button class="sub-tab" onclick="switchSub('acct',this)">🏦 Accounting</button>
-      <button class="sub-tab" onclick="switchSub('fpa',this)">📈 FP&A</button>
+      <button class="sub-tab active" onclick="switchSub('active',this)">🔥 Active (6)</button>
+      <button class="sub-tab" onclick="switchSub('open',this)">📋 Open (14)</button>
+      <button class="sub-tab" onclick="switchSub('done',this)">✅ Done (34)</button>
     </div>
 
-    <!-- Sales Finance -->
-    <div class="sub-panel active" id="sub-sf">
+    <!-- ACTIVE: In Progress -->
+    <div class="sub-panel active" id="sub-active">
       <div class="deliverable-list">
-        <div class="d-item">
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213901024833879" target="_blank" style="text-decoration:none;color:inherit">
           <div class="d-status">🔄</div>
           <div class="d-info">
-            <div class="d-title">Vol Ramp ATR Cleanup <span class="tag ip">In Progress</span></div>
-            <div class="d-desc">138 deals — correcting ATR values from average ARR to exit-year ACV. ~60% complete. Kareem owns the review and correction workflow. Corrections routed through #order-up.</div>
+            <div class="d-title">ATR checks — fold in contract ACV values <span class="tag ip">In Progress</span><span class="tag blocked">High</span></div>
+            <div class="d-desc">Daily ATR review task. Folding contract ACV values into the Vol Ramp ATR cleanup process. Due Apr 9.</div>
           </div>
-        </div>
-        <div class="d-item">
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213901024833885" target="_blank" style="text-decoration:none;color:inherit">
           <div class="d-status">🔄</div>
           <div class="d-info">
-            <div class="d-title">OM Booking Process Improvement <span class="tag ip">In Progress</span></div>
-            <div class="d-desc">Documenting and streamlining the OM deal booking checklist. Flagged as high priority for Q2. Based on Dorothy Narvaez's personal checklist + Kareem's review findings.</div>
+            <div class="d-title">A.I. Week prep <span class="tag ip">In Progress</span><span class="tag blocked">High</span></div>
+            <div class="d-desc">Daily prep for AI Week. Building out the G&amp;A Overage Anticipation &amp; Alerting agent. Presenting Friday at offsite. Due Apr 9.</div>
           </div>
-        </div>
-        <div class="d-item">
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213985612642833" target="_blank" style="text-decoration:none;color:inherit">
           <div class="d-status">🔄</div>
           <div class="d-info">
-            <div class="d-title">AI Week — G&A Consumption Monitoring Agent <span class="tag ip">In Progress</span></div>
-            <div class="d-desc">Building a Claude API agent that predicts overage scenarios 3–6 months ahead. Backend on Railway, Slack notification template in progress. Presenting Friday at offsite.</div>
+            <div class="d-title">OM Checklist w/ KB <span class="tag ip">In Progress</span><span class="tag blocked">High</span></div>
+            <div class="d-desc">Running through OM booking checklist with KaBoth Vu. Daily task for deal review and validation. Due Apr 9.</div>
           </div>
-        </div>
-        <div class="d-item">
-          <div class="d-status">✅</div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213985612642837" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">🔄</div>
           <div class="d-info">
-            <div class="d-title">Work Bud Hub <span class="tag done">Launched</span></div>
-            <div class="d-desc">Personal OM ops center (this page). Connects Asana, Google Calendar, Slack, and SFDC. Automated morning briefing at 9AM and EOD recap at 4:30PM.</div>
+            <div class="d-title">Internal OM documentation formatting <span class="tag ip">In Progress</span><span class="tag blocked">High</span></div>
+            <div class="d-desc">Formatting and organizing internal OM documentation. Cleaning up structure and ensuring consistency across docs. Due Apr 9.</div>
           </div>
-        </div>
-        <div class="d-item">
-          <div class="d-status">✅</div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213919809313385" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">🔄</div>
           <div class="d-info">
-            <div class="d-title">OM Booking Checklist (GitHub Pages) <span class="tag done">Shipped</span></div>
-            <div class="d-desc">Internal tool for deal booking review. Live on GitHub Pages at kareem-powell.github.io/tools/bookings.html</div>
+            <div class="d-title">Trailhead <span class="tag ip">In Progress</span><span class="tag planning">Low</span></div>
+            <div class="d-desc">Daily Salesforce Trailhead learning. Building out SFDC knowledge base. Due Apr 9.</div>
           </div>
-        </div>
-        <div class="d-item">
-          <div class="d-status">⏳</div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213985612642844" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">🔄</div>
           <div class="d-info">
-            <div class="d-title">GitHub Repo for AI Week Agent Code <span class="tag planning">Planned</span></div>
-            <div class="d-desc">Set up GitHub repo for consumption monitoring agent code. Includes Claude API integration and Slack notification templates.</div>
+            <div class="d-title">Add to Case Record Enhancements <span class="tag ip">In Progress</span><span class="tag planning">Low</span></div>
+            <div class="d-desc">Contributing to the Case Record Enhancement project. Adding documentation and process notes from daily deal review. Due Apr 9.</div>
           </div>
-        </div>
+        </a>
+
       </div>
     </div>
 
-    <!-- Accounting -->
-    <div class="sub-panel" id="sub-acct">
+    <!-- OPEN: Not Started / Queued -->
+    <div class="sub-panel" id="sub-open">
       <div class="deliverable-list">
-        <div class="d-item">
-          <div class="d-status">✅</div>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213985714095437" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
           <div class="d-info">
-            <div class="d-title">Q1 Close Reconciliation <span class="tag done">Complete</span></div>
-            <div class="d-desc">Final ARR numbers reconciled by Accounting for Q1 close. Booking backlog cleared during close period. Post-close verification timing tightened to 48 hours.</div>
+            <div class="d-title">AI Week Project — Overage Anticipation &amp; Alerting <span class="tag planning">Not Started</span><span class="tag blocked">High</span></div>
+            <div class="d-desc">G&amp;A AI Week project with Angie Lau, Kyle Helstad, Mykieu Tran, Jack Perejaun. Forward-looking consumption monitoring agent — predicts which accounts will exceed contracted usage 3–6 months out. Auto-notifies AE, FLM, CSM, Accounting, Sales Finance.</div>
           </div>
-        </div>
-        <div class="d-item">
-          <div class="d-status">✅</div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213985714095442" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
           <div class="d-info">
-            <div class="d-title">NetSuite Integration — New Product Codes <span class="tag done">Live</span></div>
-            <div class="d-desc">New product code structure is live in NetSuite. OM team briefed. Impacts how subscription vs. PS components are classified in booking records.</div>
+            <div class="d-title">Run Work Bud (in Claude) <span class="tag planning">Not Started</span><span class="tag blocked">High</span></div>
+            <div class="d-desc">Set up and run the Work Bud automated morning briefing and EOD recap via Claude. Due Apr 9.</div>
           </div>
-        </div>
-        <div class="d-item">
-          <div class="d-status">🔄</div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213995991371926" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
           <div class="d-info">
-            <div class="d-title">Revenue Recognition Category Review <span class="tag ip">In Progress</span></div>
-            <div class="d-desc">Reviewing ARR, Overage, and Discounts fields for accuracy across renewals and expansions. Relevant to Kareem's booking review work — flags surface to Accounting when found.</div>
+            <div class="d-title">Automate ATR dump to Slack using previous artifact <span class="tag planning">Not Started</span><span class="tag blocked">High</span></div>
+            <div class="d-desc">Build automation to push ATR review output to Slack using the existing Claude artifact. Reduces manual steps in the daily ATR workflow.</div>
           </div>
-        </div>
-        <div class="d-item">
-          <div class="d-status">📅</div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213919809313390" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
           <div class="d-info">
-            <div class="d-title">Accounting ↔ Finance Close Meeting — May 2026 <span class="tag planning">Scheduled Jun 9</span></div>
-            <div class="d-desc">Cross-team sync on May close. Covers ARR reconciliation, booking accuracy, and any OM corrections surfaced during the month.</div>
+            <div class="d-title">Connect with Jordyn about AI SME role <span class="tag planning">Not Started</span><span class="tag blocked">High</span></div>
+            <div class="d-desc">Jordyn is DealDesk's AI subject matter expert. Set up time to discuss how she installed AI agents for her team — and explore same for OM/Sales Finance. Due Apr 9.</div>
           </div>
-        </div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213976871309774" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
+          <div class="d-info">
+            <div class="d-title">Install Granola <span class="tag planning">Not Started</span><span class="tag blocked">High</span></div>
+            <div class="d-desc">Set up Granola AI meeting notes tool. Allison got Kareem approved for access during AI Week. Due Apr 10.</div>
+          </div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213919809313399" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
+          <div class="d-info">
+            <div class="d-title">Send PTO / OOO hours <span class="tag planning">Not Started</span><span class="tag blocked">High</span></div>
+            <div class="d-desc">Submit PTO and out-of-office hours. Due Apr 9.</div>
+          </div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213995991371922" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
+          <div class="d-info">
+            <div class="d-title">Find sales call recording — product overview <span class="tag planning">Not Started</span><span class="tag blocked">High</span></div>
+            <div class="d-desc">Source a sales call recording to get a full overview of Amplitude products from a go-to-market perspective. Due Apr 9.</div>
+          </div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213919809313402" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
+          <div class="d-info">
+            <div class="d-title">Send Matt — short-term goals <span class="tag planning">Queued</span><span class="tag planning">Medium</span></div>
+            <div class="d-desc">AI SME role, Closed Lost process ownership, areas for exposure, internship goals. Reference: Sales Finance FY26 H1 Projects. Due Apr 10.</div>
+          </div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213935509249926" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
+          <div class="d-info">
+            <div class="d-title">Send Matt — long-term goals <span class="tag planning">Queued</span><span class="tag planning">Medium</span></div>
+            <div class="d-desc">Long-term career direction and areas of interest to discuss with Matt. Due Apr 10.</div>
+          </div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213948256777356" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
+          <div class="d-info">
+            <div class="d-title">Sort through starred docs <span class="tag planning">Queued</span><span class="tag planning">Medium</span></div>
+            <div class="d-desc">Organize starred docs in Google Drive — clean up, remove outdated, consolidate into onboarding doc. Due Apr 10.</div>
+          </div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213834986097645" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
+          <div class="d-info">
+            <div class="d-title">Contract → intern transition: permissions request <span class="tag planning">Queued</span><span class="tag planning">Medium</span></div>
+            <div class="d-desc">Before start of summer internship, notify team of contract-to-intern switch so SFDC access and permissions are preserved. Due Apr 7.</div>
+          </div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213834986097653" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
+          <div class="d-info">
+            <div class="d-title">Onboarding doc validation <span class="tag planning">Queued</span><span class="tag planning">Low</span></div>
+            <div class="d-desc">(1) Validate all Q&amp;A · (2) Organize by relevance · (3) Fill in missing content · (4) Fold in external documents. Due Apr 8.</div>
+          </div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213919809313392" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
+          <div class="d-info">
+            <div class="d-title">Edit class schedule <span class="tag planning">Queued</span><span class="tag planning">Low</span></div>
+            <div class="d-desc">Update class schedule for upcoming term. Due Apr 8.</div>
+          </div>
+        </a>
+
+        <a class="d-item" href="https://app.asana.com/1/18285554557078/project/1213754127165438/task/1213919809313382" target="_blank" style="text-decoration:none;color:inherit">
+          <div class="d-status">⏳</div>
+          <div class="d-info">
+            <div class="d-title">Check out Asana teammates <span class="tag planning">Queued</span><span class="tag planning">Low</span></div>
+            <div class="d-desc">Explore the Asana workspace to connect with and follow teammates in Sales Finance. Due Apr 8.</div>
+          </div>
+        </a>
+
       </div>
     </div>
 
-    <!-- FP&A -->
-    <div class="sub-panel" id="sub-fpa">
+    <!-- DONE -->
+    <div class="sub-panel" id="sub-done">
+      <p style="color:var(--fg4);font-size:.82rem;margin-bottom:16px;font-family:'DM Mono',monospace">34 tasks completed since Mar 22, 2026. Showing key highlights.</p>
       <div class="deliverable-list">
+
         <div class="d-item">
-          <div class="d-status">🔄</div>
+          <div class="d-status">✅</div>
           <div class="d-info">
-            <div class="d-title">Vol Ramp Assumptions Alignment <span class="tag ip">In Progress</span></div>
-            <div class="d-desc">Sales Finance and FP&A aligning on Vol Ramp assumptions for the ARR forecasting model. New SFDC report built by Matt to track ATR by deal type shared in #sales-finance.</div>
+            <div class="d-title">Incorporate OM Booking Doc into Onboarding doc <span class="tag done">Done</span></div>
+            <div class="d-desc">Merged the OM booking checklist into the main onboarding doc. Added screenshots. Requested by KB. Completed Mar 30.</div>
           </div>
         </div>
+
         <div class="d-item">
-          <div class="d-status">🔄</div>
+          <div class="d-status">✅</div>
           <div class="d-info">
-            <div class="d-title">Consumption Monitoring Forward-Looking Model <span class="tag ip">AI Week</span></div>
-            <div class="d-desc">FP&A focus area for AI Week — predicting overage scenarios before they happen. Feeds into the G&A Consumption Monitoring Agent being built by Kareem's team.</div>
+            <div class="d-title">Create Asana template for Booking Deals <span class="tag done">Done</span></div>
+            <div class="d-desc">Built out the Asana Deliverables project template for booking deal tracking. Completed Mar 30.</div>
           </div>
         </div>
+
         <div class="d-item">
-          <div class="d-status">🔄</div>
+          <div class="d-status">✅</div>
           <div class="d-info">
-            <div class="d-title">H1 Financial Model Review <span class="tag ip">In Progress</span></div>
-            <div class="d-desc">Reviewed in Sales Finance Weekly (Apr 7). OM Booking process improvements flagged as high priority impact area for Q2 H1 projections.</div>
+            <div class="d-title">Schedule recurring meeting with Matt <span class="tag done">Done</span></div>
+            <div class="d-desc">Weekly 1:1 with Matt Murray scheduled. Completed Mar 30.</div>
           </div>
         </div>
+
         <div class="d-item">
-          <div class="d-status">⏳</div>
+          <div class="d-status">✅</div>
           <div class="d-info">
-            <div class="d-title">Q2 Offsite Planning <span class="tag planning">Planning</span></div>
-            <div class="d-desc">Katie leading logistics for Q2 team offsite. Kareem to confirm availability and any AI Week deliverable presentations.</div>
+            <div class="d-title">Positive call-outs scan (Claude / Slack) <span class="tag done">Done</span></div>
+            <div class="d-desc">Aggregated all genuine recognition moments since inception from Slack. Now live in the Call-Outs tab. Completed Apr 8.</div>
           </div>
         </div>
+
+        <div class="d-item">
+          <div class="d-status">✅</div>
+          <div class="d-info">
+            <div class="d-title">Schedule ARR amend meeting <span class="tag done">Done</span></div>
+            <div class="d-desc">ARR Amends 1hr call scheduled with Kyle (optional). Completed Apr 8–9.</div>
+          </div>
+        </div>
+
+        <div class="d-item">
+          <div class="d-status">✅</div>
+          <div class="d-info">
+            <div class="d-title">ATR Check Working Session — Zoom notation <span class="tag done">Done · High</span></div>
+            <div class="d-desc">Completed ATR check working session with full Zoom notation. Matt noted: include screenshots in onboarding doc for new starters. Completed Mar 23.</div>
+          </div>
+        </div>
+
+        <div class="d-item">
+          <div class="d-status">✅</div>
+          <div class="d-info">
+            <div class="d-title">Book offsite flight <span class="tag done">Done · High</span></div>
+            <div class="d-desc">Flight booked for Q2 team offsite. Completed Mar 24.</div>
+          </div>
+        </div>
+
+        <div class="d-item">
+          <div class="d-status">✅</div>
+          <div class="d-info">
+            <div class="d-title">Add booked deals to ATR Review Tracker <span class="tag done">Done</span></div>
+            <div class="d-desc">All booked deals updated in the ATR Review Tracker sheet. Completed Apr 1.</div>
+          </div>
+        </div>
+
+        <div class="d-item" style="opacity:.65">
+          <div class="d-status">✅</div>
+          <div class="d-info">
+            <div class="d-title" style="color:var(--fg4)">+ 26 more completed tasks</div>
+            <div class="d-desc"><a href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank" style="color:var(--acc)">View all in Asana →</a></div>
+          </div>
+        </div>
+
       </div>
     </div>
   </div>
 
   <!-- ══ MEETING NOTES ══ -->
   <div class="tab-panel" id="tab-notes">
-    <h2 style="margin-bottom:6px">📝 Meeting Notes</h2>
-    <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px">Auto-generated at 8AM daily via Work Bud. Click any note to expand.</p>
+    <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:5px;color:var(--fg)">📝 Meeting Notes</h2>
+    <p style="color:var(--fg4);font-size:.82rem;margin-bottom:20px;font-family:'DM Mono',monospace">Auto-generated at 8AM daily via Work Bud. Click any note to expand.</p>
 
     <div class="notes-grid">
 
@@ -625,7 +737,7 @@
           <ul>
             <li><strong>Q2 pipeline review:</strong> ARR projections holding, slight softness in mid-market</li>
             <li><strong>ATR cleanup project:</strong> Vol Ramp review progressing — representative deals reviewed</li>
-            <li><strong>AI Week prep:</strong> G&A consumption monitoring agent assigned to Kareem's team</li>
+            <li><strong>AI Week prep:</strong> G&amp;A consumption monitoring agent assigned to Kareem's team</li>
             <li><strong>H1 project list reviewed</strong> — OM booking process improvements flagged as high priority for Q2</li>
           </ul>
         </div>
@@ -694,7 +806,7 @@
         <div class="note-body">
           <ul>
             <li><strong>Offsite planning kick-off:</strong> Katie leading logistics for Q2 team offsite</li>
-            <li><strong>ARR forecasting model review:</strong> Sales Finance aligning with FP&A on Vol Ramp assumptions</li>
+            <li><strong>ARR forecasting model review:</strong> Sales Finance aligning with FP&amp;A on Vol Ramp assumptions</li>
             <li><strong>New SFDC report</strong> built to track ATR by deal type — shared by Matt in #sales-finance</li>
           </ul>
         </div>
@@ -756,122 +868,120 @@
 
   <!-- ══ OM UNIVERSE ══ -->
   <div class="tab-panel" id="tab-om">
-    <h2 style="margin-bottom:6px">🌌 OM Universe</h2>
-    <p style="color:var(--muted);font-size:.88rem;margin-bottom:24px">The full picture of Order Management — processes, people, docs, and how it all connects to Sales Finance.</p>
+    <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:5px;color:var(--fg)">🌌 OM Universe</h2>
+    <p style="color:var(--fg4);font-size:.82rem;margin-bottom:24px;font-family:'DM Mono',monospace">Everything Order Management — processes, people, docs, and tools. All in one place.</p>
 
-    <div class="om-section">
-      <h3>📚 Core Documentation</h3>
-      <div class="resource-grid">
-        <a class="resource-card" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit?tab=t.0" target="_blank">
-          <div class="r-title">OM Onboarding Guide</div>
-          <div class="r-desc">Full onboarding doc covering role, Amplitude goals, Salesforce/ARR/ATR, and metrics</div>
-          <div class="r-source">Google Docs</div>
-        </a>
-        <a class="resource-card" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0#heading=h.wc55ym5tat6e" target="_blank">
-          <div class="r-title">Deliverables & Projects</div>
-          <div class="r-desc">H1 project list, OKRs, and key deliverables across Sales Finance</div>
-          <div class="r-source">Google Docs</div>
-        </a>
-        <a class="resource-card" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">
-          <div class="r-title">H1 Projects & Tracking Sheet</div>
-          <div class="r-desc">Live tracker for all H1 initiatives, owners, and statuses</div>
-          <div class="r-source">Google Sheets</div>
-        </a>
-        <a class="resource-card" href="bookings.html">
-          <div class="r-title">OM Booking Checker</div>
-          <div class="r-desc">Dorothy's booking checklist — adapted for Kareem's daily deal review</div>
-          <div class="r-source">Work Bud Tool</div>
-        </a>
-      </div>
-    </div>
+    <div class="resource-grid">
 
-    <div class="om-section">
-      <h3>⚡ Salesforce Resources</h3>
-      <div class="resource-grid">
-        <a class="resource-card" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
-          <div class="r-title">OM Case Queue</div>
-          <div class="r-desc">Live SFDC case queue — all open OM cases</div>
-          <div class="r-source">Salesforce</div>
-        </a>
-        <a class="resource-card" href="https://amplitude.lightning.force.com" target="_blank">
-          <div class="r-title">SFDC Main</div>
-          <div class="r-desc">Amplitude Salesforce — deals, contracts, accounts</div>
-          <div class="r-source">Salesforce</div>
-        </a>
-      </div>
-    </div>
+      <a class="resource-card" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit?tab=t.0" target="_blank">
+        <div class="r-title">📄 OM Onboarding Guide</div>
+        <div class="r-desc">Full onboarding doc — role, Amplitude goals, Salesforce/ARR/ATR, and team metrics</div>
+        <div class="r-source">Google Docs</div>
+      </a>
 
-    <div class="om-section">
-      <h3>📡 Key Slack Channels</h3>
-      <div class="resource-grid">
-        <div class="resource-card">
-          <div class="r-title">#order-up</div>
-          <div class="r-desc">Deal validation, ATR corrections, booking confirmations. Kareem's primary working channel.</div>
-          <div class="r-source">Slack</div>
-        </div>
-        <div class="resource-card">
-          <div class="r-title">#order-processing</div>
-          <div class="r-desc">Reseller rules, AWS Marketplace workflow, deal routing guidance</div>
-          <div class="r-source">Slack</div>
-        </div>
-        <div class="resource-card">
-          <div class="r-title">#sales-finance</div>
-          <div class="r-desc">ARR updates, SFDC reports, SF team communication</div>
-          <div class="r-source">Slack</div>
-        </div>
-        <div class="resource-card">
-          <div class="r-title">#deal-defenders</div>
-          <div class="r-desc">Complex deal structures, opt-out clauses, renewal edge cases</div>
-          <div class="r-source">Slack</div>
-        </div>
-        <div class="resource-card">
-          <div class="r-title">#legal-dealdesk</div>
-          <div class="r-desc">Termination rights, legal routing for paid POCs and complex OFs</div>
-          <div class="r-source">Slack</div>
-        </div>
-        <div class="resource-card">
-          <div class="r-title">#ai-week-april-2026</div>
-          <div class="r-desc">AI Week initiative — consumption monitoring agent, Lovable/Railway builds</div>
-          <div class="r-source">Slack</div>
-        </div>
-      </div>
-    </div>
+      <a class="resource-card" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0#heading=h.wc55ym5tat6e" target="_blank">
+        <div class="r-title">📋 Deliverables &amp; Projects</div>
+        <div class="r-desc">H1 project list, OKRs, and key deliverables across Sales Finance</div>
+        <div class="r-source">Google Docs</div>
+      </a>
 
-    <div class="om-section">
-      <h3>👥 Key Contacts</h3>
-      <div class="resource-grid">
-        <div class="resource-card">
-          <div class="r-title">Matt Murray</div>
-          <div class="r-desc">Manager — Sales Finance. Primary point of contact for deal approvals, ATR strategy, and project guidance.</div>
-        </div>
-        <div class="resource-card">
-          <div class="r-title">Katie Helie</div>
-          <div class="r-desc">Sales Finance — flagged the Vol Ramp ATR discrepancy. Q2 offsite lead.</div>
-        </div>
-        <div class="resource-card">
-          <div class="r-title">KaBoth Vu</div>
-          <div class="r-desc">OM team — trusted Kareem to CW independently. Proactively escalated SFDC permissions issue.</div>
-        </div>
-        <div class="resource-card">
-          <div class="r-title">Kyle Helstad</div>
-          <div class="r-desc">Approved OM profile access for Kareem. Point of contact for SFDC permissions and Snowflake access.</div>
-        </div>
-        <div class="resource-card">
-          <div class="r-title">Dorothy Narvaez</div>
-          <div class="r-desc">Shared personal OM Quick Booking Checklist proactively. Go-to for booking process questions.</div>
-        </div>
-        <div class="resource-card">
-          <div class="r-title">Anil Kumar / Santosh Sikha</div>
-          <div class="r-desc">OM team — deal structuring, ATR quote logic, complex order form questions.</div>
-        </div>
+      <a class="resource-card" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">
+        <div class="r-title">📊 H1 Projects &amp; Tracking</div>
+        <div class="r-desc">Live tracker for all H1 initiatives, owners, and statuses</div>
+        <div class="r-source">Google Sheets</div>
+      </a>
+
+      <a class="resource-card" href="bookings.html">
+        <div class="r-title">🔍 OM Booking Checker</div>
+        <div class="r-desc">Dorothy's booking checklist — adapted for Kareem's daily deal review</div>
+        <div class="r-source">Work Bud Tool</div>
+      </a>
+
+      <a class="resource-card" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
+        <div class="r-title">⚡ OM Case Queue</div>
+        <div class="r-desc">Live SFDC case queue — all open OM cases, pending AE updates, and corrections</div>
+        <div class="r-source">Salesforce</div>
+      </a>
+
+      <a class="resource-card" href="https://amplitude.lightning.force.com" target="_blank">
+        <div class="r-title">⚡ SFDC Main</div>
+        <div class="r-desc">Amplitude Salesforce — deals, contracts, and accounts</div>
+        <div class="r-source">Salesforce</div>
+      </a>
+
+      <div class="resource-card">
+        <div class="r-title">💬 #order-up</div>
+        <div class="r-desc">Deal validation, ATR corrections, booking confirmations — Kareem's primary working channel</div>
+        <div class="r-source">Slack</div>
       </div>
+
+      <div class="resource-card">
+        <div class="r-title">💬 #order-processing</div>
+        <div class="r-desc">Reseller rules, AWS Marketplace workflow, deal routing guidance</div>
+        <div class="r-source">Slack</div>
+      </div>
+
+      <div class="resource-card">
+        <div class="r-title">💬 #sales-finance</div>
+        <div class="r-desc">ARR updates, SFDC reports, Sales Finance team communication</div>
+        <div class="r-source">Slack</div>
+      </div>
+
+      <div class="resource-card">
+        <div class="r-title">💬 #deal-defenders</div>
+        <div class="r-desc">Complex deal structures, opt-out clauses, renewal edge cases</div>
+        <div class="r-source">Slack</div>
+      </div>
+
+      <div class="resource-card">
+        <div class="r-title">💬 #legal-dealdesk</div>
+        <div class="r-desc">Termination rights, legal routing for paid POCs and complex order forms</div>
+        <div class="r-source">Slack</div>
+      </div>
+
+      <div class="resource-card">
+        <div class="r-title">💬 #ai-week-april-2026</div>
+        <div class="r-desc">AI Week — consumption monitoring agent, Lovable/Railway builds</div>
+        <div class="r-source">Slack</div>
+      </div>
+
+      <div class="resource-card">
+        <div class="r-title">👤 Matt Murray</div>
+        <div class="r-desc">Manager — Sales Finance. Deal approvals, ATR strategy, and project guidance</div>
+      </div>
+
+      <div class="resource-card">
+        <div class="r-title">👤 Katie Helie</div>
+        <div class="r-desc">Sales Finance — flagged the Vol Ramp ATR discrepancy. Q2 offsite lead</div>
+      </div>
+
+      <div class="resource-card">
+        <div class="r-title">👤 KaBoth Vu</div>
+        <div class="r-desc">OM team — trusted Kareem to CW independently. Proactively escalated SFDC permissions</div>
+      </div>
+
+      <div class="resource-card">
+        <div class="r-title">👤 Kyle Helstad</div>
+        <div class="r-desc">Approved OM profile access for Kareem. SFDC permissions and Snowflake access</div>
+      </div>
+
+      <div class="resource-card">
+        <div class="r-title">👤 Dorothy Narvaez</div>
+        <div class="r-desc">Shared personal OM Quick Booking Checklist proactively. Go-to for booking process</div>
+      </div>
+
+      <div class="resource-card">
+        <div class="r-title">👤 Anil Kumar / Santosh Sikha</div>
+        <div class="r-desc">OM team — deal structuring, ATR quote logic, complex order form questions</div>
+      </div>
+
     </div>
   </div>
 
   <!-- ══ POSITIVE CALL-OUTS ══ -->
   <div class="tab-panel" id="tab-callouts">
-    <h2 style="margin-bottom:6px">🌟 Positive Call-Outs</h2>
-    <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px">Since inception — what people have said and shown about Kareem's work. These are real recognition moments, not just mentions.</p>
+    <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:5px;color:var(--fg)">🌟 Positive Call-Outs</h2>
+    <p style="color:var(--fg4);font-size:.82rem;margin-bottom:20px;font-family:'DM Mono',monospace">Since inception — what people have said and shown about Kareem's work. These are real recognition moments, not just mentions.</p>
 
     <div class="callout-card">
       <div class="callout-from">Matt Murray</div>
@@ -919,8 +1029,8 @@
 
   <!-- ══ LOVABLE BUILDS ══ -->
   <div class="tab-panel" id="tab-builds">
-    <h2 style="margin-bottom:6px">🛠️ Lovable Builds</h2>
-    <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px">AI-powered tools and builders being used to build out the OM Universe and AI Week projects.</p>
+    <h2 style="font-size:1.3rem;font-weight:800;margin-bottom:5px;color:var(--fg)">🛠️ Lovable Builds</h2>
+    <p style="color:var(--fg4);font-size:.82rem;margin-bottom:20px;font-family:'DM Mono',monospace">AI-powered tools and builders being used to build out the OM Universe and AI Week projects.</p>
 
     <div class="lovable-banner">
       <div class="lo-icon">💜</div>
@@ -965,7 +1075,7 @@
     </div>
 
     <hr>
-    <h3 style="font-size:1rem;margin-bottom:14px">🔮 Build Ideas — OM Universe</h3>
+    <h3 style="font-size:.97rem;font-weight:700;margin-bottom:12px;color:var(--fg)">🔮 Build Ideas — OM Universe</h3>
     <div class="resource-grid">
       <div class="resource-card">
         <div class="r-title">ATR Correction Tracker</div>

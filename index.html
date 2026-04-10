@@ -188,27 +188,73 @@
     .res-link:hover { background: var(--bg2); }
     .res-link-meta { font-family: var(--mono); font-size: 10.5px; color: var(--fg4); }
 
+    /* ── DEPT IDENTITY COLORS ── */
+    :root {
+      --fpa-c: #b83350;    /* bloom — FP&A */
+      --acct-c: #3b3daf;   /* deep indigo — Accounting */
+      --acct-dark: #0d0e2e;
+      --acct-mid: #e8e9ff;
+      --om-c: #15803d;     /* forest — OM */
+      --om-mid: #dcfce7;
+      --om-dark: #071a0e;
+    }
+
     /* ── DROPDOWN NAV ── */
     .sc-dropdown { position: relative; display: flex; align-items: stretch; }
     .sc-caret { font-size: 9px; margin-left: 5px; opacity: .5; }
     .sc-dropdown-menu {
       display: none; position: absolute; top: calc(100% + 1px); left: 0;
       background: var(--bg); border: 1px solid var(--bdr2);
-      border-radius: 8px; flex-direction: column; min-width: 156px;
-      z-index: 300; box-shadow: 0 4px 18px rgba(0,0,0,.09); overflow: hidden;
+      border-radius: 10px; flex-direction: column; min-width: 200px;
+      z-index: 300; box-shadow: 0 8px 28px rgba(0,0,0,.12); overflow: hidden;
     }
     .sc-dropdown:hover .sc-dropdown-menu,
     .sc-dropdown-menu.open { display: flex; }
     .sc-dropdown-item {
       padding: 10px 16px; border: none; background: none;
-      text-align: left; cursor: pointer; font-size: 13px; font-weight: 500;
-      color: var(--fg3); font-family: var(--font); transition: background .1s, color .1s;
-      border-bottom: 1px solid var(--bdr); white-space: nowrap;
+      text-align: left; cursor: pointer;
+      color: var(--fg3); font-family: var(--font); transition: background .1s;
+      border-bottom: 1px solid var(--bdr);
     }
     .sc-dropdown-item:last-child { border-bottom: none; }
-    .sc-dropdown-item:hover { background: var(--bg2); color: var(--fg); }
-    .sc-dropdown-item.sub { padding-left: 24px; font-size: 12.5px; color: var(--fg4); }
-    .sc-dropdown-item.sub:hover { color: var(--fg2); }
+    .sc-dropdown-item:hover { background: var(--bg2); }
+    .sdi-title { display: block; font-size: 13px; font-weight: 600; color: var(--fg2); margin-bottom: 2px; }
+    .sdi-desc  { display: block; font-size: 11px; color: var(--fg4); font-family: var(--mono); }
+    .sc-dropdown-item:hover .sdi-title { color: var(--fg); }
+
+    /* ── DEPT-TINTED HOME TILES ── */
+    .dt-fpa  { border-left: 3px solid var(--fpa-c) !important; }
+    .dt-fpa:hover  { background: #fff5f7 !important; }
+    .dt-acct { border-left: 3px solid var(--acct-c) !important; }
+    .dt-acct:hover { background: #f3f4ff !important; }
+    .dt-om   { border-left: 3px solid var(--om-c) !important; }
+    .dt-om:hover   { background: #f0fdf4 !important; }
+
+    /* ── DEPT SEC-LABEL ACCENTS ── */
+    .lbl-fpa  { color: var(--fpa-c) !important; font-weight: 600; }
+    .lbl-acct { color: var(--acct-c) !important; font-weight: 600; }
+    .lbl-om   { color: var(--om-c) !important; font-weight: 600; }
+
+    /* ── IN-FLIGHT LEFT STRIPE ── */
+    .if-item { border-left: 3px solid transparent; }
+    .if-item.stripe-green { border-left-color: var(--green); }
+    .if-item.stripe-amber { border-left-color: var(--amber); }
+    .if-item.stripe-blue  { border-left-color: var(--acc); }
+    .if-item.stripe-gray  { border-left-color: var(--fg4); }
+    .if-item.stripe-fpa   { border-left-color: var(--fpa-c); }
+    .if-item.stripe-acct  { border-left-color: var(--acct-c); }
+    .if-item.stripe-om    { border-left-color: var(--om-c); }
+
+    /* ── SNAP-CELL ACCENTS ── */
+    .snap-cell.sc-fpa  { border-top: 2px solid var(--fpa-c); }
+    .snap-cell.sc-acct { border-top: 2px solid var(--acct-c); }
+    .snap-cell.sc-om   { border-top: 2px solid var(--om-c); }
+
+    /* ── HOME PRIORITY DEPT CARDS ── */
+    .hp-fpa  { background: linear-gradient(145deg, var(--bloom-dark) 0%, #171717 70%); color: #fff; }
+    .hp-acct { background: linear-gradient(145deg, var(--acct-dark) 0%, #141414 70%); color: #fff; }
+    .hp-om   { background: linear-gradient(145deg, var(--om-dark) 0%, #111 70%); color: #fff; }
+    .hp-wb   { background: var(--bg2); border: 1.5px solid var(--bdr); color: var(--fg); }
 
     /* ── RESOURCES PANE ── */
     .res-dept-block { margin-bottom: 36px; }
@@ -266,18 +312,83 @@
   <div class="suite-chrome">
     <a class="sc-brand" href="index.html">House of O.M.</a>
     <div class="sc-tabs">
-      <button class="sc-tab active" id="t-home"      onclick="go('home',this)">Home</button>
+      <!-- Home -->
+      <button class="sc-tab active" id="t-home" onclick="go('home',this)">Home</button>
+
+      <!-- FP&A (replaces Sales Finance) -->
       <div class="sc-dropdown">
-        <button class="sc-tab" id="t-sf" onclick="go('sf',this)">Sales Finance <span class="sc-caret">▾</span></button>
+        <button class="sc-tab" id="t-fpa" onclick="go('fpa',this)">FP&amp;A <span class="sc-caret">▾</span></button>
         <div class="sc-dropdown-menu">
-          <button class="sc-dropdown-item" onclick="go('sf',  document.getElementById('t-sf'))">Sales Finance</button>
-          <button class="sc-dropdown-item sub" onclick="go('fpa', document.getElementById('t-sf'))">↳ FP&amp;A</button>
+          <button class="sc-dropdown-item" onclick="go('fpa', document.getElementById('t-fpa'))">
+            <span class="sdi-title">FP&amp;A Overview</span>
+            <span class="sdi-desc">Planning cycle, ARR, Vol Ramp</span>
+          </button>
+          <button class="sc-dropdown-item" onclick="go('sf', document.getElementById('t-fpa'))">
+            <span class="sdi-title">Sales Finance</span>
+            <span class="sdi-desc">Deal economics &amp; revenue integrity</span>
+          </button>
         </div>
       </div>
-      <button class="sc-tab" id="t-acct"      onclick="go('acct',this)">Accounting</button>
-      <button class="sc-tab" id="t-om"        onclick="go('om',this)">Order Management</button>
-      <a      class="sc-tab" href="workbud.html">Work Bud</a>
-      <button class="sc-tab" id="t-resources" onclick="go('resources',this)">Resources</button>
+
+      <!-- Accounting -->
+      <div class="sc-dropdown">
+        <button class="sc-tab" id="t-acct" onclick="go('acct',this)">Accounting <span class="sc-caret">▾</span></button>
+        <div class="sc-dropdown-menu">
+          <button class="sc-dropdown-item" onclick="go('acct', document.getElementById('t-acct'))">
+            <span class="sdi-title">Accounting Overview</span>
+            <span class="sdi-desc">RevRec, close, ARR ledger</span>
+          </button>
+          <button class="sc-dropdown-item" onclick="go('acct', document.getElementById('t-acct'))">
+            <span class="sdi-title">ARR Reconciliation</span>
+            <span class="sdi-desc">Monthly close cycle · in progress</span>
+          </button>
+          <button class="sc-dropdown-item" onclick="go('acct', document.getElementById('t-acct'))">
+            <span class="sdi-title">Close Sync</span>
+            <span class="sdi-desc">Accounting ↔ Finance · Jun 9</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Order Management -->
+      <div class="sc-dropdown">
+        <button class="sc-tab" id="t-om" onclick="go('om',this)">Order Management <span class="sc-caret">▾</span></button>
+        <div class="sc-dropdown-menu">
+          <button class="sc-dropdown-item" onclick="go('om', document.getElementById('t-om'))">
+            <span class="sdi-title">OM Overview</span>
+            <span class="sdi-desc">Ecosystem, validation, case queue</span>
+          </button>
+          <button class="sc-dropdown-item" onclick="go('om', document.getElementById('t-om'))">
+            <span class="sdi-title">ATR Validation</span>
+            <span class="sdi-desc">Vol Ramp cleanup · H1 initiative</span>
+          </button>
+          <button class="sc-dropdown-item" onclick="location.href='bookings.html'">
+            <span class="sdi-title">Booking Checker</span>
+            <span class="sdi-desc">Deal validation tool · open</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Work Bud -->
+      <a class="sc-tab" href="workbud.html">Work Bud</a>
+
+      <!-- Resources -->
+      <div class="sc-dropdown">
+        <button class="sc-tab" id="t-resources" onclick="go('resources',this)">Resources <span class="sc-caret">▾</span></button>
+        <div class="sc-dropdown-menu">
+          <button class="sc-dropdown-item" onclick="go('resources', document.getElementById('t-resources'))">
+            <span class="sdi-title">FP&amp;A · Sales Finance</span>
+            <span class="sdi-desc">H1 sheet, OKRs, Asana</span>
+          </button>
+          <button class="sc-dropdown-item" onclick="go('resources', document.getElementById('t-resources'))">
+            <span class="sdi-title">Accounting</span>
+            <span class="sdi-desc">SFDC, close workbook</span>
+          </button>
+          <button class="sc-dropdown-item" onclick="go('resources', document.getElementById('t-resources'))">
+            <span class="sdi-title">Order Management</span>
+            <span class="sdi-desc">Booking Checker, OM guide</span>
+          </button>
+        </div>
+      </div>
     </div>
     <div class="sc-live"><span class="sc-dot"></span> live</div>
   </div>
@@ -295,40 +406,38 @@
         </div>
       </div>
 
-      <!-- Priority grid -->
-      <div class="home-prio-grid">
-        <a class="hp-card hp-dark" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
-          <div class="hp-badge">ATR Queue · Primary Focus</div>
-          <div class="hp-count">5</div>
-          <div class="hp-title">ATR Cases</div>
-          <div class="hp-desc">Vol Ramp ATR cleanup — contract ACV validation and open exception resolution. The highest-value work in the queue right now.</div>
-          <div class="hp-foot">Salesforce Case Queue →</div>
-        </a>
-        <a class="hp-card hp-light" href="bookings.html">
-          <div class="hp-badge">Active Bookings</div>
-          <div class="hp-count">1</div>
-          <div class="hp-title">Booking</div>
-          <div class="hp-desc">Active deal to validate through the booking checklist.</div>
-          <div class="hp-foot">Booking Checker →</div>
+      <!-- Priority grid: dept entry cards, no personal counts -->
+      <div class="home-prio-grid" style="grid-template-columns: 2fr 1fr; margin-bottom: 12px;">
+        <button class="hp-card hp-fpa" onclick="go('fpa', document.getElementById('t-fpa'))" style="border:none;text-align:left;cursor:pointer;">
+          <div class="hp-badge" style="color:rgba(255,255,255,.5);">FP&amp;A · Sales Finance · Primary</div>
+          <div class="hp-title" style="font-size:22px;margin-bottom:10px;">Financial Planning<br>&amp; Analysis</div>
+          <div class="hp-desc">Vol Ramp ATR cleanup, G&amp;A consumption monitoring, ARR forecasting, and the planning layer that sets what Accounting closes against.</div>
+          <div class="hp-foot" style="color:rgba(255,255,255,.45);">Enter FP&amp;A →</div>
+        </button>
+        <a class="hp-card hp-wb" href="workbud.html" style="text-decoration:none;">
+          <div class="hp-badge" style="color:var(--fg4);">Personal Ops Hub · Private</div>
+          <div class="hp-title">Work Bud</div>
+          <div class="hp-desc">Morning briefing, ATR queue, daily tasks, and ops tools. Password-protected.</div>
+          <div class="hp-foot" style="color:var(--fg4);">Open Work Bud →</div>
         </a>
       </div>
 
-      <!-- Dept nav -->
+      <!-- Dept nav tiles — colored by department -->
       <div class="dept-nav">
-        <button class="dept-tile" onclick="go('om', document.getElementById('t-om'))">
-          <div class="dt-label">Dept</div>
-          <div class="dt-title">Order Management</div>
-          <div class="dt-desc">Cases, ATRs, bookings, and the OM ecosystem</div>
-        </button>
-        <button class="dept-tile" onclick="go('sf', document.getElementById('t-sf'))">
-          <div class="dt-label">Dept</div>
+        <button class="dept-tile dt-fpa" onclick="go('fpa', document.getElementById('t-fpa'))">
+          <div class="dt-label" style="color:var(--fpa-c);">FP&amp;A</div>
           <div class="dt-title">Sales Finance</div>
-          <div class="dt-desc">FP&amp;A, deal economics, and revenue integrity</div>
+          <div class="dt-desc">Planning, deal economics, and revenue integrity</div>
         </button>
-        <button class="dept-tile" onclick="go('acct', document.getElementById('t-acct'))">
-          <div class="dt-label">Dept</div>
-          <div class="dt-title">Accounting</div>
-          <div class="dt-desc">Close, revenue recognition, and ledger integrity</div>
+        <button class="dept-tile dt-acct" onclick="go('acct', document.getElementById('t-acct'))">
+          <div class="dt-label" style="color:var(--acct-c);">Accounting</div>
+          <div class="dt-title">Close &amp; RevRec</div>
+          <div class="dt-desc">ARR reconciliation, revenue recognition, NetSuite</div>
+        </button>
+        <button class="dept-tile dt-om" onclick="go('om', document.getElementById('t-om'))">
+          <div class="dt-label" style="color:var(--om-c);">OM</div>
+          <div class="dt-title">Order Management</div>
+          <div class="dt-desc">Cases, ATRs, bookings, and the deal validation ecosystem</div>
         </button>
       </div>
 
@@ -339,8 +448,8 @@
   <div class="pane" id="p-om">
     <div class="inner">
 
-      <div class="sec-head">
-        <div class="sec-label">Function · Revenue Operations</div>
+      <div class="sec-head" style="border-left:4px solid var(--om-c);padding-left:16px;border-bottom:none;">
+        <div class="sec-label lbl-om">Function · Revenue Operations</div>
         <div class="sec-title">Order Management</div>
         <p class="sec-desc">OM sits at the center of Amplitude's commercial motion — downstream of Sales and upstream of Finance and Accounting. It validates that every closed deal is correctly structured before revenue is recognized. When OM catches an error first, the company closes faster and cleaner. When it misses one, Accounting inherits the problem.</p>
       </div>
@@ -397,9 +506,9 @@
       </div>
 
       <!-- What OM focuses on -->
-      <div class="section-micro">Focus Areas</div>
+      <div class="section-micro" style="color:var(--om-c);">Focus Areas</div>
       <div class="inflight-list">
-        <div class="if-item">
+        <div class="if-item stripe-om">
           <div class="if-dot green"></div>
           <div class="if-body">
             <div class="if-title">ATR Validation &amp; Vol Ramp Cleanup</div>
@@ -407,7 +516,7 @@
             <div class="if-tag">H1 Initiative · Sales Finance &amp; OM</div>
           </div>
         </div>
-        <div class="if-item">
+        <div class="if-item stripe-om">
           <div class="if-dot green"></div>
           <div class="if-body">
             <div class="if-title">Booking Validation &amp; Checklist Process</div>
@@ -415,7 +524,7 @@
             <div class="if-tag">Daily Process · Core OM Function</div>
           </div>
         </div>
-        <div class="if-item">
+        <div class="if-item stripe-amber">
           <div class="if-dot amber"></div>
           <div class="if-body">
             <div class="if-title">Booking Checker — OM Tooling</div>
@@ -479,8 +588,8 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
   <div class="pane" id="p-sf">
     <div class="inner">
 
-      <div class="sec-head">
-        <div class="sec-label">FP&amp;A · Sales Finance</div>
+      <div class="sec-head" style="border-left:4px solid var(--fpa-c);padding-left:16px;border-bottom:none;">
+        <div class="sec-label lbl-fpa">FP&amp;A · Sales Finance</div>
         <div class="sec-title">Sales Finance</div>
         <p class="sec-desc">Sales Finance (FP&amp;A) owns the financial planning layer on top of Amplitude's commercial motion — deal economics, ARR forecasting, forward-looking risk monitoring, and revenue integrity. It sets the assumptions that Accounting closes against and the models that leadership decides from. FP&amp;A sits above both Accounting and OM in the data flow: plan first, track second, report third.</p>
       </div>
@@ -517,30 +626,30 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
       <!-- [/COWORK-AUTO] -->
 
       <!-- Snapshot -->
-      <div class="section-micro">Current Snapshot · H1</div>
+      <div class="section-micro" style="color:var(--fpa-c);">Current Snapshot · H1</div>
       <div class="snap-grid">
-        <div class="snap-cell">
+        <div class="snap-cell sc-fpa">
           <div class="snap-label">Vol Ramp Deals</div>
           <div class="snap-val">138</div>
         </div>
-        <div class="snap-cell">
+        <div class="snap-cell sc-fpa">
           <div class="snap-label">ATR Progress</div>
           <div class="snap-val amber">~60%</div>
         </div>
-        <div class="snap-cell">
+        <div class="snap-cell sc-fpa">
           <div class="snap-label">G&amp;A Overage Agent</div>
           <div style="font-size:13px;font-weight:700;color:var(--amber);margin-top:6px;">AI Week Build</div>
         </div>
-        <div class="snap-cell">
+        <div class="snap-cell sc-fpa">
           <div class="snap-label">AI Builds In Progress</div>
           <div style="font-size:12.5px;font-weight:700;color:var(--acc);margin-top:6px;line-height:1.5;">G&amp;A Agent<br>Booking Checker</div>
         </div>
       </div>
 
       <!-- In Flight -->
-      <div class="section-micro">In Flight · FP&amp;A Docket</div>
+      <div class="section-micro" style="color:var(--fpa-c);">In Flight · FP&amp;A Docket</div>
       <div class="inflight-list">
-        <div class="if-item">
+        <div class="if-item stripe-fpa">
           <div class="if-dot green"></div>
           <div class="if-body">
             <div class="if-title">Vol Ramp ATR Cleanup — 138 Deals</div>
@@ -548,7 +657,7 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
             <div class="if-tag">HIGH · Sales Finance owns · ~60% complete</div>
           </div>
         </div>
-        <div class="if-item">
+        <div class="if-item stripe-blue">
           <div class="if-dot blue"></div>
           <div class="if-body">
             <div class="if-title">AI Week — G&amp;A Consumption Monitoring Agent</div>
@@ -556,7 +665,7 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
             <div class="if-tag">AI WEEK · FP&amp;A · Due Friday</div>
           </div>
         </div>
-        <div class="if-item">
+        <div class="if-item stripe-amber">
           <div class="if-dot amber"></div>
           <div class="if-body">
             <div class="if-title">OM Booking Process Improvement</div>
@@ -584,8 +693,8 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
   <div class="pane" id="p-acct">
     <div class="inner">
 
-      <div class="sec-head">
-        <div class="sec-label">Function · RevRec &amp; Close</div>
+      <div class="sec-head" style="border-left:4px solid var(--acct-c);padding-left:16px;border-bottom:none;">
+        <div class="sec-label lbl-acct">Function · RevRec &amp; Close</div>
         <div class="sec-title">Accounting</div>
         <p class="sec-desc">Accounting owns the close — ARR reconciliation, revenue recognition against ASC 606, NetSuite integration, and the monthly sync between what Sales booked and what Finance can report. It is the final checkpoint in Amplitude's revenue flow. Every OM booking that's wrong creates rework here; every clean booking accelerates close. Accounting closes against the assumptions FP&amp;A set and the bookings OM validated.</p>
       </div>
@@ -622,30 +731,30 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
       <!-- [/COWORK-AUTO] -->
 
       <!-- Snapshot -->
-      <div class="section-micro">Current Snapshot</div>
+      <div class="section-micro" style="color:var(--acct-c);">Current Snapshot</div>
       <div class="snap-grid">
-        <div class="snap-cell">
+        <div class="snap-cell sc-acct">
           <div class="snap-label">ATR Dependency</div>
           <div style="font-size:13px;font-weight:700;color:var(--amber);margin-top:6px;">Open · OM Queue</div>
         </div>
-        <div class="snap-cell">
+        <div class="snap-cell sc-acct">
           <div class="snap-label">Close Sync</div>
-          <div style="font-size:13px;font-weight:700;color:var(--fg2);margin-top:6px;">Jun 9</div>
+          <div style="font-size:13px;font-weight:700;color:var(--acct-c);margin-top:6px;">Jun 9</div>
         </div>
-        <div class="snap-cell">
+        <div class="snap-cell sc-acct">
           <div class="snap-label">ARR Reconciliation</div>
           <div style="font-size:13px;font-weight:700;color:var(--amber);margin-top:6px;">In Progress</div>
         </div>
-        <div class="snap-cell">
+        <div class="snap-cell sc-acct">
           <div class="snap-label">NetSuite</div>
           <div style="font-size:13px;font-weight:700;color:var(--green);margin-top:6px;">Active &amp; Current</div>
         </div>
       </div>
 
       <!-- In Flight -->
-      <div class="section-micro">In Flight · Docket</div>
+      <div class="section-micro" style="color:var(--acct-c);">In Flight · Docket</div>
       <div class="inflight-list">
-        <div class="if-item">
+        <div class="if-item stripe-acct">
           <div class="if-dot amber"></div>
           <div class="if-body">
             <div class="if-title">ARR Reconciliation &amp; Post-Close Verification</div>
@@ -653,7 +762,7 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
             <div class="if-tag">RECURRING · Monthly close cycle</div>
           </div>
         </div>
-        <div class="if-item">
+        <div class="if-item stripe-acct">
           <div class="if-dot blue"></div>
           <div class="if-body">
             <div class="if-title">Accounting ↔ Finance Close Sync</div>
@@ -661,7 +770,7 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
             <div class="if-tag">SCHEDULED · Monthly · Jun 9</div>
           </div>
         </div>
-        <div class="if-item">
+        <div class="if-item stripe-gray">
           <div class="if-dot gray"></div>
           <div class="if-body">
             <div class="if-title">ATR Case Resolution — Upstream Dependency</div>
@@ -687,9 +796,9 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
   <div class="pane" id="p-fpa">
     <div class="inner">
 
-      <div class="sec-head">
-        <div class="sec-label">Sales Finance · Sub-function</div>
-        <div class="sec-title">FP&amp;A</div>
+      <div class="sec-head" style="border-left:4px solid var(--fpa-c);padding-left:16px;border-bottom:none;">
+        <div class="sec-label lbl-fpa">Sales Finance · FP&amp;A</div>
+        <div class="sec-title">Financial Planning &amp; Analysis</div>
         <p class="sec-desc">Financial Planning &amp; Analysis owns the forward-looking layer of Sales Finance — ARR forecasting models, Vol Ramp assumptions, consumption monitoring, and the planning cycle that sets targets for the rest of the org. FP&amp;A is where deals become projections and projections become decisions.</p>
       </div>
 
@@ -723,9 +832,9 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
         </div>
       </div>
 
-      <div class="section-micro">FP&amp;A Deliverables · H1</div>
+      <div class="section-micro" style="color:var(--fpa-c);">FP&amp;A Deliverables · H1</div>
       <div class="inflight-list" style="margin-bottom:36px;">
-        <div class="if-item">
+        <div class="if-item stripe-fpa">
           <div class="if-dot green"></div>
           <div class="if-body">
             <div class="if-title">Vol Ramp Assumptions Alignment</div>
@@ -733,7 +842,7 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
             <div class="if-tag">H1 · FP&amp;A owns · in progress</div>
           </div>
         </div>
-        <div class="if-item">
+        <div class="if-item stripe-blue">
           <div class="if-dot blue"></div>
           <div class="if-body">
             <div class="if-title">Consumption Monitoring Forward-Looking Model</div>
@@ -741,7 +850,7 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
             <div class="if-tag">H1 · FP&amp;A owns · AI Week implementation</div>
           </div>
         </div>
-        <div class="if-item">
+        <div class="if-item stripe-amber">
           <div class="if-dot amber"></div>
           <div class="if-body">
             <div class="if-title">H1 ARR Forecast &amp; Anaplan Actualization</div>
@@ -830,7 +939,7 @@ function go(id, btn) {
 }
 // Hash routing — so index.html#om activates the OM tab
 (function() {
-  const map = { om:'t-om', sf:'t-sf', acct:'t-acct', fpa:'t-sf', resources:'t-resources' };
+  const map = { om:'t-om', sf:'t-fpa', acct:'t-acct', fpa:'t-fpa', resources:'t-resources' };
   const hash = window.location.hash.replace('#','');
   if (map[hash]) {
     const btn = document.getElementById(map[hash]);

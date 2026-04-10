@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Work Bud 🤙 — KP's Ops Center</title>
+  <style>
+    :root {
+      --bg: #0e1117;
+      --surface: #161b22;
+      --surface2: #1c2230;
+      --border: #30363d;
+      --accent: #7c5cfc;
+      --accent2: #a78bfa;
+      --green: #3fb950;
+      --yellow: #e3b341;
+      --red: #f85149;
+      --blue: #58a6ff;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --tag-bg: #21262d;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; }
+
+    /* ── PASSWORD GATE ── */
+    #pw-gate {
+      position: fixed; inset: 0; background: var(--bg);
+      display: flex; align-items: center; justify-content: center; z-index: 999;
+    }
+    .pw-box {
+      background: var(--surface); border: 1px solid var(--border); border-radius: 16px;
+      padding: 40px; text-align: center; width: 340px;
+    }
+    .pw-box h2 { font-size: 1.4rem; margin-bottom: 6px; }
+    .pw-box p { color: var(--muted); font-size: .9rem; margin-bottom: 24px; }
+    .pw-box input {
+      width: 100%; padding: 10px 14px; background: var(--bg); border: 1px solid var(--border);
+      border-radius: 8px; color: var(--text); font-size: 1rem; margin-bottom: 12px;
+    }
+    .pw-box button {
+      width: 100%; padding: 10px; background: var(--accent); border: none; border-radius: 8px;
+      color: #fff; font-size: 1rem; cursor: pointer; font-weight: 600;
+    }
+    .pw-box button:hover { background: var(--accent2); }
+    .pw-err { color: var(--red); font-size: .85rem; margin-top: 8px; display: none; }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--surface); border-bottom: 1px solid var(--border);
+      padding: 14px 24px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { display: flex; align-items: center; gap: 10px; font-weight: 700; font-size: 1.15rem; }
+    .logo span { font-size: 1.4rem; }
+    .logo sub { color: var(--muted); font-size: .75rem; font-weight: 400; }
+    .header-right { display: flex; gap: 10px; align-items: center; }
+    .header-right a {
+      color: var(--muted); font-size: .85rem; text-decoration: none; padding: 6px 12px;
+      border-radius: 6px; border: 1px solid var(--border);
+    }
+    .header-right a:hover { color: var(--text); border-color: var(--accent); }
+
+    /* ── NAV TABS ── */
+    .nav-tabs {
+      display: flex;
+      gap: 6px;
+      padding: 14px 32px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      overflow-x: auto;
+    }
+    .tab-btn {
+      padding: 9px 20px;
+      border: none;
+      background: transparent;
+      color: var(--muted);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: .88rem;
+      white-space: nowrap;
+      transition: all .15s;
+    }
+    .tab-btn:hover { background: var(--tag-bg); color: var(--text); }
+    .tab-btn.active { background: var(--accent); color: #fff; font-weight: 600; }
+
+    /* ── MAIN CONTENT ── */
+    main { max-width: 960px; margin: 0 auto; padding: 40px 32px; }
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ── HOME / THE DEN ── */
+    .den-hero {
+      display: flex;
+      gap: 48px;
+      align-items: flex-start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 40px 44px;
+      margin-bottom: 36px;
+    }
+    .avatar-wrap { position: relative; flex-shrink: 0; }
+    .speech-bubble {
+      position: absolute; top: -52px; left: 50%; transform: translateX(-50%);
+      background: #fff; color: #111; border-radius: 14px; padding: 8px 14px;
+      font-size: .85rem; font-weight: 600; white-space: nowrap; box-shadow: 0 4px 12px rgba(0,0,0,.3);
+      min-width: 200px; text-align: center;
+    }
+    .speech-bubble::after {
+      content: ''; position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%);
+      border: 10px solid transparent; border-top-color: #fff; border-bottom: 0;
+    }
+    /*
+      ── AVATAR ──
+      Replace the SVG below with your actual Bitmoji image:
+      <img src="YOUR_BITMOJI_URL" alt="Kareem" width="110" style="border-radius:50%">
+
+      Get your Bitmoji URL from Snapchat → Profile → Bitmoji → right-click → Copy Image Address
+    */
+    .avatar-svg {
+      width: 110px; height: 130px; border-radius: 50% 50% 40% 40%;
+      overflow: hidden; background: var(--accent);
+    }
+    .den-info { flex: 1; }
+    .den-info h2 { font-size: 1.5rem; margin-bottom: 10px; }
+    .den-info p { color: var(--muted); font-size: .95rem; line-height: 1.75; }
+    .den-stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 14px;
+      margin-top: 24px;
+    }
+    .stat-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 20px;
+    }
+    .stat-card .label { color: var(--muted); font-size: .78rem; text-transform: uppercase; letter-spacing: .05em; margin-bottom: 6px; }
+    .stat-card .val { font-size: 1.6rem; font-weight: 800; margin-top: 2px; }
+    .stat-card .val.green { color: var(--green); }
+    .stat-card .val.yellow { color: var(--yellow); }
+    .stat-card .val.blue { color: var(--blue); }
+
+    /* Quick Links */
+    .quick-links { margin-top: 36px; }
+    .section-title {
+      font-size: .72rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      margin-bottom: 16px;
+    }
+    .link-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 12px;
+    }
+    .qlink {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px 18px;
+      text-decoration: none;
+      color: var(--text);
+      font-size: .88rem;
+      transition: all .15s;
+    }
+    .qlink:hover { border-color: var(--accent); background: var(--surface2); }
+    .qlink .ico { font-size: 1.2rem; flex-shrink: 0; }
+    .qlink .lbl { font-weight: 600; }
+    .qlink .sub { font-size: .75rem; color: var(--muted); margin-top: 2px; }
+
+    /* ── DELIVERABLES ── */
+    .sub-tabs {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 28px;
+    }
+    .sub-tab {
+      padding: 9px 22px;
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: .88rem;
+      transition: all .15s;
+    }
+    .sub-tab:hover { color: var(--text); border-color: var(--muted); }
+    .sub-tab.active { background: var(--accent); color: #fff; border-color: var(--accent); font-weight: 600; }
+    .sub-panel { display: none; }
+    .sub-panel.active { display: block; }
+
+    .deliverable-list { display: flex; flex-direction: column; gap: 14px; }
+    .d-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+      display: flex;
+      align-items: flex-start;
+      gap: 18px;
+    }
+    .d-status { font-size: 1.1rem; flex-shrink: 0; margin-top: 3px; }
+    .d-info .d-title { font-weight: 700; font-size: .95rem; }
+    .d-info .d-desc { color: var(--muted); font-size: .85rem; margin-top: 6px; line-height: 1.65; }
+    .tag {
+      display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: .75rem;
+      font-weight: 600; margin-left: 8px;
+    }
+    .tag.ip { background: rgba(88,166,255,.15); color: var(--blue); }
+    .tag.done { background: rgba(63,185,80,.15); color: var(--green); }
+    .tag.blocked { background: rgba(248,81,73,.15); color: var(--red); }
+    .tag.planning { background: rgba(227,179,65,.15); color: var(--yellow); }
+
+    /* ── MEETING NOTES ── */
+    .notes-grid { display: flex; flex-direction: column; gap: 16px; }
+    .note-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .note-header {
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background .1s;
+    }
+    .note-header:hover { background: var(--surface2); }
+    .note-header h3 { font-size: .97rem; font-weight: 700; margin-bottom: 5px; }
+    .note-date { font-size: .8rem; color: var(--muted); }
+    .note-tag { font-size: .75rem; }
+    .note-body {
+      padding: 0 24px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .3s ease;
+    }
+    .note-body.open { max-height: 600px; padding: 4px 24px 24px; }
+    .note-body ul { list-style: none; display: flex; flex-direction: column; gap: 10px; }
+    .note-body ul li::before { content: '→ '; color: var(--accent2); }
+    .note-body ul li { font-size: .88rem; color: var(--muted); line-height: 1.6; }
+    .note-body ul li strong { color: var(--text); }
+
+    /* ── OM UNIVERSE ── */
+    .om-section { margin-bottom: 44px; }
+    .om-section h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+      gap: 14px;
+    }
+    .resource-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 20px;
+      text-decoration: none;
+      color: var(--text);
+      display: block;
+      transition: all .15s;
+    }
+    .resource-card:hover { border-color: var(--accent); background: var(--surface2); }
+    .resource-card .r-title { font-weight: 700; font-size: .9rem; margin-bottom: 6px; }
+    .resource-card .r-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; }
+    .resource-card .r-source { font-size: .72rem; color: var(--accent2); margin-top: 12px; }
+
+    /* ── LOVABLE / AI BUILDER SECTION ── */
+    .lovable-banner {
+      background: linear-gradient(135deg, #7c5cfc22, #a78bfa11);
+      border: 1px solid var(--accent);
+      border-radius: 14px; padding: 20px 24px; margin-bottom: 20px;
+      display: flex; align-items: center; gap: 16px;
+    }
+    .lovable-banner .lo-icon { font-size: 2rem; }
+    .lovable-banner .lo-info h3 { font-size: 1rem; font-weight: 700; margin-bottom: 4px; }
+    .lovable-banner .lo-info p { font-size: .85rem; color: var(--muted); }
+    .lovable-banner .lo-btn {
+      margin-left: auto; padding: 8px 18px; background: var(--accent); border: none;
+      border-radius: 8px; color: #fff; font-weight: 600; cursor: pointer; text-decoration: none;
+      font-size: .88rem; white-space: nowrap;
+    }
+    .lovable-banner .lo-btn:hover { background: var(--accent2); }
+
+    /* ── POSITIVE CALL-OUTS ── */
+    .callout-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 26px 28px 26px 32px;
+      margin-bottom: 16px;
+      position: relative;
+      overflow: hidden;
+    }
+    .callout-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 4px;
+      background: linear-gradient(to bottom, var(--accent), var(--accent2));
+    }
+    .callout-from { font-weight: 700; font-size: 1rem; margin-bottom: 4px; }
+    .callout-channel { font-size: .78rem; color: var(--muted); margin-bottom: 16px; }
+    .callout-quote {
+      font-style: italic;
+      color: var(--accent2);
+      font-size: .95rem;
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin-bottom: 16px;
+      line-height: 1.6;
+    }
+    .callout-why { font-size: .87rem; color: var(--text); line-height: 1.75; }
+
+    /* ── UTIL ── */
+    .empty-state { text-align: center; padding: 40px; color: var(--muted); }
+    .empty-state .ico { font-size: 2.5rem; margin-bottom: 10px; }
+    hr { border: none; border-top: 1px solid var(--border); margin: 20px 0; }
+    .pill {
+      display: inline-flex; align-items: center; gap: 6px; padding: 4px 10px;
+      background: var(--tag-bg); border-radius: 20px; font-size: .78rem; color: var(--muted);
+    }
+    .dot { width: 7px; height: 7px; border-radius: 50%; }
+    .dot.green { background: var(--green); }
+    .dot.yellow { background: var(--yellow); }
+    .dot.red { background: var(--red); }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ PASSWORD GATE ══════════ -->
+<div id="pw-gate">
+  <div class="pw-box">
+    <div style="font-size:2.5rem;margin-bottom:12px">🤙</div>
+    <h2>Work Bud</h2>
+    <p>Kareem's OM Ops Center</p>
+    <input type="password" id="pw-input" placeholder="Password" onkeydown="if(event.key==='Enter')checkPw()">
+    <button onclick="checkPw()">Let's Go</button>
+    <p class="pw-err" id="pw-err">Wrong password. Try again.</p>
+  </div>
+</div>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <div class="logo">
+    <span>🤙</span>
+    <div>
+      Work Bud
+      <br><sub>KP's Ops Center</sub>
+    </div>
+  </div>
+  <div class="header-right">
+    <a href="https://amplitude.lightning.force.com" target="_blank">⚡ SFDC</a>
+    <a href="https://app.asana.com" target="_blank">📋 Asana</a>
+    <a href="index.html">← O.M. Suite</a>
+  </div>
+</header>
+
+<!-- ══════════ NAV TABS ══════════ -->
+<nav class="nav-tabs">
+  <button class="tab-btn active" onclick="switchTab('den',this)">🏠 The Den</button>
+  <button class="tab-btn" onclick="switchTab('deliverables',this)">📋 Deliverables</button>
+  <button class="tab-btn" onclick="switchTab('notes',this)">📝 Meeting Notes</button>
+  <button class="tab-btn" onclick="switchTab('om',this)">🌌 OM Universe</button>
+  <button class="tab-btn" onclick="switchTab('callouts',this)">🌟 Call-Outs</button>
+  <button class="tab-btn" onclick="switchTab('builds',this)">🛠️ Lovable Builds</button>
+</nav>
+
+<main>
+
+  <!-- ══ THE DEN ══ -->
+  <div class="tab-panel active" id="tab-den">
+    <div class="den-hero">
+      <div class="avatar-wrap">
+        <div class="speech-bubble">Ready to run it, K. What are we locking in today? 🤙</div>
+        <!-- Replace the SVG below with your Bitmoji: <img src="YOUR_BITMOJI_URL" width="110" style="border-radius:20px"> -->
+        <svg class="avatar-svg" viewBox="0 0 110 130" xmlns="http://www.w3.org/2000/svg" style="margin-top:56px">
+          <rect width="110" height="130" rx="20" fill="#7c5cfc"/>
+          <!-- Face -->
+          <ellipse cx="55" cy="62" rx="32" ry="35" fill="#f5c6a0"/>
+          <!-- Hair -->
+          <ellipse cx="55" cy="32" rx="33" ry="20" fill="#1a1a1a"/>
+          <rect x="22" y="32" width="66" height="18" rx="0" fill="#1a1a1a"/>
+          <!-- Eyes -->
+          <ellipse cx="43" cy="60" rx="5" ry="5.5" fill="#1a1a1a"/>
+          <ellipse cx="67" cy="60" rx="5" ry="5.5" fill="#1a1a1a"/>
+          <ellipse cx="44.5" cy="58.5" rx="2" ry="2" fill="#fff"/>
+          <ellipse cx="68.5" cy="58.5" rx="2" ry="2" fill="#fff"/>
+          <!-- Smile -->
+          <path d="M43 75 Q55 85 67 75" stroke="#1a1a1a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <!-- Ears -->
+          <ellipse cx="23" cy="63" rx="5" ry="7" fill="#f5c6a0"/>
+          <ellipse cx="87" cy="63" rx="5" ry="7" fill="#f5c6a0"/>
+          <!-- Shirt / body hint -->
+          <path d="M20 118 Q55 106 90 118 L110 130 L0 130 Z" fill="#4f46e5"/>
+          <text x="42" y="128" font-size="11" fill="#a78bfa" font-weight="bold">KP</text>
+        </svg>
+      </div>
+      <div class="den-info">
+        <h2>What's good, Kareem 👋</h2>
+        <p>Your OM command center. Everything you need — SFDC cases, ATR progress, deliverables, meeting notes, and your call-outs — all in one place. Work Bud runs every morning at 9AM and evenings at 4:30PM. Check Slack for your briefings.</p>
+        <div class="den-stats">
+          <div class="stat-card">
+            <div class="label">ATR Deals Reviewed</div>
+            <div class="val blue" id="atr-count">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Vol Ramp Progress</div>
+            <div class="val yellow">~60%</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Open Cases</div>
+            <div class="val green" id="case-count">—</div>
+          </div>
+          <div class="stat-card">
+            <div class="label">Renewals This Month</div>
+            <div class="val blue">25+</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="quick-links">
+      <div class="section-title">Quick Access</div>
+      <div class="link-grid">
+        <a class="qlink" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
+          <span class="ico">⚡</span>
+          <div><div class="lbl">OM Case Queue</div><div class="sub">Salesforce</div></div>
+        </a>
+        <a class="qlink" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">
+          <span class="ico">📊</span>
+          <div><div class="lbl">H1 Projects & Tracking</div><div class="sub">Google Sheets</div></div>
+        </a>
+        <a class="qlink" href="https://drive.google.com/drive/folders/0AIH8MNQ95VLhUk9PVA" target="_blank">
+          <span class="ico">📁</span>
+          <div><div class="lbl">Sales Finance Drive</div><div class="sub">Google Drive</div></div>
+        </a>
+        <a class="qlink" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0#heading=h.wc55ym5tat6e" target="_blank">
+          <span class="ico">📋</span>
+          <div><div class="lbl">Deliverables Doc</div><div class="sub">Google Docs</div></div>
+        </a>
+        <a class="qlink" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit?tab=t.0" target="_blank">
+          <span class="ico">🎓</span>
+          <div><div class="lbl">Onboarding Doc</div><div class="sub">Google Docs</div></div>
+        </a>
+        <a class="qlink" href="bookings.html">
+          <span class="ico">🔍</span>
+          <div><div class="lbl">Booking Checker</div><div class="sub">Deal Review Tool</div></div>
+        </a>
+        <a class="qlink" href="https://app.asana.com" target="_blank">
+          <span class="ico">✅</span>
+          <div><div class="lbl">Asana Tasks</div><div class="sub">Project GID: 121375…</div></div>
+        </a>
+        <a class="qlink" href="https://amplitude.zoom.us/rec/share/r3OEyUkuSHhf5Ucqg9HJeBhRzCfY8ecrW7CnfGxgy326hsZaBM43JJOP0lJ_J3dJ.17KnRULWeuSr0WmY" target="_blank">
+          <span class="ico">🎥</span>
+          <div><div class="lbl">Booking Deals Pt 1</div><div class="sub">Zoom Recording</div></div>
+        </a>
+        <a class="qlink" href="https://amplitude.zoom.us/rec/share/r8ODBnGc1g3bQHQgoHgeX3eOu3iyHFFBLjFL53WNDVrfGHB3wc4sQUfRmwNvdFmW.Wj4pOx5IsDhjsqbk" target="_blank">
+          <span class="ico">🎥</span>
+          <div><div class="lbl">Booking Deals Pt 2</div><div class="sub">Zoom Recording</div></div>
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ DELIVERABLES ══ -->
+  <div class="tab-panel" id="tab-deliverables">
+    <h2 style="margin-bottom:18px">📋 Deliverables</h2>
+    <div class="sub-tabs">
+      <button class="sub-tab active" onclick="switchSub('sf',this)">💼 Sales Finance</button>
+      <button class="sub-tab" onclick="switchSub('acct',this)">🏦 Accounting</button>
+      <button class="sub-tab" onclick="switchSub('fpa',this)">📈 FP&A</button>
+    </div>
+
+    <!-- Sales Finance -->
+    <div class="sub-panel active" id="sub-sf">
+      <div class="deliverable-list">
+        <div class="d-item">
+          <div class="d-status">🔄</div>
+          <div class="d-info">
+            <div class="d-title">Vol Ramp ATR Cleanup <span class="tag ip">In Progress</span></div>
+            <div class="d-desc">138 deals — correcting ATR values from average ARR to exit-year ACV. ~60% complete. Kareem owns the review and correction workflow. Corrections routed through #order-up.</div>
+          </div>
+        </div>
+        <div class="d-item">
+          <div class="d-status">🔄</div>
+          <div class="d-info">
+            <div class="d-title">OM Booking Process Improvement <span class="tag ip">In Progress</span></div>
+            <div class="d-desc">Documenting and streamlining the OM deal booking checklist. Flagged as high priority for Q2. Based on Dorothy Narvaez's personal checklist + Kareem's review findings.</div>
+          </div>
+        </div>
+        <div class="d-item">
+          <div class="d-status">🔄</div>
+          <div class="d-info">
+            <div class="d-title">AI Week — G&A Consumption Monitoring Agent <span class="tag ip">In Progress</span></div>
+            <div class="d-desc">Building a Claude API agent that predicts overage scenarios 3–6 months ahead. Backend on Railway, Slack notification template in progress. Presenting Friday at offsite.</div>
+          </div>
+        </div>
+        <div class="d-item">
+          <div class="d-status">✅</div>
+          <div class="d-info">
+            <div class="d-title">Work Bud Hub <span class="tag done">Launched</span></div>
+            <div class="d-desc">Personal OM ops center (this page). Connects Asana, Google Calendar, Slack, and SFDC. Automated morning briefing at 9AM and EOD recap at 4:30PM.</div>
+          </div>
+        </div>
+        <div class="d-item">
+          <div class="d-status">✅</div>
+          <div class="d-info">
+            <div class="d-title">OM Booking Checklist (GitHub Pages) <span class="tag done">Shipped</span></div>
+            <div class="d-desc">Internal tool for deal booking review. Live on GitHub Pages at kareem-powell.github.io/tools/bookings.html</div>
+          </div>
+        </div>
+        <div class="d-item">
+          <div class="d-status">⏳</div>
+          <div class="d-info">
+            <div class="d-title">GitHub Repo for AI Week Agent Code <span class="tag planning">Planned</span></div>
+            <div class="d-desc">Set up GitHub repo for consumption monitoring agent code. Includes Claude API integration and Slack notification templates.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Accounting -->
+    <div class="sub-panel" id="sub-acct">
+      <div class="deliverable-list">
+        <div class="d-item">
+          <div class="d-status">✅</div>
+          <div class="d-info">
+            <div class="d-title">Q1 Close Reconciliation <span class="tag done">Complete</span></div>
+            <div class="d-desc">Final ARR numbers reconciled by Accounting for Q1 close. Booking backlog cleared during close period. Post-close verification timing tightened to 48 hours.</div>
+          </div>
+        </div>
+        <div class="d-item">
+          <div class="d-status">✅</div>
+          <div class="d-info">
+            <div class="d-title">NetSuite Integration — New Product Codes <span class="tag done">Live</span></div>
+            <div class="d-desc">New product code structure is live in NetSuite. OM team briefed. Impacts how subscription vs. PS components are classified in booking records.</div>
+          </div>
+        </div>
+        <div class="d-item">
+          <div class="d-status">🔄</div>
+          <div class="d-info">
+            <div class="d-title">Revenue Recognition Category Review <span class="tag ip">In Progress</span></div>
+            <div class="d-desc">Reviewing ARR, Overage, and Discounts fields for accuracy across renewals and expansions. Relevant to Kareem's booking review work — flags surface to Accounting when found.</div>
+          </div>
+        </div>
+        <div class="d-item">
+          <div class="d-status">📅</div>
+          <div class="d-info">
+            <div class="d-title">Accounting ↔ Finance Close Meeting — May 2026 <span class="tag planning">Scheduled Jun 9</span></div>
+            <div class="d-desc">Cross-team sync on May close. Covers ARR reconciliation, booking accuracy, and any OM corrections surfaced during the month.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FP&A -->
+    <div class="sub-panel" id="sub-fpa">
+      <div class="deliverable-list">
+        <div class="d-item">
+          <div class="d-status">🔄</div>
+          <div class="d-info">
+            <div class="d-title">Vol Ramp Assumptions Alignment <span class="tag ip">In Progress</span></div>
+            <div class="d-desc">Sales Finance and FP&A aligning on Vol Ramp assumptions for the ARR forecasting model. New SFDC report built by Matt to track ATR by deal type shared in #sales-finance.</div>
+          </div>
+        </div>
+        <div class="d-item">
+          <div class="d-status">🔄</div>
+          <div class="d-info">
+            <div class="d-title">Consumption Monitoring Forward-Looking Model <span class="tag ip">AI Week</span></div>
+            <div class="d-desc">FP&A focus area for AI Week — predicting overage scenarios before they happen. Feeds into the G&A Consumption Monitoring Agent being built by Kareem's team.</div>
+          </div>
+        </div>
+        <div class="d-item">
+          <div class="d-status">🔄</div>
+          <div class="d-info">
+            <div class="d-title">H1 Financial Model Review <span class="tag ip">In Progress</span></div>
+            <div class="d-desc">Reviewed in Sales Finance Weekly (Apr 7). OM Booking process improvements flagged as high priority impact area for Q2 H1 projections.</div>
+          </div>
+        </div>
+        <div class="d-item">
+          <div class="d-status">⏳</div>
+          <div class="d-info">
+            <div class="d-title">Q2 Offsite Planning <span class="tag planning">Planning</span></div>
+            <div class="d-desc">Katie leading logistics for Q2 team offsite. Kareem to confirm availability and any AI Week deliverable presentations.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ MEETING NOTES ══ -->
+  <div class="tab-panel" id="tab-notes">
+    <h2 style="margin-bottom:6px">📝 Meeting Notes</h2>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px">Auto-generated at 8AM daily via Work Bud. Click any note to expand.</p>
+
+    <div class="notes-grid">
+
+      <div class="note-card">
+        <div class="note-header" onclick="toggleNote(this)">
+          <div>
+            <h3>Sales Finance Weekly</h3>
+            <div class="note-date">Apr 7, 2026 &nbsp;·&nbsp; <span class="note-tag">💼 SF Weekly</span></div>
+          </div>
+          <span>▼</span>
+        </div>
+        <div class="note-body">
+          <ul>
+            <li><strong>Q2 pipeline review:</strong> ARR projections holding, slight softness in mid-market</li>
+            <li><strong>ATR cleanup project:</strong> Vol Ramp review progressing — representative deals reviewed</li>
+            <li><strong>AI Week prep:</strong> G&A consumption monitoring agent assigned to Kareem's team</li>
+            <li><strong>H1 project list reviewed</strong> — OM booking process improvements flagged as high priority for Q2</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-card">
+        <div class="note-header" onclick="toggleNote(this)">
+          <div>
+            <h3>OM Weekly</h3>
+            <div class="note-date">Apr 7, 2026 &nbsp;·&nbsp; <span class="note-tag">⚡ OM Weekly</span></div>
+          </div>
+          <span>▼</span>
+        </div>
+        <div class="note-body">
+          <ul>
+            <li><strong>Case queue health:</strong> 12 cases open, 3 pending SFDC updates from AEs</li>
+            <li><strong>AWS Marketplace deals:</strong> new provisioning workflow being tested</li>
+            <li><strong>ATR correction requests</strong> from Kareem routed through #order-up — team aligned on process</li>
+            <li><strong>PS carve-out documentation</strong> updated; shared in #order-processing</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-card">
+        <div class="note-header" onclick="toggleNote(this)">
+          <div>
+            <h3>Sales Finance Weekly</h3>
+            <div class="note-date">Mar 31, 2026 &nbsp;·&nbsp; <span class="note-tag">💼 SF Weekly</span></div>
+          </div>
+          <span>▼</span>
+        </div>
+        <div class="note-body">
+          <ul>
+            <li><strong>Q1 close review:</strong> final ARR numbers being reconciled by accounting</li>
+            <li><strong>Vol Ramp ATR issue first surfaced</strong> — Katie flagged systematic discrepancy across 138 deals</li>
+            <li><strong>Kareem assigned</strong> to lead cleanup and document process for future prevention</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-card">
+        <div class="note-header" onclick="toggleNote(this)">
+          <div>
+            <h3>OM Weekly</h3>
+            <div class="note-date">Mar 31, 2026 &nbsp;·&nbsp; <span class="note-tag">⚡ OM Weekly</span></div>
+          </div>
+          <span>▼</span>
+        </div>
+        <div class="note-body">
+          <ul>
+            <li><strong>Booking backlog cleared</strong> for Q1 close period</li>
+            <li><strong>Reseller deal type classification rules</strong> updated — check #order-processing for new guidance</li>
+            <li><strong>Post-close verification workflow</strong> timing tightened to 48 hours</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-card">
+        <div class="note-header" onclick="toggleNote(this)">
+          <div>
+            <h3>Sales Finance Weekly</h3>
+            <div class="note-date">Mar 24, 2026 &nbsp;·&nbsp; <span class="note-tag">💼 SF Weekly</span></div>
+          </div>
+          <span>▼</span>
+        </div>
+        <div class="note-body">
+          <ul>
+            <li><strong>Offsite planning kick-off:</strong> Katie leading logistics for Q2 team offsite</li>
+            <li><strong>ARR forecasting model review:</strong> Sales Finance aligning with FP&A on Vol Ramp assumptions</li>
+            <li><strong>New SFDC report</strong> built to track ATR by deal type — shared by Matt in #sales-finance</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-card">
+        <div class="note-header" onclick="toggleNote(this)">
+          <div>
+            <h3>OM Weekly</h3>
+            <div class="note-date">Mar 24, 2026 &nbsp;·&nbsp; <span class="note-tag">⚡ OM Weekly</span></div>
+          </div>
+          <span>▼</span>
+        </div>
+        <div class="note-body">
+          <ul>
+            <li><strong>OM team onboarding</strong> new member to help with booking volume</li>
+            <li><strong>Deal routing for AWS Marketplace:</strong> AEs now need to tag cases with channel type in SFDC</li>
+            <li><strong>Close date logic reminder</strong> shared — common error: back-dated deals</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-card">
+        <div class="note-header" onclick="toggleNote(this)">
+          <div>
+            <h3>Sales Finance Weekly</h3>
+            <div class="note-date">Mar 17, 2026 &nbsp;·&nbsp; <span class="note-tag">💼 SF Weekly</span></div>
+          </div>
+          <span>▼</span>
+        </div>
+        <div class="note-body">
+          <ul>
+            <li><strong>Q1 pipeline review:</strong> slight push-outs in enterprise, within forecast range</li>
+            <li><strong>ATR data quality flagged</strong> as ongoing issue — Vol Ramp deals disproportionately affected</li>
+            <li><strong>Team intro:</strong> Kareem Powell introduced as new Sales Finance intern supporting ATR and OM</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="note-card">
+        <div class="note-header" onclick="toggleNote(this)">
+          <div>
+            <h3>OM Weekly</h3>
+            <div class="note-date">Mar 17, 2026 &nbsp;·&nbsp; <span class="note-tag">⚡ OM Weekly</span></div>
+          </div>
+          <span>▼</span>
+        </div>
+        <div class="note-body">
+          <ul>
+            <li><strong>PS carve-out handling reminder:</strong> all PS components must be booked separately from subscription ACV</li>
+            <li><strong>NetSuite integration:</strong> new product code structure live — OM team briefed</li>
+            <li><strong>Santosh Sikha</strong> shared updated ATR quote logic documentation in #order-up</li>
+          </ul>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ══ OM UNIVERSE ══ -->
+  <div class="tab-panel" id="tab-om">
+    <h2 style="margin-bottom:6px">🌌 OM Universe</h2>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:24px">The full picture of Order Management — processes, people, docs, and how it all connects to Sales Finance.</p>
+
+    <div class="om-section">
+      <h3>📚 Core Documentation</h3>
+      <div class="resource-grid">
+        <a class="resource-card" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit?tab=t.0" target="_blank">
+          <div class="r-title">OM Onboarding Guide</div>
+          <div class="r-desc">Full onboarding doc covering role, Amplitude goals, Salesforce/ARR/ATR, and metrics</div>
+          <div class="r-source">Google Docs</div>
+        </a>
+        <a class="resource-card" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0#heading=h.wc55ym5tat6e" target="_blank">
+          <div class="r-title">Deliverables & Projects</div>
+          <div class="r-desc">H1 project list, OKRs, and key deliverables across Sales Finance</div>
+          <div class="r-source">Google Docs</div>
+        </a>
+        <a class="resource-card" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">
+          <div class="r-title">H1 Projects & Tracking Sheet</div>
+          <div class="r-desc">Live tracker for all H1 initiatives, owners, and statuses</div>
+          <div class="r-source">Google Sheets</div>
+        </a>
+        <a class="resource-card" href="bookings.html">
+          <div class="r-title">OM Booking Checker</div>
+          <div class="r-desc">Dorothy's booking checklist — adapted for Kareem's daily deal review</div>
+          <div class="r-source">Work Bud Tool</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="om-section">
+      <h3>⚡ Salesforce Resources</h3>
+      <div class="resource-grid">
+        <a class="resource-card" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
+          <div class="r-title">OM Case Queue</div>
+          <div class="r-desc">Live SFDC case queue — all open OM cases</div>
+          <div class="r-source">Salesforce</div>
+        </a>
+        <a class="resource-card" href="https://amplitude.lightning.force.com" target="_blank">
+          <div class="r-title">SFDC Main</div>
+          <div class="r-desc">Amplitude Salesforce — deals, contracts, accounts</div>
+          <div class="r-source">Salesforce</div>
+        </a>
+      </div>
+    </div>
+
+    <div class="om-section">
+      <h3>📡 Key Slack Channels</h3>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <div class="r-title">#order-up</div>
+          <div class="r-desc">Deal validation, ATR corrections, booking confirmations. Kareem's primary working channel.</div>
+          <div class="r-source">Slack</div>
+        </div>
+        <div class="resource-card">
+          <div class="r-title">#order-processing</div>
+          <div class="r-desc">Reseller rules, AWS Marketplace workflow, deal routing guidance</div>
+          <div class="r-source">Slack</div>
+        </div>
+        <div class="resource-card">
+          <div class="r-title">#sales-finance</div>
+          <div class="r-desc">ARR updates, SFDC reports, SF team communication</div>
+          <div class="r-source">Slack</div>
+        </div>
+        <div class="resource-card">
+          <div class="r-title">#deal-defenders</div>
+          <div class="r-desc">Complex deal structures, opt-out clauses, renewal edge cases</div>
+          <div class="r-source">Slack</div>
+        </div>
+        <div class="resource-card">
+          <div class="r-title">#legal-dealdesk</div>
+          <div class="r-desc">Termination rights, legal routing for paid POCs and complex OFs</div>
+          <div class="r-source">Slack</div>
+        </div>
+        <div class="resource-card">
+          <div class="r-title">#ai-week-april-2026</div>
+          <div class="r-desc">AI Week initiative — consumption monitoring agent, Lovable/Railway builds</div>
+          <div class="r-source">Slack</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="om-section">
+      <h3>👥 Key Contacts</h3>
+      <div class="resource-grid">
+        <div class="resource-card">
+          <div class="r-title">Matt Murray</div>
+          <div class="r-desc">Manager — Sales Finance. Primary point of contact for deal approvals, ATR strategy, and project guidance.</div>
+        </div>
+        <div class="resource-card">
+          <div class="r-title">Katie Helie</div>
+          <div class="r-desc">Sales Finance — flagged the Vol Ramp ATR discrepancy. Q2 offsite lead.</div>
+        </div>
+        <div class="resource-card">
+          <div class="r-title">KaBoth Vu</div>
+          <div class="r-desc">OM team — trusted Kareem to CW independently. Proactively escalated SFDC permissions issue.</div>
+        </div>
+        <div class="resource-card">
+          <div class="r-title">Kyle Helstad</div>
+          <div class="r-desc">Approved OM profile access for Kareem. Point of contact for SFDC permissions and Snowflake access.</div>
+        </div>
+        <div class="resource-card">
+          <div class="r-title">Dorothy Narvaez</div>
+          <div class="r-desc">Shared personal OM Quick Booking Checklist proactively. Go-to for booking process questions.</div>
+        </div>
+        <div class="resource-card">
+          <div class="r-title">Anil Kumar / Santosh Sikha</div>
+          <div class="r-desc">OM team — deal structuring, ATR quote logic, complex order form questions.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══ POSITIVE CALL-OUTS ══ -->
+  <div class="tab-panel" id="tab-callouts">
+    <h2 style="margin-bottom:6px">🌟 Positive Call-Outs</h2>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px">Since inception — what people have said and shown about Kareem's work. These are real recognition moments, not just mentions.</p>
+
+    <div class="callout-card">
+      <div class="callout-from">Matt Murray</div>
+      <div class="callout-channel">Group DM — Kyle + Matt + Kareem</div>
+      <div class="callout-quote">"you have a good/strange ability to find the complicated OFs"</div>
+      <div class="callout-why">Matt didn't just validate a task — he called out a rare instinct. Finding complex opt-out deals that others miss isn't a skill you're taught; it's pattern recognition that takes time to develop. Matt saw it in Kareem immediately and named it directly. That's real recognition from the person who matters most on the team.</div>
+    </div>
+
+    <div class="callout-card">
+      <div class="callout-from">KaBoth Vu</div>
+      <div class="callout-channel">#order-up + direct action</div>
+      <div class="callout-quote">"deal is good then... You are good to CW"</div>
+      <div class="callout-why">KB trusted Kareem to Close Won a deal independently — no handholding, no second-guessing. Beyond that, KB escalated Kareem's SFDC permissions issue to Matt and Kyle without being asked. That's a teammate going out of their way because they see someone worth backing.</div>
+    </div>
+
+    <div class="callout-card">
+      <div class="callout-from">Alex Breen</div>
+      <div class="callout-channel">Group DM — Kyle + Matt + Kerwin + Kareem</div>
+      <div class="callout-quote">"Didn't want to mess with anything you were doing Kareem"</div>
+      <div class="callout-why">Alex created a new tab rather than editing Kareem's ATR export sheet directly. That's not small — it means Alex looked at Kareem's work, respected it enough not to touch it, and worked around it. Kareem's output was treated as the source of truth by a peer.</div>
+    </div>
+
+    <div class="callout-card">
+      <div class="callout-from">Dorothy Narvaez</div>
+      <div class="callout-channel">Direct DM</div>
+      <div class="callout-quote">"I made this for myself... I didn't want to miss anything"</div>
+      <div class="callout-why">Dorothy shared her personal OM Quick Booking Checklist unprompted — a resource she built for herself. She chose Kareem as someone to pass it to. That's the kind of trust you can't manufacture: a senior teammate investing in your success because they see it's worth the investment.</div>
+    </div>
+
+    <div class="callout-card">
+      <div class="callout-from">Allison Clarke</div>
+      <div class="callout-channel">#cfo-ai</div>
+      <div class="callout-quote">Personally pinged with AI Week updates and tool access info</div>
+      <div class="callout-why">Allison proactively made sure Kareem had Granola approval and Gemini access for AI Week — keeping him included and set up when she didn't have to. Being personally kept in the loop by someone senior means you're seen as a contributor worth looping in, not just a new hire to onboard.</div>
+    </div>
+
+    <div class="callout-card">
+      <div class="callout-from">Matt Murray</div>
+      <div class="callout-channel">#order-up</div>
+      <div class="callout-quote">"looks good Kareem!" / "so no action needed, this one looks good"</div>
+      <div class="callout-why">Direct validation from Matt on deal checks. In a team where errors have real revenue implications, hearing "looks good" from your manager isn't routine praise — it's confirmation that your judgment can be trusted on live deals.</div>
+    </div>
+
+  </div>
+
+  <!-- ══ LOVABLE BUILDS ══ -->
+  <div class="tab-panel" id="tab-builds">
+    <h2 style="margin-bottom:6px">🛠️ Lovable Builds</h2>
+    <p style="color:var(--muted);font-size:.88rem;margin-bottom:20px">AI-powered tools and builders being used to build out the OM Universe and AI Week projects.</p>
+
+    <div class="lovable-banner">
+      <div class="lo-icon">💜</div>
+      <div class="lo-info">
+        <h3>Lovable.dev</h3>
+        <p>AI app builder with built-in Supabase cloud DB. Primary tool for building the consumption monitoring agent UI and OM Universe apps.</p>
+      </div>
+      <a class="lo-btn" href="https://lovable.dev" target="_blank">Open Lovable →</a>
+    </div>
+
+    <div class="resource-grid" style="margin-bottom:24px">
+      <a class="resource-card" href="https://lovable.dev" target="_blank">
+        <div class="r-title">💜 Lovable.dev</div>
+        <div class="r-desc">Build full-stack apps with AI. Supabase backend included. Used for consumption monitoring agent frontend.</div>
+        <div class="r-source">AI App Builder</div>
+      </a>
+      <a class="resource-card" href="https://railway.app" target="_blank">
+        <div class="r-title">🚂 Railway</div>
+        <div class="r-desc">Backend/DB hosting. Suggested for the consumption monitoring agent API layer.</div>
+        <div class="r-source">Backend Hosting</div>
+      </a>
+      <a class="resource-card" href="https://gamma.app" target="_blank">
+        <div class="r-title">⚡ Gamma</div>
+        <div class="r-desc">AI presentation builder. Alternative to PowerPoint for Friday offsite deck.</div>
+        <div class="r-source">AI Presentations</div>
+      </a>
+      <a class="resource-card" href="https://console.anthropic.com" target="_blank">
+        <div class="r-title">🤖 Claude API</div>
+        <div class="r-desc">Anthropic's Claude API — core intelligence layer for the consumption monitoring agent.</div>
+        <div class="r-source">AI API</div>
+      </a>
+      <a class="resource-card" href="https://github.com/kareem-powell/tools" target="_blank">
+        <div class="r-title">🐙 GitHub — tools repo</div>
+        <div class="r-desc">Work Bud and OM tools live here. Deployed via GitHub Pages.</div>
+        <div class="r-source">kareem-powell/tools</div>
+      </a>
+      <a class="resource-card" href="https://app.granola.so" target="_blank">
+        <div class="r-title">📓 Granola</div>
+        <div class="r-desc">AI meeting notes tool. Allison got Kareem approved for access during AI Week.</div>
+        <div class="r-source">AI Meeting Notes</div>
+      </a>
+    </div>
+
+    <hr>
+    <h3 style="font-size:1rem;margin-bottom:14px">🔮 Build Ideas — OM Universe</h3>
+    <div class="resource-grid">
+      <div class="resource-card">
+        <div class="r-title">ATR Correction Tracker</div>
+        <div class="r-desc">Lovable app to track Vol Ramp deal corrections — status, AE owner, and correction amount per deal.</div>
+        <div class="r-source">Build idea</div>
+      </div>
+      <div class="resource-card">
+        <div class="r-title">Deal Complexity Classifier</div>
+        <div class="r-desc">Claude-powered tool that flags complex OFs (opt-out clauses, ramps, PS carve-outs) from SFDC data.</div>
+        <div class="r-source">Build idea</div>
+      </div>
+      <div class="resource-card">
+        <div class="r-title">Booking Health Dashboard</div>
+        <div class="r-desc">Real-time view of case queue health, pending AE updates, and OM throughput — connected to SFDC.</div>
+        <div class="r-source">Build idea</div>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  const WB_PW = 'kareemPOWELL';
+
+  function checkPw() {
+    const v = document.getElementById('pw-input').value;
+    if (v === WB_PW) {
+      document.getElementById('pw-gate').style.display = 'none';
+    } else {
+      document.getElementById('pw-err').style.display = 'block';
+    }
+  }
+
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function switchSub(id, btn) {
+    document.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sub-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('sub-' + id).classList.add('active');
+    btn.classList.add('active');
+  }
+
+  function toggleNote(header) {
+    const body = header.nextElementSibling;
+    body.classList.toggle('open');
+    header.querySelector('span:last-child').textContent = body.classList.contains('open') ? '▲' : '▼';
+  }
+</script>
+</body>
+</html>

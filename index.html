@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AMPL — O.M. Suite 🏢</title>
+  <style>
+    :root {
+      --bg: #0e1117;
+      --surface: #161b22;
+      --surface2: #1c2230;
+      --border: #30363d;
+      --accent: #7c5cfc;
+      --accent2: #a78bfa;
+      --green: #3fb950;
+      --yellow: #e3b341;
+      --red: #f85149;
+      --blue: #58a6ff;
+      --text: #e6edf3;
+      --muted: #8b949e;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ─────────────────────────────────────
+       BUILDING HEADER / EXTERIOR
+    ───────────────────────────────────── */
+    .building-header {
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 10px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .building-address {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .building-address .floor-tag {
+      font-size: .72rem;
+      color: var(--muted);
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 3px 8px;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    .building-address .address-text {
+      font-size: .82rem;
+      color: var(--muted);
+    }
+
+    .building-address .address-text strong {
+      color: var(--text);
+    }
+
+    .status-pill {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: .8rem;
+      color: var(--muted);
+    }
+
+    .status-pill .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: .4; }
+    }
+
+    /* ─────────────────────────────────────
+       HERO / LOBBY
+    ───────────────────────────────────── */
+    .hero {
+      padding: 80px 32px 64px;
+      text-align: center;
+      background: radial-gradient(ellipse at 50% 0%, #7c5cfc1a 0%, transparent 65%);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .suite-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .78rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--accent2);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: 3.4rem;
+      font-weight: 800;
+      letter-spacing: -.04em;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .hero h1 .ampl {
+      color: var(--text);
+    }
+
+    .hero h1 .suite {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 480px;
+      margin: 0 auto 40px;
+      line-height: 1.75;
+    }
+
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary {
+      padding: 13px 32px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: .95rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background .15s;
+      letter-spacing: .01em;
+    }
+
+    .btn-primary:hover { background: var(--accent2); }
+
+    .btn-secondary {
+      padding: 13px 32px;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      font-size: .95rem;
+      font-weight: 500;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all .15s;
+    }
+
+    .btn-secondary:hover { border-color: var(--accent); background: var(--surface); }
+
+    /* ─────────────────────────────────────
+       STATUS BAR
+    ───────────────────────────────────── */
+    .status-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 32px 0;
+      width: 100%;
+    }
+
+    .section-label {
+      font-size: .72rem;
+      font-weight: 600;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .status-bar {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+    }
+
+    .status-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 20px 22px;
+    }
+
+    .status-item .s-label {
+      font-size: .76rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: .04em;
+      margin-bottom: 8px;
+    }
+
+    .status-item .s-val {
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+
+    .s-val.green { color: var(--green); }
+    .s-val.yellow { color: var(--yellow); }
+    .s-val.blue { color: var(--blue); }
+    .s-val.purple { color: var(--accent2); }
+
+    /* ─────────────────────────────────────
+       CARDS SECTIONS
+    ───────────────────────────────────── */
+    .cards-section {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 48px 32px;
+      width: 100%;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+      text-decoration: none;
+      color: var(--text);
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      transition: all .2s;
+    }
+
+    .card:hover {
+      border-color: var(--accent);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 28px rgba(124, 92, 252, .12);
+    }
+
+    .card-icon {
+      font-size: 1.9rem;
+      margin-bottom: 16px;
+    }
+
+    .card h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      line-height: 1.3;
+    }
+
+    .card p {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.65;
+      flex: 1;
+    }
+
+    .card-tag {
+      display: inline-block;
+      margin-top: 18px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: .72rem;
+      font-weight: 600;
+      align-self: flex-start;
+    }
+
+    .card-tag.live     { background: rgba(63,185,80,.15);  color: var(--green); }
+    .card-tag.active   { background: rgba(88,166,255,.15); color: var(--blue); }
+    .card-tag.ai       { background: rgba(124,92,252,.2);  color: var(--accent2); }
+    .card-tag.resource { background: rgba(139,148,158,.1); color: var(--muted); }
+
+    /* ─────────────────────────────────────
+       DIVIDER
+    ───────────────────────────────────── */
+    .section-divider {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 0 32px;
+      border-top: 1px solid var(--border);
+    }
+
+    /* ─────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────── */
+    footer {
+      margin-top: auto;
+      padding: 28px 32px;
+      text-align: center;
+      color: var(--muted);
+      font-size: .8rem;
+      border-top: 1px solid var(--border);
+      line-height: 2;
+    }
+
+    footer a {
+      color: var(--accent2);
+      text-decoration: none;
+    }
+
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+  <!-- ── BUILDING HEADER ── -->
+  <div class="building-header">
+    <div class="building-address">
+      <span class="floor-tag">Floor 1</span>
+      <span class="address-text">
+        <strong>AMPL — Order Management (O.M.) Suite</strong> &nbsp;·&nbsp; Work Bud's Office
+      </span>
+    </div>
+    <div class="status-pill">
+      <span class="dot"></span>
+      Work Bud running · 9AM &amp; 4:30PM
+    </div>
+  </div>
+
+  <!-- ── LOBBY / HERO ── -->
+  <div class="hero">
+    <div class="suite-label">🏢 Amplitude · Sales Finance · Order Management</div>
+    <h1>
+      <span class="ampl">AMPL</span> — <span class="suite">Order Management</span><br>
+      <span class="suite">(O.M.) Suite</span>
+    </h1>
+    <p>
+      Work Bud's office. The place where deals get reviewed, ATR gets corrected,
+      and every booking flows through. Step inside.
+    </p>
+    <div class="hero-actions">
+      <a class="btn-primary" href="workbud.html">Enter Work Bud 🤙</a>
+      <a class="btn-secondary" href="bookings.html">Booking Checker</a>
+    </div>
+  </div>
+
+  <!-- ── STATUS BAR ── -->
+  <div class="status-section">
+    <div class="section-label">Suite Status</div>
+    <div class="status-bar">
+      <div class="status-item">
+        <div class="s-label">Vol Ramp Progress</div>
+        <div class="s-val yellow">~60%</div>
+      </div>
+      <div class="status-item">
+        <div class="s-label">Renewals This Month</div>
+        <div class="s-val blue">25+</div>
+      </div>
+      <div class="status-item">
+        <div class="s-label">AI Week Project</div>
+        <div class="s-val purple">Active</div>
+      </div>
+      <div class="status-item">
+        <div class="s-label">Work Bud</div>
+        <div class="s-val green">Live ✓</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── TOOLS ── -->
+  <div class="cards-section">
+    <div class="section-label">Your Tools</div>
+    <div class="cards">
+
+      <a class="card" href="workbud.html">
+        <div class="card-icon">🤙</div>
+        <h3>Work Bud</h3>
+        <p>
+          The full OM ops center — deliverables, meeting notes, positive call-outs,
+          the OM Universe, and Lovable builds. Work Bud lives here.
+        </p>
+        <span class="card-tag live">Live</span>
+      </a>
+
+      <a class="card" href="bookings.html">
+        <div class="card-icon">🔍</div>
+        <h3>Booking Checker</h3>
+        <p>
+          Deal review tool for validating bookings against Dorothy's checklist.
+          Built for the OM team's daily booking flow.
+        </p>
+        <span class="card-tag live">Live</span>
+      </a>
+
+      <a class="card" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
+        <div class="card-icon">⚡</div>
+        <h3>OM Case Queue</h3>
+        <p>
+          Live Salesforce case queue — open cases, pending AE updates,
+          and deal corrections all in one place.
+        </p>
+        <span class="card-tag active">Salesforce</span>
+      </a>
+
+      <a class="card" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">
+        <div class="card-icon">📊</div>
+        <h3>H1 Projects &amp; Tracking</h3>
+        <p>
+          The official H1 initiative tracker — Vol Ramp cleanup, OM booking improvements,
+          and AI Week deliverables.
+        </p>
+        <span class="card-tag active">Google Sheets</span>
+      </a>
+
+      <a class="card" href="https://lovable.dev" target="_blank">
+        <div class="card-icon">💜</div>
+        <h3>Lovable.dev</h3>
+        <p>
+          AI app builder powering the consumption monitoring agent. Supabase backend
+          included. Primary tool for building out the OM Universe.
+        </p>
+        <span class="card-tag ai">AI Builder</span>
+      </a>
+
+      <a class="card" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit?tab=t.0" target="_blank">
+        <div class="card-icon">🎓</div>
+        <h3>OM Onboarding Guide</h3>
+        <p>
+          Full onboarding doc — role definition, Amplitude goals, SFDC/ARR/ATR
+          explanations, and team context.
+        </p>
+        <span class="card-tag active">Google Docs</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ── DIVIDER ── -->
+  <div class="section-divider"></div>
+
+  <!-- ── RESOURCES ── -->
+  <div class="cards-section">
+    <div class="section-label">Resources</div>
+    <div class="cards">
+
+      <a class="card" href="https://drive.google.com/drive/folders/0AIH8MNQ95VLhUk9PVA" target="_blank">
+        <div class="card-icon">📁</div>
+        <h3>Sales Finance Drive</h3>
+        <p>
+          Team Drive — meeting notes, project docs, templates,
+          and shared resources for the Sales Finance org.
+        </p>
+        <span class="card-tag resource">Google Drive</span>
+      </a>
+
+      <a class="card" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0#heading=h.wc55ym5tat6e" target="_blank">
+        <div class="card-icon">📋</div>
+        <h3>Deliverables Doc</h3>
+        <p>
+          Full breakdown of Sales Finance deliverables, OKRs,
+          and project ownership across the team.
+        </p>
+        <span class="card-tag resource">Google Docs</span>
+      </a>
+
+      <a class="card" href="https://github.com/kareem-powell/tools" target="_blank">
+        <div class="card-icon">🐙</div>
+        <h3>GitHub — tools</h3>
+        <p>
+          Source code for this suite. kareem-powell/tools —
+          deployed and live on GitHub Pages.
+        </p>
+        <span class="card-tag resource">GitHub</span>
+      </a>
+
+    </div>
+  </div>
+
+  <!-- ── FOOTER ── -->
+  <footer>
+    AMPL — Order Management (O.M.) Suite 🏢
+    <br>
+    <a href="workbud.html">Work Bud</a> &nbsp;·&nbsp;
+    <a href="bookings.html">Booking Checker</a> &nbsp;·&nbsp;
+    Built by Kareem Powell · Amplitude Sales Finance
+  </footer>
+
+</body>
+</html>

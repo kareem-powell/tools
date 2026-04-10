@@ -524,29 +524,37 @@
       </a>
     </div>
 
-    <!-- Quick access -->
-    <div class="den-section-label">Quick Access</div>
-    <div class="qlinks">
-      <a class="qlink" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
-        <span class="ql-ico">⚡</span>
-        <div>
-          <div class="ql-title">OM Case Queue</div>
-          <div class="ql-sub">Salesforce · Live</div>
-        </div>
+    <!-- Secondary metrics strip -->
+    <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--ash);border:1px solid var(--ash);border-radius:var(--r);overflow:hidden;margin-bottom:20px;">
+      <div class="stat-cell">
+        <div class="s-label">Vol Ramp Progress</div>
+        <div class="s-val amber" style="font-size:1.4rem;">~60%</div>
+      </div>
+      <div class="stat-cell">
+        <div class="s-label">G&amp;A Overage · Total</div>
+        <div class="s-val" id="gna-overage" style="font-size:1.4rem;color:var(--red);">—</div>
+        <div style="font-family:var(--font-mono);font-size:9px;color:var(--mist);margin-top:4px;letter-spacing:.05em;">Agent in build · AI Week</div>
+      </div>
+      <div class="stat-cell">
+        <div class="s-label">Renewals / Mo</div>
+        <div class="s-val blue" style="font-size:1.4rem;">25+</div>
+      </div>
+    </div>
+
+    <!-- Resources -->
+    <div class="den-section-label">Resources</div>
+    <div style="display:flex;flex-direction:column;gap:1px;background:var(--ash);border:1px solid var(--ash);border-radius:var(--r);overflow:hidden;">
+      <a href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank" style="background:var(--bg);padding:11px 16px;display:flex;align-items:center;justify-content:space-between;text-decoration:none;font-size:13.5px;font-weight:500;color:var(--ink2);transition:background .11s;" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background='var(--bg)'">
+        SFDC Case Queue <span style="font-family:var(--font-mono);font-size:10.5px;color:var(--mist);">Salesforce · live</span>
       </a>
-      <a class="qlink" href="bookings.html">
-        <span class="ql-ico">🔍</span>
-        <div>
-          <div class="ql-title">Booking Checker</div>
-          <div class="ql-sub">Deal Validation Tool</div>
-        </div>
+      <a href="bookings.html" style="background:var(--bg);padding:11px 16px;display:flex;align-items:center;justify-content:space-between;text-decoration:none;font-size:13.5px;font-weight:500;color:var(--ink2);transition:background .11s;" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background='var(--bg)'">
+        Booking Checker <span style="font-family:var(--font-mono);font-size:10.5px;color:var(--mist);">Deal validation tool</span>
       </a>
-      <a class="qlink" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit?tab=t.0" target="_blank">
-        <span class="ql-ico">🎓</span>
-        <div>
-          <div class="ql-title">OM Onboarding Guide</div>
-          <div class="ql-sub">Google Docs</div>
-        </div>
+      <a href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit" target="_blank" style="background:var(--bg);padding:11px 16px;display:flex;align-items:center;justify-content:space-between;text-decoration:none;font-size:13.5px;font-weight:500;color:var(--ink2);transition:background .11s;" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background='var(--bg)'">
+        OM Onboarding Guide <span style="font-family:var(--font-mono);font-size:10.5px;color:var(--mist);">Google Docs</span>
+      </a>
+      <a href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank" style="background:var(--bg);padding:11px 16px;display:flex;align-items:center;justify-content:space-between;text-decoration:none;font-size:13.5px;font-weight:500;color:var(--ink2);transition:background .11s;" onmouseover="this.style.background='var(--bg2)'" onmouseout="this.style.background='var(--bg)'">
+        Deliverables · Asana <span style="font-family:var(--font-mono);font-size:10.5px;color:var(--mist);">Project tracker</span>
       </a>
     </div>
 

@@ -131,12 +131,77 @@
     .feat-title { font-size: 14px; font-weight: 700; color: var(--fg); margin-bottom: 5px; }
     .feat-desc { font-size: 13px; color: var(--fg3); line-height: 1.68; }
 
-    /* ── RESOURCES ── */
-    .res-card { border: 1.5px solid var(--bdr); border-radius: var(--r); padding: 20px 22px; text-decoration: none; color: var(--fg); display: block; transition: border-color .14s, background .14s; }
-    .res-card:hover { border-color: var(--bdr2); background: var(--bg2); }
-    .res-label { font-family: var(--mono); font-size: 10.5px; color: var(--fg4); margin-bottom: 9px; }
-    .res-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--fg); }
-    .res-desc { font-size: 13px; color: var(--fg3); line-height: 1.65; }
+    /* ── HOME PANEL ── */
+    .home-panel { padding: 36px 48px; max-width: 1080px; margin: 0 auto; }
+    .home-strip { display: flex; align-items: center; gap: 14px; padding-bottom: 22px; margin-bottom: 22px; border-bottom: 1px solid var(--bdr); }
+    .home-kp { width: 38px; height: 38px; border-radius: 50%; background: var(--fg); color: #fff; font-size: 12px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .home-brand-name { font-size: 15px; font-weight: 700; color: var(--fg); }
+    .home-brand-sub { font-family: var(--mono); font-size: 11px; color: var(--fg4); margin-top: 2px; }
+    .home-prio-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 12px; }
+    .hp-card { border-radius: var(--r); padding: 22px 24px; display: flex; flex-direction: column; text-decoration: none; transition: opacity .13s; }
+    .hp-card:hover { opacity: .86; }
+    .hp-dark { background: var(--fg); color: #fff; }
+    .hp-light { background: var(--bg2); border: 1.5px solid var(--bdr); color: var(--fg); }
+    .hp-badge { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; opacity: .55; margin-bottom: 10px; }
+    .hp-count { font-size: 42px; font-weight: 800; letter-spacing: -.04em; line-height: 1; margin-bottom: 6px; }
+    .hp-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .hp-desc { font-size: 13px; line-height: 1.65; opacity: .68; flex: 1; }
+    .hp-light .hp-desc { color: var(--fg3); opacity: 1; }
+    .hp-foot { font-family: var(--mono); font-size: 11px; margin-top: 16px; opacity: .5; }
+    .dept-nav { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--bdr); border: 1.5px solid var(--bdr); border-radius: var(--r); overflow: hidden; }
+    .dept-tile { background: var(--bg); padding: 16px 20px; border: none; cursor: pointer; text-align: left; font-family: var(--font); transition: background .12s; }
+    .dept-tile:hover { background: var(--bg2); }
+    .dt-label { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg4); margin-bottom: 6px; }
+    .dt-title { font-size: 14px; font-weight: 700; color: var(--fg); margin-bottom: 3px; }
+    .dt-desc { font-size: 12.5px; color: var(--fg3); line-height: 1.5; }
+
+    /* ── DEPT SNAPSHOT ── */
+    .snap-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(130px, 1fr)); gap: 1px; background: var(--bdr); border: 1.5px solid var(--bdr); border-radius: var(--r); overflow: hidden; margin-bottom: 36px; }
+    .snap-cell { background: var(--bg); padding: 18px 20px; }
+    .snap-label { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg4); margin-bottom: 7px; }
+    .snap-val { font-size: 28px; font-weight: 800; letter-spacing: -.03em; color: var(--fg); line-height: 1; }
+    .snap-val.green { color: var(--green); }
+    .snap-val.amber { color: var(--amber); }
+    .snap-val.blue  { color: var(--acc); }
+
+    /* ── IN FLIGHT ── */
+    .section-micro { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg4); margin-bottom: 14px; }
+    .inflight-list { display: flex; flex-direction: column; gap: 1px; background: var(--bdr); border: 1.5px solid var(--bdr); border-radius: var(--r); overflow: hidden; margin-bottom: 36px; }
+    .if-item { background: var(--bg); padding: 15px 18px; display: flex; align-items: flex-start; gap: 12px; }
+    .if-dot { width: 7px; height: 7px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
+    .if-dot.green { background: var(--green); }
+    .if-dot.amber { background: var(--amber); }
+    .if-dot.blue  { background: var(--acc); }
+    .if-dot.gray  { background: var(--fg4); }
+    .if-body { flex: 1; }
+    .if-title { font-size: 13.5px; font-weight: 600; color: var(--fg); margin-bottom: 3px; line-height: 1.35; }
+    .if-desc { font-size: 13px; color: var(--fg3); line-height: 1.6; }
+    .if-tag { font-family: var(--mono); font-size: 10px; color: var(--fg4); margin-top: 4px; letter-spacing: .04em; }
+
+    /* ── RESOURCES (de-emphasized) ── */
+    .res-section { padding-top: 28px; border-top: 1px solid var(--bdr); }
+    .res-links { display: flex; flex-direction: column; gap: 1px; background: var(--bdr); border: 1px solid var(--bdr); border-radius: 8px; overflow: hidden; }
+    .res-link { background: var(--bg); padding: 11px 16px; text-decoration: none; color: var(--fg2); display: flex; align-items: center; justify-content: space-between; font-size: 13.5px; font-weight: 500; transition: background .11s; }
+    .res-link:hover { background: var(--bg2); }
+    .res-link-meta { font-family: var(--mono); font-size: 10.5px; color: var(--fg4); }
+
+    /* ── COWORK STATUS BLOCK ── */
+    .cowork-block { background: var(--bg2); border: 1.5px solid var(--bdr); border-radius: var(--r); padding: 20px 24px; margin-bottom: 36px; }
+    .cb-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
+    .cb-label { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg4); }
+    .cb-date { font-family: var(--mono); font-size: 10px; color: var(--fg4); }
+    .cb-body { font-size: 13.5px; color: var(--fg3); line-height: 1.75; }
+    .cb-body strong { color: var(--fg2); font-weight: 600; }
+
+    /* ── ECOSYSTEM FLOW (OM) ── */
+    .eco-wrap { display: grid; grid-template-columns: 1fr 120px 1fr; gap: 0; align-items: center; background: var(--bg2); border: 1.5px solid var(--bdr); border-radius: var(--r); padding: 24px 28px; margin-bottom: 36px; }
+    .eco-col-head { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg4); margin-bottom: 10px; }
+    .eco-nodes { display: flex; flex-direction: column; gap: 5px; }
+    .eco-node { background: var(--bg); border: 1.5px solid var(--bdr); border-radius: 7px; padding: 8px 12px; font-size: 12.5px; font-weight: 500; color: var(--fg2); text-align: center; }
+    .eco-center { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 0 12px; }
+    .eco-arrow { font-size: 18px; color: var(--fg4); }
+    .eco-arrow-label { font-family: var(--mono); font-size: 9px; color: var(--fg4); letter-spacing: .06em; text-align: center; }
+    .eco-om { background: var(--fg); color: #fff; border-radius: 8px; padding: 12px 14px; font-size: 13px; font-weight: 700; text-align: center; white-space: nowrap; }
   </style>
 </head>
 <body>
@@ -172,27 +237,65 @@
   <div class="suite-chrome">
     <a class="sc-brand" href="index.html">House of O.M.</a>
     <div class="sc-tabs">
-      <button class="sc-tab active" id="t-home"      onclick="go('home',this)">Home</button>
-      <button class="sc-tab"        id="t-om"        onclick="go('om',this)">Order Management</button>
-      <button class="sc-tab"        id="t-sf"        onclick="go('sf',this)">Sales Finance</button>
-      <button class="sc-tab"        id="t-acct"      onclick="go('acct',this)">Accounting</button>
+      <button class="sc-tab active" id="t-home" onclick="go('home',this)">Home</button>
+      <button class="sc-tab"        id="t-sf"   onclick="go('sf',this)">Sales Finance</button>
+      <button class="sc-tab"        id="t-acct" onclick="go('acct',this)">Accounting</button>
+      <button class="sc-tab"        id="t-om"   onclick="go('om',this)">Order Management</button>
       <a      class="sc-tab"        href="workbud.html">Work Bud</a>
-      <button class="sc-tab"        id="t-resources" onclick="go('resources',this)">Resources</button>
     </div>
     <div class="sc-live"><span class="sc-dot"></span> live</div>
   </div>
 
   <!-- HOME -->
   <div class="pane active" id="p-home">
-    <div class="home-wrap">
-      <div class="home-eyebrow">Amplitude · Sales Finance · Order Management</div>
-      <div class="home-title">House of O.M..</div>
-      <p class="home-sub">The tools, resources, and references for the Amplitude Order Management and Sales Finance team — organized by department, built for the work.</p>
-      <div class="home-actions">
-        <a class="btn btn-dark" href="bookings.html">Booking Checker</a>
-        <a class="btn btn-out"  href="workbud.html">Work Bud</a>
-        <a class="btn btn-ghost" href="https://github.com/kareem-powell/tools" target="_blank">github ↗</a>
+    <div class="home-panel">
+
+      <!-- Brand strip -->
+      <div class="home-strip">
+        <div class="home-kp">KP</div>
+        <div>
+          <div class="home-brand-name">House of O.M.</div>
+          <div class="home-brand-sub">Amplitude · Sales Finance · Order Management</div>
+        </div>
       </div>
+
+      <!-- Priority grid -->
+      <div class="home-prio-grid">
+        <a class="hp-card hp-dark" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
+          <div class="hp-badge">ATR Queue · Primary Focus</div>
+          <div class="hp-count">5</div>
+          <div class="hp-title">ATR Cases</div>
+          <div class="hp-desc">Vol Ramp ATR cleanup — contract ACV validation and open exception resolution. The highest-value work in the queue right now.</div>
+          <div class="hp-foot">Salesforce Case Queue →</div>
+        </a>
+        <a class="hp-card hp-light" href="bookings.html">
+          <div class="hp-badge">Active Bookings</div>
+          <div class="hp-count">1</div>
+          <div class="hp-title">Booking</div>
+          <div class="hp-desc">Active deal to validate through the booking checklist.</div>
+          <div class="hp-foot">Booking Checker →</div>
+        </a>
+      </div>
+
+      <!-- Dept nav -->
+      <div class="dept-nav">
+        <button class="dept-tile" onclick="go('om', document.getElementById('t-om'))">
+          <div class="dt-label">Dept</div>
+          <div class="dt-title">Order Management</div>
+          <div class="dt-desc">Cases, ATRs, bookings, and the OM ecosystem</div>
+        </button>
+        <button class="dept-tile" onclick="go('sf', document.getElementById('t-sf'))">
+          <div class="dt-label">Dept</div>
+          <div class="dt-title">Sales Finance</div>
+          <div class="dt-desc">FP&amp;A, deal economics, and revenue integrity</div>
+        </button>
+        <button class="dept-tile" onclick="go('acct', document.getElementById('t-acct'))">
+          <div class="dt-label">Dept</div>
+          <div class="dt-title">Accounting</div>
+          <div class="dt-desc">Downstream impact, overages, and RevRec</div>
+        </button>
+      </div>
+
     </div>
   </div>
 
@@ -200,70 +303,122 @@
   <div class="pane" id="p-om">
     <div class="inner">
 
-      <div class="primer">
-        <div>
-          <div class="primer-label">At a Glance · For the Uninitiated</div>
-          <div class="primer-title">What is Order Management?</div>
-          <p class="primer-body">Every deal Amplitude's sales team closes flows through Order Management before it's recognized as revenue. OM validates that deals are structured correctly — right ARR, right deal type, right billing terms — and processes any corrections before the deal books. When a booking is wrong, it creates a case. These tools exist so that doesn't happen.</p>
-        </div>
-        <div class="deal-flow">
-          <div class="df-step">AE Submits</div>
-          <div class="df-arrow">↓</div>
-          <div class="df-step">OM Validates</div>
-          <div class="df-arrow">↓</div>
-          <div class="df-step">Revenue Books</div>
-        </div>
-      </div>
-
       <div class="sec-head">
-        <div class="sec-label">Planning Context · FP&amp;A</div>
-        <div class="sec-title">Quarterly Planning &amp; Tracking</div>
-        <p class="sec-desc">The org-wide view of what Sales Finance is delivering this half — priorities, ownership, and accountability mapped to Amplitude's financial goals.</p>
-      </div>
-      <div class="card-grid">
-        <a class="tool-card" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">
-          <div class="tc-tag">Google Sheets · H1</div>
-          <div class="tc-icon">📊</div>
-          <div class="tc-title">H1 Projects &amp; Tracking</div>
-          <div class="tc-desc">H1 initiative tracker for Sales Finance. Covers Vol Ramp ATR cleanup, OM booking improvements, AI Week deliverables, and project ownership across the team.</div>
-          <div class="tc-foot"><span class="tc-dot dot-blue"></span> Google Sheets</div>
-        </a>
-        <a class="tool-card" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0#heading=h.wc55ym5tat6e" target="_blank">
-          <div class="tc-tag">Google Docs · OKRs</div>
-          <div class="tc-icon">📋</div>
-          <div class="tc-title">Deliverables Doc</div>
-          <div class="tc-desc">Full breakdown of Sales Finance deliverables, OKRs, and project ownership mapped to Amplitude's goals — the definitive reference for what the team owns this half.</div>
-          <div class="tc-foot"><span class="tc-dot dot-gray"></span> Google Docs</div>
-        </a>
+        <div class="sec-label">Function · Revenue Operations</div>
+        <div class="sec-title">Order Management</div>
+        <p class="sec-desc">OM sits at the center of Amplitude's commercial motion — downstream of Sales and upstream of Finance and Accounting. It validates that every closed deal is correctly structured before revenue is recognized. When OM catches an error first, the company closes faster and cleaner. When it misses one, Accounting inherits the problem.</p>
       </div>
 
-      <div class="sec-head section-gap sec-gap">
-        <div class="sec-label">Team Tools · Daily Use</div>
-        <div class="sec-title">Order Management Tools</div>
-        <p class="sec-desc">Built specifically for OM workflows — catching booking errors before they queue, managing the live case pipeline, and orienting anyone new to the function.</p>
+      <!-- Ecosystem flow: upstream → OM → downstream -->
+      <div class="section-micro" style="margin-bottom:12px;">Amplitude Commercial Ecosystem</div>
+      <div class="eco-wrap">
+        <div>
+          <div class="eco-col-head">Upstream · Submits Deals</div>
+          <div class="eco-nodes">
+            <div class="eco-node">Account Executive · SFDC</div>
+            <div class="eco-node">Deal Desk</div>
+            <div class="eco-node">Channel / Resellers</div>
+            <div class="eco-node">AWS Marketplace</div>
+          </div>
+        </div>
+        <div class="eco-center">
+          <div class="eco-arrow-label">submits</div>
+          <div class="eco-arrow">→</div>
+          <div class="eco-om">Order<br>Management</div>
+          <div class="eco-arrow">→</div>
+          <div class="eco-arrow-label">clean deal</div>
+        </div>
+        <div>
+          <div class="eco-col-head">Downstream · Receives Booking</div>
+          <div class="eco-nodes">
+            <div class="eco-node">Accounting · RevRec</div>
+            <div class="eco-node">Finance · Reporting</div>
+            <div class="eco-node">CSM · Customer Onboarding</div>
+            <div class="eco-node">Billing · Invoicing</div>
+          </div>
+        </div>
       </div>
-      <div class="card-grid">
-        <a class="tool-card" href="bookings.html">
-          <div class="tc-tag">Built for OM · Open Access</div>
-          <div class="tc-icon">🔍</div>
-          <div class="tc-title">Booking Checker</div>
-          <div class="tc-desc">Step-by-step deal validation built from the OM booking checklist. Walk through each required field for Direct, Reseller, and AWS Marketplace deals. Flags issues before they become cases.</div>
-          <div class="tc-foot"><span class="tc-dot dot-green"></span> Live · Open</div>
-        </a>
-        <a class="tool-card" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
-          <div class="tc-tag">Salesforce · Live Queue</div>
-          <div class="tc-icon">⚡</div>
-          <div class="tc-title">OM Case Queue</div>
-          <div class="tc-desc">The live Salesforce OM case queue. All open booking cases, pending AE corrections, and deal escalations — primary daily intake for the Sales Finance team.</div>
-          <div class="tc-foot"><span class="tc-dot dot-blue"></span> Salesforce</div>
-        </a>
-        <a class="tool-card" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit?tab=t.0" target="_blank">
-          <div class="tc-tag">Google Docs · Onboarding</div>
-          <div class="tc-icon">🎓</div>
-          <div class="tc-title">OM Onboarding Guide</div>
-          <div class="tc-desc">The foundational OM reference — SFDC / ARR / ATR explained from first principles, role definition, and team context built from day one.</div>
-          <div class="tc-foot"><span class="tc-dot dot-gray"></span> Google Docs</div>
-        </a>
+
+      <!-- OM validates -->
+      <div class="section-micro">What OM Validates</div>
+      <div class="snap-grid" style="margin-bottom:36px;">
+        <div class="snap-cell">
+          <div class="snap-label">ARR Type</div>
+          <div style="font-size:13px;font-weight:600;color:var(--fg2);margin-top:4px;line-height:1.5;">New · Expansion<br>Renewal</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">Booking Type</div>
+          <div style="font-size:13px;font-weight:600;color:var(--fg2);margin-top:4px;line-height:1.5;">Direct · Reseller<br>AWS Marketplace</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">ATR Compliance</div>
+          <div style="font-size:13px;font-weight:600;color:var(--fg2);margin-top:4px;line-height:1.5;">Contract ACV<br>Vol Ramp checks</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">Deal Structure</div>
+          <div style="font-size:13px;font-weight:600;color:var(--fg2);margin-top:4px;line-height:1.5;">Term · Billing<br>Contract alignment</div>
+        </div>
+      </div>
+
+      <!-- Current snapshot -->
+      <div class="section-micro">Current Snapshot</div>
+      <div class="snap-grid">
+        <div class="snap-cell">
+          <div class="snap-label">ATR Cases</div>
+          <div class="snap-val">5</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">Active Bookings</div>
+          <div class="snap-val">1</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">Vol Ramp Progress</div>
+          <div class="snap-val amber">~60%</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">Renewals / Mo</div>
+          <div class="snap-val blue">25+</div>
+        </div>
+      </div>
+
+      <!-- In Flight -->
+      <div class="section-micro">In Flight · Docket</div>
+      <div class="inflight-list">
+        <div class="if-item">
+          <div class="if-dot green"></div>
+          <div class="if-body">
+            <div class="if-title">ATR checks — Vol Ramp cleanup</div>
+            <div class="if-desc">Daily ATR review: folding contract ACV values into the Vol Ramp ATR exception process. Resolving open cases in SFDC before EOM. Biggest needle-mover in the queue.</div>
+            <div class="if-tag">HIGH · Daily</div>
+          </div>
+        </div>
+        <div class="if-item">
+          <div class="if-dot green"></div>
+          <div class="if-body">
+            <div class="if-title">OM Booking Checklist with KaBoth</div>
+            <div class="if-desc">Running through the OM booking checklist daily with KaBoth Vu — validating deal structure before each active booking queues downstream to Accounting and RevRec.</div>
+            <div class="if-tag">HIGH · Daily</div>
+          </div>
+        </div>
+        <div class="if-item">
+          <div class="if-dot amber"></div>
+          <div class="if-body">
+            <div class="if-title">Booking Checker tool</div>
+            <div class="if-desc">Browser-based deal validation for Direct, Reseller, and AWS Marketplace bookings. Live and in use, with ongoing refinement based on real OM workflows.</div>
+            <div class="if-tag">ACTIVE TOOL · In Use</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resources (de-emphasized) -->
+      <div class="res-section">
+        <div class="section-micro" style="margin-bottom:12px;">References</div>
+        <div class="res-links">
+          <a class="res-link" href="bookings.html">Booking Checker <span class="res-link-meta">Deal validation tool</span></a>
+          <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">SFDC Case Queue <span class="res-link-meta">Salesforce · live</span></a>
+          <a class="res-link" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit" target="_blank">OM Onboarding Guide <span class="res-link-meta">Google Docs</span></a>
+          <a class="res-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">Deliverables · Asana <span class="res-link-meta">Project tracker</span></a>
+        </div>
       </div>
 
     </div>
@@ -272,111 +427,171 @@
   <!-- SALES FINANCE -->
   <div class="pane" id="p-sf">
     <div class="inner">
+
       <div class="sec-head">
-        <div class="sec-label">Department</div>
+        <div class="sec-label">Function · FP&amp;A</div>
         <div class="sec-title">Sales Finance</div>
-        <p class="sec-desc">Sales Finance bridges the commercial motion and financial reporting — it owns deal economics, revenue integrity, and the operational systems that make accurate bookings possible.</p>
+        <p class="sec-desc">Sales Finance owns deal economics, revenue integrity, and the financial planning layer on top of Amplitude's commercial motion. It partners with Sales on deal structure, sets the analytical framework for how bookings translate to revenue, and ensures the numbers that hit the books are accurate — quarter over quarter.</p>
       </div>
-      <div class="card-grid">
-        <a class="tool-card" href="https://drive.google.com/drive/folders/0AIH8MNQ95VLhUk9PVA" target="_blank">
-          <div class="tc-tag">Google Drive · Team</div>
-          <div class="tc-icon">📁</div>
-          <div class="tc-title">Sales Finance Drive</div>
-          <div class="tc-desc">Shared team drive. Meeting notes, project docs, templates, process guides, and institutional context for all ongoing and completed initiatives.</div>
-          <div class="tc-foot"><span class="tc-dot dot-gray"></span> Google Drive</div>
-        </a>
-        <a class="tool-card" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0#heading=h.wc55ym5tat6e" target="_blank">
-          <div class="tc-tag">Google Docs · OKRs</div>
-          <div class="tc-icon">📋</div>
-          <div class="tc-title">Deliverables Doc</div>
-          <div class="tc-desc">Full breakdown of Sales Finance deliverables, OKRs, and project ownership — the reference for what the team is accountable for this half.</div>
-          <div class="tc-foot"><span class="tc-dot dot-gray"></span> Google Docs</div>
-        </a>
-        <a class="tool-card" href="workbud.html">
-          <div class="tc-tag">Internal · Password Protected</div>
-          <div class="tc-icon">🤙</div>
-          <div class="tc-title">Work Bud</div>
-          <div class="tc-desc">Kareem's private operations hub — deliverables, meeting notes, call-outs, and active builds in one structured, browser-based workspace built around HOM principles.</div>
-          <div class="tc-foot"><span class="tc-dot dot-green"></span> Live · Private</div>
-        </a>
+
+      <!-- HOM output definition -->
+      <div class="primer" style="margin-bottom:36px;">
+        <div>
+          <div class="primer-label">High Output Management · Output Definition</div>
+          <div class="primer-title">What does Sales Finance produce?</div>
+          <p class="primer-body">In HOM terms, the output of Sales Finance is reliable financial intelligence that enables better decisions. That means accurate planning models, validated deal economics, clean revenue recognition, and the proactive surfacing of risk before it becomes a problem. FP&A's job is to make the invisible legible — translating complex deal activity into numbers leadership can act on.</p>
+        </div>
+        <div class="deal-flow">
+          <div class="df-step">Plan</div>
+          <div class="df-arrow">↓</div>
+          <div class="df-step">Track</div>
+          <div class="df-arrow">↓</div>
+          <div class="df-step">Report</div>
+        </div>
       </div>
+
+      <!-- Snapshot -->
+      <div class="section-micro">Current Snapshot · H1</div>
+      <div class="snap-grid">
+        <div class="snap-cell">
+          <div class="snap-label">Deliverables Done</div>
+          <div class="snap-val green">34</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">Open Deliverables</div>
+          <div class="snap-val amber">20</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">Active Builds</div>
+          <div class="snap-val blue">2</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">Vol Ramp Progress</div>
+          <div class="snap-val">~60%</div>
+        </div>
+      </div>
+
+      <!-- In Flight -->
+      <div class="section-micro">In Flight · FP&amp;A Docket</div>
+      <div class="inflight-list">
+        <div class="if-item">
+          <div class="if-dot green"></div>
+          <div class="if-body">
+            <div class="if-title">H1 Vol Ramp ATR Cleanup</div>
+            <div class="if-desc">Largest H1 initiative — reviewing and resolving ATR exceptions across the Vol Ramp deal cohort. Contract ACV validation against Salesforce case data. Shared with OM.</div>
+            <div class="if-tag">HIGH PRIORITY · Cross-functional with OM</div>
+          </div>
+        </div>
+        <div class="if-item">
+          <div class="if-dot blue"></div>
+          <div class="if-body">
+            <div class="if-title">AI Week — G&amp;A Overage Anticipation Agent</div>
+            <div class="if-desc">Building a forward-looking consumption monitor that identifies accounts trending toward usage overages and alerts AE, FLM, CSM, and Accounting before the overage hits. Presenting at offsite.</div>
+            <div class="if-tag">AI WEEK · Active Build · Due This Week</div>
+          </div>
+        </div>
+        <div class="if-item">
+          <div class="if-dot amber"></div>
+          <div class="if-body">
+            <div class="if-title">OM Booking Checklist — Validation</div>
+            <div class="if-desc">Daily OM checklist review with KaBoth Vu. Each booking validated before it moves downstream — part of the broader effort to reduce OM cases created by booking errors.</div>
+            <div class="if-tag">DAILY · Shared with OM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resources (de-emphasized) -->
+      <div class="res-section">
+        <div class="section-micro" style="margin-bottom:12px;">References</div>
+        <div class="res-links">
+          <a class="res-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">H1 Deliverables <span class="res-link-meta">Asana · project tracker</span></a>
+          <a class="res-link" href="workbud.html">Work Bud <span class="res-link-meta">Personal ops hub · private</span></a>
+        </div>
+      </div>
+
     </div>
   </div>
 
   <!-- ACCOUNTING -->
   <div class="pane" id="p-acct">
     <div class="inner">
-      <div class="sec-head">
-        <div class="sec-label">Department</div>
-        <div class="sec-title">Accounting &amp; Finance</div>
-        <p class="sec-desc">Accounting and Finance are downstream of every deal OM processes — first to feel it when bookings are wrong, first to act when accounts trend toward overage. These tools sit at that intersection.</p>
-      </div>
-      <div class="card-grid">
-        <a class="tool-card" href="https://lovable.dev" target="_blank">
-          <div class="tc-tag">AI Build · Active · AI Week</div>
-          <div class="tc-icon">💜</div>
-          <div class="tc-title">G&amp;A Overage Anticipation Agent</div>
-          <div class="tc-desc">A forward-looking consumption monitor on Lovable.dev. Tracks accounts trending toward usage overages and automatically alerts AE, FLM, CSM, and Accounting before the overage hits.</div>
-          <div class="tc-foot"><span class="tc-dot dot-amber"></span> In Build · Lovable.dev</div>
-        </a>
-      </div>
-    </div>
-  </div>
 
-  <!-- WORK BUD INFO -->
-  <div class="pane" id="p-wb">
-    <div class="inner">
       <div class="sec-head">
-        <div class="sec-label">Personal Ops Hub · Password Protected</div>
-        <div class="sec-title">Work Bud</div>
-        <p class="sec-desc">A private, browser-based operations hub — a structured daily operating system built for output, not just activity, organized around High Output Management and Measure What Matters.</p>
+        <div class="sec-label">Function · RevRec &amp; Compliance</div>
+        <div class="sec-title">Accounting</div>
+        <p class="sec-desc">Accounting is the final downstream recipient of every deal OM processes. It owns revenue recognition, ensures bookings comply with ASC 606, and closes the loop between what Sales promised and what Finance can recognize. When OM delivers a clean booking, Accounting moves fast. When it doesn't, Accounting creates the case that sends it back.</p>
       </div>
-      <div class="wb-intro">
+
+      <!-- HOM output definition -->
+      <div class="primer" style="margin-bottom:36px;">
         <div>
-          <div class="wbi-label">What is Work Bud?</div>
-          <div class="wbi-title">Built for output,<br>not just <em>activity.</em></div>
-          <p class="wbi-desc">Work Bud surfaces your deliverables with checkboxes you can use right in the browser, keeps meeting notes structured and scannable by week, logs positive call-outs from teammates that belong in your performance record, and tracks every active build in flight — all in one focused window.</p>
-          <a class="wbi-cta" href="workbud.html">Open Work Bud →</a>
+          <div class="primer-label">High Output Management · Output Definition</div>
+          <div class="primer-title">What does Accounting produce?</div>
+          <p class="primer-body">Accounting's output is recognized revenue — the moment a deal moves from committed ARR to booked revenue on Amplitude's financial statements. In MWM terms, the key result is accuracy: every deal that hits the books reflects the true economic agreement. The secondary output is speed: the faster Accounting closes, the faster Finance can report and leadership can decide.</p>
         </div>
-        <div class="wbi-badge">🤙</div>
+        <div class="deal-flow">
+          <div class="df-step">Booking Received</div>
+          <div class="df-arrow">↓</div>
+          <div class="df-step">RevRec Applied</div>
+          <div class="df-arrow">↓</div>
+          <div class="df-step">Revenue Recognized</div>
+        </div>
       </div>
-      <div class="feat-grid">
-        <div class="feat-card"><div class="feat-icon">🏠</div><div class="feat-title">The Den</div><p class="feat-desc">Priority-first home base. ATR cases and Booking front and center as your biggest tiles — quick access to the tools that drive the most value.</p></div>
-        <div class="feat-card"><div class="feat-icon">📋</div><div class="feat-title">Deliverables</div><p class="feat-desc">Your deliverables, checkable right in the browser. Each item is completable in-page — state persists across sessions. A progress bar shows where you stand.</p></div>
-        <div class="feat-card"><div class="feat-icon">📝</div><div class="feat-title">Meeting Notes</div><p class="feat-desc">Weekly notes in a clean accordion — collapsed by default so you can scan across weeks without scrolling. Each entry has date, type, and structured bullets.</p></div>
-        <div class="feat-card"><div class="feat-icon">🌟</div><div class="feat-title">Call-Outs</div><p class="feat-desc">A running log of recognition from teammates — the moments that belong in your performance record. Who said it, the context, and the quote.</p></div>
-        <div class="feat-card"><div class="feat-icon">💜</div><div class="feat-title">Lovable Builds</div><p class="feat-desc">Tracks every active build — links, status, and what each is accomplishing. Right now: the G&A Overage Anticipation agent. Grows with the work.</p></div>
+
+      <!-- Snapshot -->
+      <div class="section-micro">Current Snapshot</div>
+      <div class="snap-grid">
+        <div class="snap-cell">
+          <div class="snap-label">G&amp;A Overage Agent</div>
+          <div style="font-size:14px;font-weight:700;color:var(--amber);margin-top:6px;">In Build</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">ATR Cases (Impact)</div>
+          <div class="snap-val">5</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">Accounts Monitored</div>
+          <div class="snap-val blue">TBD</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">Alert Coverage</div>
+          <div style="font-size:14px;font-weight:700;color:var(--fg3);margin-top:6px;">Pre-launch</div>
+        </div>
       </div>
+
+      <!-- In Flight -->
+      <div class="section-micro">In Flight · Docket</div>
+      <div class="inflight-list">
+        <div class="if-item">
+          <div class="if-dot blue"></div>
+          <div class="if-body">
+            <div class="if-title">G&amp;A Overage Anticipation Agent — AI Week Build</div>
+            <div class="if-desc">A forward-looking consumption monitor that identifies accounts trending toward usage overages and proactively alerts AE, FLM, CSM, and Accounting before the overage occurs. Addresses the reactive gap in current monitoring — giving the team time to act rather than just respond.</div>
+            <div class="if-tag">AI WEEK · Building on Lovable.dev · Presenting at Offsite</div>
+          </div>
+        </div>
+        <div class="if-item">
+          <div class="if-dot amber"></div>
+          <div class="if-body">
+            <div class="if-title">ATR Case Upstream Impact</div>
+            <div class="if-desc">The 5 open ATR cases in the OM queue all have downstream accounting implications — each one resolved upstream saves a RevRec correction cycle. Close coordination between OM and Accounting on exception resolution order.</div>
+            <div class="if-tag">SHARED · Upstream dependency on OM</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Resources (de-emphasized) -->
+      <div class="res-section">
+        <div class="section-micro" style="margin-bottom:12px;">References</div>
+        <div class="res-links">
+          <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">SFDC Case Queue <span class="res-link-meta">Salesforce · upstream OM cases</span></a>
+          <a class="res-link" href="bookings.html">Booking Checker <span class="res-link-meta">Deal validation · prevent RevRec rework</span></a>
+        </div>
+      </div>
+
     </div>
   </div>
 
-  <!-- RESOURCES -->
-  <div class="pane" id="p-resources">
-    <div class="inner">
-      <div class="sec-head">
-        <div class="sec-label">External · Reference</div>
-        <div class="sec-title">Resources</div>
-        <p class="sec-desc">Source code, deployment, and the frameworks that inform how this work is organized.</p>
-      </div>
-      <div class="card-grid">
-        <a class="res-card" href="https://github.com/kareem-powell/tools" target="_blank">
-          <div class="res-label">Open Source · GitHub Pages</div>
-          <div class="res-title">kareem-powell/tools</div>
-          <p class="res-desc">Full source for every tool in this suite. Plain HTML — no build step, no dependencies. Deployed via GitHub Pages. Fork to adapt for your own OM workflow.</p>
-        </a>
-        <div class="res-card" style="cursor:default;">
-          <div class="res-label">Book · Management Framework</div>
-          <div class="res-title">High Output Management</div>
-          <p class="res-desc">Andy Grove's framework for measuring and improving the output of knowledge work. The organizational logic behind how Work Bud's priorities and deliverables are structured.</p>
-        </div>
-        <div class="res-card" style="cursor:default;">
-          <div class="res-label">Book · Goal Framework</div>
-          <div class="res-title">Measure What Matters</div>
-          <p class="res-desc">John Doerr's OKR framework for setting and tracking goals that actually move the needle. Informs how deliverables and quarterly priorities are framed inside Work Bud.</p>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </div>
 
@@ -389,7 +604,7 @@ function go(id, btn) {
 }
 // Hash routing — so index.html#om activates the OM tab
 (function() {
-  const map = { om:'t-om', sf:'t-sf', acct:'t-acct', resources:'t-resources' };
+  const map = { om:'t-om', sf:'t-sf', acct:'t-acct' };
   const hash = window.location.hash.replace('#','');
   if (map[hash]) {
     const btn = document.getElementById(map[hash]);

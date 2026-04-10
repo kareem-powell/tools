@@ -5,33 +5,33 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Work Bud 🤙 — KP's Ops Center</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
-      --ink:     #080808;
-      --ink2:    #2c2c2c;
-      --stone:   #525252;
-      --mist:    #909090;
-      --bg:      #ffffff;
-      --bg2:     #f8f8f7;
-      --bg3:     #f0f0ef;
-      --ash:     #e4e4e3;
-      --ash2:    #d0d0cf;
-      --red:     #b91c1c;
-      --red-dim: #fdf2f2;
-      --green:   #166534;
-      --green-dim:#f0fdf4;
-      --blue:    #1d4ed8;
-      --blue-dim:#eff6ff;
-      --amber:   #92400e;
+      --ink:      #111111;
+      --ink2:     #2d2d2d;
+      --stone:    #5a5a5a;
+      --mist:     #999999;
+      --bg:       #ffffff;
+      --bg2:      #f8f8f6;
+      --bg3:      #f0f0ec;
+      --ash:      #e2e2e2;
+      --ash2:     #c8c8c8;
+      --red:      #b91c1c;
+      --red-dim:  #fef2f2;
+      --green:    #15803d;
+      --green-dim:#dcfce7;
+      --blue:     #0369a1;
+      --blue-dim: #e8f4fb;
+      --amber:    #b45309;
       --amber-dim:#fffbeb;
-      --r: 3px;
-      --font-display: 'Shippori Mincho B1', 'Noto Serif JP', Georgia, serif;
-      --font-body:    'Inter', -apple-system, sans-serif;
-      --font-mono:    'Space Mono', 'Courier New', monospace;
+      --r: 10px;
+      --font-display: 'DM Sans', sans-serif;
+      --font-body:    'DM Sans', -apple-system, sans-serif;
+      --font-mono:    'DM Mono', 'Courier New', monospace;
     }
-    html, body { min-height: 100vh; font-size: 16px; }
+    html, body { min-height: 100vh; font-size: 15px; }
     body {
       font-family: var(--font-body);
       background: var(--bg);
@@ -39,6 +39,52 @@
       line-height: 1.65;
       -webkit-font-smoothing: antialiased;
     }
+
+    /* ── SUITE CHROME ── */
+    .suite-chrome {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(255,255,255,.97); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--ash); height: 52px;
+      display: flex; align-items: stretch; padding: 0 28px;
+    }
+    .sc-brand {
+      font-size: 15px; font-weight: 700; color: var(--ink);
+      display: flex; align-items: center;
+      padding-right: 20px; margin-right: 4px;
+      border-right: 1px solid var(--ash2);
+      text-decoration: none; flex-shrink: 0;
+    }
+    .sc-tabs { display: flex; align-items: stretch; flex: 1; overflow-x: auto; }
+    .sc-tabs::-webkit-scrollbar { display: none; }
+    .sc-tab {
+      padding: 0 15px; border: none; background: none;
+      font-family: var(--font-body); font-size: 13.5px; font-weight: 500;
+      color: var(--stone); cursor: pointer; white-space: nowrap;
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      display: flex; align-items: center; text-decoration: none;
+      transition: color .13s, border-color .13s;
+    }
+    .sc-tab:hover { color: var(--ink2); }
+    .sc-tab.active { color: var(--ink); font-weight: 600; border-bottom-color: var(--ink); }
+
+    /* ── PRIORITY DEN ── */
+    .den-profile { display: flex; align-items: center; gap: 14px; padding-bottom: 20px; margin-bottom: 24px; border-bottom: 1px solid var(--ash); }
+    .den-avatar-sm { width: 38px; height: 38px; border-radius: 50%; background: var(--ink); color: #fff; font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .den-name { font-size: 15px; font-weight: 700; color: var(--ink); }
+    .den-role { font-family: var(--font-mono); font-size: 11px; color: var(--mist); margin-top: 2px; }
+    .den-priority-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 12px; margin-bottom: 24px; }
+    .priority-card { border-radius: var(--r); padding: 22px 24px; text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: opacity .13s; }
+    .priority-card:hover { opacity: .88; }
+    .priority-atr { background: var(--ink); color: #fff; }
+    .priority-booking { background: var(--bg2); border: 1.5px solid var(--ash); }
+    .pc-badge { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; opacity: .55; margin-bottom: 10px; }
+    .pc-count { font-size: 42px; font-weight: 800; letter-spacing: -.04em; line-height: 1; margin-bottom: 6px; }
+    .priority-booking .pc-count { color: var(--ink); }
+    .pc-title { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+    .priority-booking .pc-title { color: var(--ink); }
+    .pc-desc { font-size: 13px; opacity: .68; line-height: 1.65; flex: 1; }
+    .priority-booking .pc-desc { color: var(--stone); opacity: 1; }
+    .pc-foot { font-family: var(--font-mono); font-size: 11px; margin-top: 16px; opacity: .55; }
 
     /* ── PASSWORD GATE ── */
     #pw-gate {
@@ -82,44 +128,14 @@
     .pw-box button:hover { opacity: .82; }
     .pw-err { color: var(--red); font-size: .78rem; margin-top: 8px; display: none; font-family: var(--font-mono); }
 
-    /* ── HEADER ── */
-    .app-header {
-      background: rgba(255,255,255,.96);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--ash);
-      height: 50px;
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 0 32px;
-      position: sticky; top: 0; z-index: 100;
-    }
-    .header-logo {
-      display: flex; align-items: center; gap: 10px;
-      font-family: var(--font-display); font-size: .95rem; font-weight: 600;
-      color: var(--ink);
-    }
-    .header-logo .kp-badge {
-      width: 28px; height: 28px; border-radius: 50%;
-      background: var(--ink); color: #fff;
-      font-family: var(--font-display); font-size: .65rem; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .header-right { display: flex; gap: 8px; align-items: center; }
-    .header-right a {
-      font-family: var(--font-mono); font-size: .7rem;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: var(--mist); text-decoration: none;
-      padding: 5px 10px; border: 1px solid var(--ash);
-      border-radius: var(--r); transition: all .14s;
-    }
-    .header-right a:hover { color: var(--ink); border-color: var(--ash2); }
+    /* .app-header removed — suite chrome handles top navigation */
 
     /* ── TABS ── */
     .tab-bar {
       background: var(--bg);
       border-bottom: 1px solid var(--ash);
       display: flex; align-items: stretch;
-      position: sticky; top: 50px; z-index: 99;
+      position: sticky; top: 52px; z-index: 99;
       overflow-x: auto; padding: 0 8px;
     }
     .tab-bar::-webkit-scrollbar { display: none; }
@@ -148,7 +164,7 @@
     .tab-btn.active .tb-label { font-weight: 700; }
 
     /* ── MAIN ── */
-    main { max-width: 1100px; margin: 0 auto; padding: 52px 48px; }
+    main { max-width: 1100px; margin: 0 auto; padding: 36px 48px; }
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
 
@@ -167,38 +183,7 @@
       font-weight: 300; font-family: var(--font-mono);
     }
 
-    /* ── DEN HERO ── */
-    .den-hero {
-      display: grid;
-      grid-template-columns: 80px 1fr;
-      gap: 28px; align-items: start;
-      background: var(--bg2); border: 1px solid var(--ash);
-      border-radius: var(--r); padding: 32px;
-      margin-bottom: 36px;
-    }
-    .den-avatar {
-      width: 80px; height: 80px; border-radius: 50%;
-      background: var(--ink); color: #fff;
-      font-family: var(--font-display); font-size: 1.6rem; font-weight: 800;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0;
-    }
-    .den-text h2 {
-      font-family: var(--font-display);
-      font-size: 1.25rem; font-weight: 800;
-      color: var(--ink); margin-bottom: 8px;
-    }
-    .den-text p {
-      font-size: .85rem; color: var(--stone);
-      line-height: 1.75; font-weight: 300; max-width: 560px;
-    }
-    .den-stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-      gap: 1px; background: var(--ash);
-      border: 1px solid var(--ash); border-radius: var(--r);
-      overflow: hidden; margin-bottom: 40px;
-    }
+    /* .den-hero and .den-stats removed — replaced by priority card layout */
     .stat-cell {
       background: var(--bg); padding: 20px 22px;
     }
@@ -466,17 +451,22 @@
   </div>
 </div>
 
-<!-- ══ HEADER ══ -->
-<header class="app-header">
-  <div class="header-logo">
-    <div class="kp-badge">KP</div>
-    Work Bud
+<!-- ══ SUITE CHROME ══ -->
+<div class="suite-chrome">
+  <a class="sc-brand" href="index.html">House of O.M.</a>
+  <div class="sc-tabs">
+    <a class="sc-tab" href="index.html">Home</a>
+    <a class="sc-tab" href="index.html#om">Order Management</a>
+    <a class="sc-tab" href="index.html#sf">Sales Finance</a>
+    <a class="sc-tab" href="index.html#acct">Accounting</a>
+    <a class="sc-tab active" href="workbud.html">Work Bud</a>
+    <a class="sc-tab" href="index.html#resources">Resources</a>
   </div>
-  <div class="header-right">
-    <a href="https://amplitude.lightning.force.com" target="_blank">⚡ SFDC</a>
-    <a href="index.html">← O.M. Suite</a>
+  <div style="display:flex;align-items:center;gap:6px;padding-left:16px;border-left:1px solid var(--ash2);flex-shrink:0;">
+    <span style="width:7px;height:7px;border-radius:50%;background:#22c55e;display:inline-block;"></span>
+    <span style="font-family:var(--font-mono);font-size:11px;color:var(--mist);">live</span>
   </div>
-</header>
+</div>
 
 <!-- ══ TAB BAR ══ -->
 <div class="tab-bar">
@@ -507,34 +497,35 @@
   <!-- ══════ THE DEN ══════ -->
   <div class="tab-panel active" id="tab-den">
 
-    <div class="den-hero">
-      <div class="den-avatar">KP</div>
-      <div class="den-text">
-        <h2>What's good, Kareem.</h2>
-        <p>Your OM command center — deliverables, meeting notes, call-outs, and your full tool stack. Work Bud sends briefings at 9AM and 4:30PM daily via Slack.</p>
+    <!-- Profile strip -->
+    <div class="den-profile">
+      <div class="den-avatar-sm">KP</div>
+      <div>
+        <div class="den-name">Kareem Powell</div>
+        <div class="den-role">Sales Finance Intern · Order Management</div>
       </div>
     </div>
 
-    <div class="den-stats">
-      <div class="stat-cell">
-        <div class="s-label">ATR Deals Reviewed</div>
-        <div class="s-val blue" id="atr-count">—</div>
-      </div>
-      <div class="stat-cell">
-        <div class="s-label">Vol Ramp Progress</div>
-        <div class="s-val amber">~60%</div>
-      </div>
-      <div class="stat-cell">
-        <div class="s-label">Open Cases</div>
-        <div class="s-val green" id="case-count">—</div>
-      </div>
-      <div class="stat-cell">
-        <div class="s-label">Renewals / Month</div>
-        <div class="s-val blue">25+</div>
-      </div>
+    <!-- Priority board: ATR (2/3) + Booking (1/3) -->
+    <div class="den-priority-grid">
+      <a class="priority-card priority-atr" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
+        <div class="pc-badge">Primary Focus</div>
+        <div class="pc-count">5</div>
+        <div class="pc-title">ATR Cases</div>
+        <div class="pc-desc">Vol Ramp ATR cleanup — reviewing contract ACV values and resolving open exceptions in Salesforce. These are the biggest needle-movers right now.</div>
+        <div class="pc-foot">Salesforce · Case Queue →</div>
+      </a>
+      <a class="priority-card priority-booking" href="bookings.html">
+        <div class="pc-badge">Secondary</div>
+        <div class="pc-count">1</div>
+        <div class="pc-title">Booking</div>
+        <div class="pc-desc">Active booking to validate and process through the deal review checklist.</div>
+        <div class="pc-foot" style="color:var(--stone);">Booking Checker →</div>
+      </a>
     </div>
 
-    <div class="den-section-label">Primary Access</div>
+    <!-- Quick access -->
+    <div class="den-section-label">Quick Access</div>
     <div class="qlinks">
       <a class="qlink" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
         <span class="ql-ico">⚡</span>

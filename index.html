@@ -1,529 +1,401 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>O.M. Suite — Amplitude · Sales Finance</title>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>House of O.M. — Amplitude · Sales Finance</title>
   <link rel="preconnect" href="https://fonts.googleapis.com"/>
-  <link href="https://fonts.googleapis.com/css2?family=Shippori+Mincho+B1:wght@400;600;800&family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --ink:      #080808;
-      --ink2:     #2c2c2c;
-      --stone:    #525252;
-      --mist:     #909090;
-      --bg:       #ffffff;
-      --bg2:      #f8f8f7;
-      --bg3:      #f0f0ef;
-      --ash:      #e4e4e3;
-      --ash2:     #d0d0cf;
-      --red:      #b91c1c;
-      --red-dim:  #fdf2f2;
-      --green:    #166534;
-      --green-dim:#f0fdf4;
-      --blue:     #1d4ed8;
-      --blue-dim: #eff6ff;
-      --amber:    #92400e;
-      --r: 3px;
-      --font-display: 'Shippori Mincho B1', 'Noto Serif JP', Georgia, serif;
-      --font-body:    'Inter', -apple-system, sans-serif;
-      --font-mono:    'Space Mono', 'Courier New', monospace;
-      --wrap: 1100px;
-      --pad:  52px;
+      --fg: #111111; --fg2: #2d2d2d; --fg3: #5a5a5a; --fg4: #999999;
+      --bg: #ffffff; --bg2: #f8f8f6; --bg3: #f0f0ec;
+      --bdr: #e2e2e2; --bdr2: #c8c8c8;
+      --acc: #0369a1; --acc-bg: #e8f4fb;
+      --green: #15803d; --green-bg: #dcfce7;
+      --red: #b91c1c; --red-bg: #fef2f2;
+      --amber: #b45309; --amber-bg: #fffbeb;
+      --r: 10px;
+      --font: 'DM Sans', -apple-system, sans-serif;
+      --mono: 'DM Mono', 'Courier New', monospace;
     }
+    html, body { min-height: 100vh; font-size: 15px; }
+    body { font-family: var(--font); background: var(--bg); color: var(--fg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-    html, body { min-height: 100vh; font-size: 16px; }
-    body {
-      font-family: var(--font-body);
-      background: var(--bg); color: var(--ink);
-      line-height: 1.65; -webkit-font-smoothing: antialiased;
-    }
+    /* ── BLOSSOMS ── */
+    .blossom-tr { position: fixed; top: 0; right: 0; width: 280px; height: 280px; pointer-events: none; z-index: 0; opacity: .36; }
+    .blossom-bl { position: fixed; bottom: 0; left: 0; width: 170px; height: 170px; pointer-events: none; z-index: 0; opacity: .16; transform: rotate(180deg); }
 
-    /* ─── AMBIENT ─── */
-    .jp-ambient { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
-    .jp-char {
-      position: absolute; font-family: var(--font-display); font-weight: 800;
-      color: var(--ink); opacity: .018; line-height: 1; user-select: none;
-    }
-    .jp-c1 { font-size: 28vw; top: -8%; right: -6%; }
-    .jp-c2 { font-size: 18vw; bottom: -4%; left: -3%; }
-    .jp-c3 { font-size: 8vw; top: 42%; right: 4%; opacity: .012; }
-
-    /* ─── BLOSSOM ─── */
-    .blossom-tr { position: fixed; top: 0; right: 0; width: 280px; height: 280px; pointer-events: none; z-index: 0; opacity: .26; }
-    .blossom-bl { position: fixed; bottom: 0; left: 0; width: 170px; height: 170px; pointer-events: none; z-index: 0; opacity: .13; transform: rotate(180deg); }
-
-    /* ─── LAYOUT ─── */
-    .site { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
-    .wrap { max-width: var(--wrap); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); width: 100%; }
-
-    /* ─── NAV ─── */
-    .nav {
+    /* ── SUITE CHROME (single bar: brand + tabs + live) ── */
+    .suite-chrome {
       position: sticky; top: 0; z-index: 200;
-      background: rgba(255,255,255,.94); backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--ash); height: 52px;
+      background: rgba(255,255,255,.97); backdrop-filter: blur(14px);
+      border-bottom: 1px solid var(--bdr);
+      height: 52px;
+      display: flex; align-items: stretch;
+      padding: 0 28px; gap: 0;
     }
-    .nav-inner {
-      max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad);
-      height: 100%; display: flex; align-items: center; gap: 18px;
+    .sc-brand {
+      font-size: 15px; font-weight: 700; color: var(--fg);
+      display: flex; align-items: center;
+      padding-right: 20px; margin-right: 4px;
+      border-right: 1px solid var(--bdr2);
+      white-space: nowrap; flex-shrink: 0;
+      text-decoration: none;
     }
-    .nav-logo {
-      font-family: var(--font-display); font-size: 15px; font-weight: 600;
-      color: var(--ink); display: flex; align-items: center; gap: 10px;
+    .sc-tabs { display: flex; align-items: stretch; flex: 1; overflow-x: auto; }
+    .sc-tabs::-webkit-scrollbar { display: none; }
+    .sc-tab {
+      padding: 0 15px; border: none; background: none;
+      font-family: var(--font); font-size: 13.5px; font-weight: 500;
+      color: var(--fg3); cursor: pointer; white-space: nowrap;
+      border-bottom: 2px solid transparent; margin-bottom: -1px;
+      transition: color .13s, border-color .13s;
+      display: flex; align-items: center;
+      text-decoration: none;
     }
-    .nav-logo .jp { font-size: 19px; opacity: .65; }
-    .nav-sep { width: 1px; height: 16px; background: var(--ash2); }
-    .nav-sub { font-family: var(--font-mono); font-size: 10px; color: var(--mist); letter-spacing: .08em; text-transform: uppercase; }
-    .nav-live { margin-left: auto; display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10px; color: var(--mist); letter-spacing: .06em; text-transform: uppercase; }
-    .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2.4s ease-in-out infinite; }
+    .sc-tab:hover { color: var(--fg2); border-bottom-color: var(--bdr2); }
+    .sc-tab.active { color: var(--fg); font-weight: 600; border-bottom-color: var(--fg); }
+    .sc-live {
+      margin-left: auto; display: flex; align-items: center; gap: 6px;
+      font-family: var(--mono); font-size: 11px; color: var(--fg4);
+      padding-left: 20px; border-left: 1px solid var(--bdr2); flex-shrink: 0;
+    }
+    .sc-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2.4s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
-    /* ─── HERO ─── */
-    .hero {
-      padding: 100px var(--pad) 88px; border-bottom: 1px solid var(--ash);
-      max-width: var(--wrap); margin: 0 auto; width: 100%;
-    }
-    .hero-eyebrow {
-      font-family: var(--font-mono); font-size: 10px; letter-spacing: .18em;
-      text-transform: uppercase; color: var(--mist); margin-bottom: 32px;
-      display: flex; align-items: center; gap: 16px;
-    }
-    .hero-eyebrow::before { content: ''; flex: 0 0 36px; height: 1px; background: var(--ash2); }
-    .hero h1 {
-      font-family: var(--font-display); font-size: clamp(3.2rem, 7vw, 5.6rem);
-      font-weight: 800; line-height: 1.06; letter-spacing: -.03em; color: var(--ink); margin-bottom: 28px;
-    }
-    .hero h1 em { font-style: normal; color: var(--red); }
-    .hero-sub { font-size: 1.05rem; font-weight: 300; color: var(--stone); line-height: 1.85; max-width: 580px; margin-bottom: 10px; }
-    .hero-butler { font-family: var(--font-display); font-size: 1rem; font-style: italic; color: var(--mist); margin-bottom: 44px; }
-    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+    /* ── APP SHELL ── */
+    .shell { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
+    .pane { display: none; }
+    .pane.active { display: block; }
+    .inner { max-width: 1080px; margin: 0 auto; padding: 48px 48px; }
 
-    /* ─── BUTTONS ─── */
-    .btn {
-      display: inline-flex; align-items: center; gap: 8px; padding: 11px 26px;
-      font-size: .9rem; font-weight: 600; border-radius: var(--r);
-      cursor: pointer; text-decoration: none; font-family: var(--font-body);
-      transition: all .15s ease; letter-spacing: .01em; border: 1.5px solid transparent;
-    }
-    .btn-primary { background: var(--ink); color: #fff; border-color: var(--ink); }
-    .btn-primary:hover { background: var(--ink2); }
-    .btn-outline { background: transparent; color: var(--ink2); border-color: var(--ash2); }
-    .btn-outline:hover { border-color: var(--ink); color: var(--ink); }
-    .btn-ghost { background: transparent; color: var(--stone); border-color: var(--ash); font-family: var(--font-mono); font-size: .8rem; letter-spacing: .05em; }
-    .btn-ghost:hover { border-color: var(--ash2); color: var(--ink2); }
+    /* ── HOME ── */
+    .home-wrap { padding: 72px 48px 48px; max-width: 640px; }
+    .home-eyebrow { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--fg4); margin-bottom: 18px; }
+    .home-title { font-size: 44px; font-weight: 800; letter-spacing: -.04em; color: var(--fg); margin-bottom: 14px; line-height: 1.04; }
+    .home-sub { font-size: 15px; color: var(--fg3); line-height: 1.8; margin-bottom: 32px; max-width: 480px; }
+    .home-actions { display: flex; gap: 10px; flex-wrap: wrap; }
+    .btn { display: inline-flex; align-items: center; gap: 7px; padding: 9px 20px; font-size: 14px; font-weight: 600; border-radius: 8px; cursor: pointer; text-decoration: none; font-family: var(--font); transition: all .13s; border: 1.5px solid transparent; }
+    .btn-dark { background: var(--fg); color: #fff; border-color: var(--fg); }
+    .btn-dark:hover { background: var(--fg2); }
+    .btn-out { background: transparent; color: var(--fg2); border-color: var(--bdr2); }
+    .btn-out:hover { border-color: var(--fg3); color: var(--fg); }
+    .btn-ghost { background: transparent; color: var(--fg3); border-color: var(--bdr); font-family: var(--mono); font-size: 12px; }
+    .btn-ghost:hover { color: var(--fg2); border-color: var(--bdr2); }
 
-    /* ─── SECTION ─── */
-    .section { max-width: var(--wrap); margin: 0 auto; padding: 64px var(--pad); width: 100%; }
-    .section-divider { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad); border-top: 1px solid var(--ash); }
+    /* ── SECTION HEADS ── */
+    .sec-head { margin-bottom: 24px; padding-bottom: 18px; border-bottom: 1px solid var(--bdr); }
+    .sec-label { font-family: var(--mono); font-size: 11px; text-transform: uppercase; letter-spacing: .09em; color: var(--fg4); margin-bottom: 5px; }
+    .sec-title { font-size: 19px; font-weight: 700; letter-spacing: -.02em; color: var(--fg); margin-bottom: 7px; }
+    .sec-desc { font-size: 14px; color: var(--fg3); line-height: 1.75; max-width: 660px; }
+    .sec-gap { margin-top: 44px; }
 
-    /* ─── DEPARTMENT HEADER ─── */
-    .dept-head { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid var(--ash); }
-    .dept-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--mist); margin-bottom: 10px; }
-    .dept-title {
-      font-family: var(--font-display); font-size: 1.3rem; font-weight: 600;
-      color: var(--ink); letter-spacing: -.01em;
-      display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px;
-    }
-    .dept-title .jp-label { font-size: .88rem; font-weight: 400; opacity: .36; letter-spacing: .04em; }
-    .dept-desc { font-size: .95rem; color: var(--stone); font-weight: 300; line-height: 1.85; max-width: 680px; }
-
-    /* ─── TOOL CARDS ─── */
-    .tools-grid {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-      gap: 1px; background: var(--ash); border: 1px solid var(--ash);
-      border-radius: calc(var(--r) + 1px); overflow: hidden;
-    }
-    .tool-card {
-      background: var(--bg); padding: 30px 28px; text-decoration: none; color: var(--ink);
-      display: flex; flex-direction: column; transition: background .14s; position: relative;
-    }
-    .tool-card:hover { background: var(--bg2); }
-    .tool-card::after {
-      content: '↗'; position: absolute; top: 26px; right: 24px;
-      font-size: .8rem; color: var(--mist); transition: color .14s, transform .14s;
-    }
-    .tool-card:hover::after { color: var(--red); transform: translate(2px,-2px); }
-    .tc-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--mist); margin-bottom: 16px; }
-    .tc-icon { font-size: 1.5rem; margin-bottom: 12px; }
-    .tc-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: var(--ink); letter-spacing: -.01em; line-height: 1.2; }
-    .tc-desc { font-size: .9rem; color: var(--stone); line-height: 1.75; flex: 1; font-weight: 300; }
-    .tc-status {
-      margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--ash);
-      font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
-      color: var(--mist); display: flex; align-items: center; gap: 6px;
-    }
-    .tc-status .dot { width: 5px; height: 5px; border-radius: 50%; }
+    /* ── TOOL CARDS ── */
+    .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 12px; }
+    .tool-card { border: 1.5px solid var(--bdr); border-radius: var(--r); padding: 22px 22px 18px; text-decoration: none; color: var(--fg); display: flex; flex-direction: column; transition: border-color .14s, background .14s; }
+    .tool-card:hover { border-color: var(--bdr2); background: var(--bg2); }
+    .tc-tag { font-family: var(--mono); font-size: 10.5px; color: var(--fg4); margin-bottom: 12px; }
+    .tc-icon { font-size: 1.25rem; margin-bottom: 9px; }
+    .tc-title { font-size: 15px; font-weight: 700; color: var(--fg); margin-bottom: 7px; letter-spacing: -.01em; }
+    .tc-desc { font-size: 13.5px; color: var(--fg3); line-height: 1.7; flex: 1; }
+    .tc-foot { margin-top: 14px; padding-top: 11px; border-top: 1px solid var(--bdr); font-family: var(--mono); font-size: 11px; color: var(--fg4); display: flex; align-items: center; gap: 6px; }
+    .tc-dot { width: 5px; height: 5px; border-radius: 50%; }
     .dot-green { background: var(--green); }
-    .dot-blue  { background: var(--blue); }
+    .dot-blue  { background: var(--acc); }
     .dot-amber { background: var(--amber); }
-    .dot-gray  { background: var(--mist); }
+    .dot-gray  { background: var(--fg4); }
 
-    /* ─── WORK BUD SPOTLIGHT ─── */
-    .wb-spotlight {
-      background: var(--bg2); border: 1px solid var(--ash);
-      border-radius: calc(var(--r) + 1px); overflow: hidden;
-    }
-    .wb-top {
-      display: grid; grid-template-columns: 1fr 88px;
-      gap: 40px; align-items: start;
-      padding: 44px 44px 40px;
-      border-bottom: 1px solid var(--ash);
-    }
-    .wb-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--mist); margin-bottom: 14px; }
-    .wb-title {
-      font-family: var(--font-display); font-size: 1.6rem; font-weight: 800;
-      color: var(--ink); letter-spacing: -.02em; margin-bottom: 16px; line-height: 1.1;
-    }
-    .wb-title em { font-style: normal; color: var(--red); }
-    .wb-desc { font-size: .95rem; color: var(--stone); font-weight: 300; line-height: 1.85; max-width: 580px; }
-    .wb-cta {
-      display: inline-flex; align-items: center; gap: 8px; margin-top: 22px;
-      padding: 11px 24px; background: var(--ink); color: #fff;
-      border-radius: var(--r); text-decoration: none; font-size: .88rem; font-weight: 600;
-      transition: background .14s;
-    }
-    .wb-cta:hover { background: var(--ink2); }
-    .wb-badge {
-      width: 72px; height: 72px; border-radius: 50%;
-      background: var(--ink); color: #fff; font-size: 1.6rem;
-      display: flex; align-items: center; justify-content: center;
-      flex-shrink: 0; margin-top: 2px;
-    }
+    /* ── PRIMER ── */
+    .primer { background: var(--bg2); border: 1.5px solid var(--bdr); border-radius: var(--r); padding: 26px 30px; margin-bottom: 36px; display: grid; grid-template-columns: 1fr 190px; gap: 36px; align-items: start; }
+    .primer-label { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg4); margin-bottom: 7px; }
+    .primer-title { font-size: 16px; font-weight: 700; color: var(--fg); margin-bottom: 10px; }
+    .primer-body { font-size: 13.5px; color: var(--fg3); line-height: 1.78; }
+    .deal-flow { display: flex; flex-direction: column; gap: 3px; }
+    .df-step { background: var(--bg); border: 1.5px solid var(--bdr); border-radius: 8px; padding: 10px 14px; font-size: 13px; font-weight: 600; color: var(--fg2); text-align: center; }
+    .df-arrow { text-align: center; font-size: 11px; color: var(--fg4); padding: 1px 0; }
 
-    /* Feature grid */
-    .wb-features {
-      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
-      gap: 1px; background: var(--ash);
-    }
-    .wb-feature { background: var(--bg); padding: 26px 28px; }
-    .wf-icon { font-size: 1.2rem; margin-bottom: 12px; }
-    .wf-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
-    .wf-desc { font-size: .88rem; color: var(--stone); font-weight: 300; line-height: 1.75; }
+    /* ── WORK BUD TAB ── */
+    .wb-intro { background: var(--bg2); border: 1.5px solid var(--bdr); border-radius: var(--r); padding: 26px 30px; margin-bottom: 24px; display: grid; grid-template-columns: 1fr 68px; gap: 28px; align-items: start; }
+    .wbi-label { font-family: var(--mono); font-size: 10.5px; text-transform: uppercase; letter-spacing: .08em; color: var(--fg4); margin-bottom: 7px; }
+    .wbi-title { font-size: 19px; font-weight: 700; letter-spacing: -.02em; color: var(--fg); margin-bottom: 10px; }
+    .wbi-title em { font-style: normal; color: var(--acc); }
+    .wbi-desc { font-size: 13.5px; color: var(--fg3); line-height: 1.8; }
+    .wbi-cta { display: inline-flex; align-items: center; gap: 7px; margin-top: 18px; padding: 9px 20px; background: var(--fg); color: #fff; border-radius: 8px; text-decoration: none; font-size: 14px; font-weight: 600; transition: background .13s; }
+    .wbi-cta:hover { background: var(--fg2); }
+    .wbi-badge { width: 60px; height: 60px; border-radius: 50%; background: var(--fg); color: #fff; font-size: 1.4rem; display: flex; align-items: center; justify-content: center; }
+    .feat-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1px; background: var(--bdr); border: 1.5px solid var(--bdr); border-radius: var(--r); overflow: hidden; }
+    .feat-card { background: var(--bg); padding: 20px 22px; }
+    .feat-icon { font-size: 1.1rem; margin-bottom: 9px; }
+    .feat-title { font-size: 14px; font-weight: 700; color: var(--fg); margin-bottom: 5px; }
+    .feat-desc { font-size: 13px; color: var(--fg3); line-height: 1.68; }
 
-    /* ─── FOOTER ─── */
-    footer {
-      margin-top: auto; border-top: 1px solid var(--ash); padding: 26px var(--pad);
-      max-width: var(--wrap); margin: 0 auto; width: 100%;
-      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
-    }
-    .footer-brand { font-family: var(--font-display); font-size: .9rem; font-weight: 600; color: var(--stone); }
-    .footer-butler { font-family: var(--font-display); font-size: .82rem; font-style: italic; color: var(--mist); margin-top: 2px; }
-    .footer-links { display: flex; gap: 24px; }
-    .footer-links a { font-family: var(--font-mono); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--mist); text-decoration: none; transition: color .14s; }
-    .footer-links a:hover { color: var(--ink); }
+    /* ── RESOURCES ── */
+    .res-card { border: 1.5px solid var(--bdr); border-radius: var(--r); padding: 20px 22px; text-decoration: none; color: var(--fg); display: block; transition: border-color .14s, background .14s; }
+    .res-card:hover { border-color: var(--bdr2); background: var(--bg2); }
+    .res-label { font-family: var(--mono); font-size: 10.5px; color: var(--fg4); margin-bottom: 9px; }
+    .res-title { font-size: 15px; font-weight: 700; margin-bottom: 6px; color: var(--fg); }
+    .res-desc { font-size: 13px; color: var(--fg3); line-height: 1.65; }
   </style>
 </head>
 <body>
 
-<div class="jp-ambient" aria-hidden="true">
-  <span class="jp-char jp-c1">整</span>
-  <span class="jp-char jp-c2">序</span>
-  <span class="jp-char jp-c3">備</span>
-</div>
-
 <svg class="blossom-tr" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path d="M265 0 Q210 56 158 120 Q116 170 102 236" stroke="#c8a0aa" stroke-width="1.1" fill="none"/>
-  <path d="M226 20 Q190 72 162 90" stroke="#c8a0aa" stroke-width=".7" fill="none" opacity=".55"/>
-  <g transform="translate(158,118) rotate(-20)">
-    <ellipse rx="15" ry="9" fill="#f9d0da" opacity=".58"/>
-    <ellipse transform="rotate(72)" rx="15" ry="9" fill="#f2bac8" opacity=".52"/>
-    <ellipse transform="rotate(144)" rx="15" ry="9" fill="#f9d0da" opacity=".58"/>
-    <ellipse transform="rotate(216)" rx="15" ry="9" fill="#e8a0b4" opacity=".44"/>
-    <ellipse transform="rotate(288)" rx="15" ry="9" fill="#f9d0da" opacity=".58"/>
-    <circle r="4.5" fill="#fff" opacity=".88"/>
-    <circle r="2.2" fill="#e8a0b4" opacity=".65"/>
+  <path d="M268 0 Q212 58 160 122 Q118 174 104 242" stroke="#c8a0aa" stroke-width="1.2" fill="none"/>
+  <g transform="translate(160,120) rotate(-22)">
+    <ellipse rx="14" ry="8" fill="#fce4ec" opacity=".72"/><ellipse transform="rotate(72)" rx="14" ry="8" fill="#f8bbd0" opacity=".66"/>
+    <ellipse transform="rotate(144)" rx="14" ry="8" fill="#fce4ec" opacity=".72"/><ellipse transform="rotate(216)" rx="14" ry="8" fill="#f48fb1" opacity=".54"/>
+    <ellipse transform="rotate(288)" rx="14" ry="8" fill="#fce4ec" opacity=".72"/>
+    <circle r="4" fill="#fff" opacity=".92"/><circle r="2" fill="#f48fb1" opacity=".76"/>
   </g>
-  <g transform="translate(214,52) rotate(14)">
-    <ellipse rx="11" ry="6.5" fill="#f2bac8" opacity=".48"/>
-    <ellipse transform="rotate(72)" rx="11" ry="6.5" fill="#f9d0da" opacity=".5"/>
-    <ellipse transform="rotate(144)" rx="11" ry="6.5" fill="#f2bac8" opacity=".48"/>
-    <ellipse transform="rotate(216)" rx="11" ry="6.5" fill="#f9d0da" opacity=".5"/>
-    <ellipse transform="rotate(288)" rx="11" ry="6.5" fill="#f2bac8" opacity=".48"/>
-    <circle r="3.2" fill="#fff" opacity=".88"/>
-    <circle r="1.5" fill="#d4708a" opacity=".5"/>
+  <g transform="translate(216,56) rotate(14)">
+    <ellipse rx="10" ry="5.5" fill="#f8bbd0" opacity=".62"/><ellipse transform="rotate(72)" rx="10" ry="5.5" fill="#fce4ec" opacity=".64"/>
+    <ellipse transform="rotate(144)" rx="10" ry="5.5" fill="#f8bbd0" opacity=".62"/><ellipse transform="rotate(216)" rx="10" ry="5.5" fill="#fce4ec" opacity=".64"/>
+    <ellipse transform="rotate(288)" rx="10" ry="5.5" fill="#f8bbd0" opacity=".62"/>
+    <circle r="2.8" fill="#fff" opacity=".9"/>
   </g>
 </svg>
 <svg class="blossom-bl" viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
   <path d="M0 170 Q40 118 94 70" stroke="#c8a0aa" stroke-width=".9" fill="none"/>
   <g transform="translate(94,70) rotate(25)">
-    <ellipse rx="10" ry="5.5" fill="#f9d0da" opacity=".44"/>
-    <ellipse transform="rotate(72)" rx="10" ry="5.5" fill="#f2bac8" opacity=".38"/>
-    <ellipse transform="rotate(144)" rx="10" ry="5.5" fill="#f9d0da" opacity=".44"/>
-    <ellipse transform="rotate(216)" rx="10" ry="5.5" fill="#f2bac8" opacity=".38"/>
-    <ellipse transform="rotate(288)" rx="10" ry="5.5" fill="#f9d0da" opacity=".44"/>
-    <circle r="2.8" fill="#fff" opacity=".84"/>
+    <ellipse rx="9" ry="5" fill="#fce4ec" opacity=".4"/><ellipse transform="rotate(72)" rx="9" ry="5" fill="#f8bbd0" opacity=".35"/>
+    <ellipse transform="rotate(144)" rx="9" ry="5" fill="#fce4ec" opacity=".4"/><ellipse transform="rotate(216)" rx="9" ry="5" fill="#f8bbd0" opacity=".35"/>
+    <ellipse transform="rotate(288)" rx="9" ry="5" fill="#fce4ec" opacity=".4"/>
+    <circle r="2.6" fill="#fff" opacity=".82"/>
   </g>
 </svg>
 
-<div class="site">
+<div class="shell">
 
-  <nav class="nav">
-    <div class="nav-inner">
-      <div class="nav-logo"><span class="jp">整</span> O.M. Suite</div>
-      <div class="nav-sep"></div>
-      <span class="nav-sub">Amplitude · Sales Finance</span>
-      <div class="nav-live"><span class="nav-dot"></span> suite live</div>
+  <!-- SUITE CHROME: single bar with brand + tabs -->
+  <div class="suite-chrome">
+    <a class="sc-brand" href="index.html">House of O.M.</a>
+    <div class="sc-tabs">
+      <button class="sc-tab active" id="t-home"      onclick="go('home',this)">Home</button>
+      <button class="sc-tab"        id="t-om"        onclick="go('om',this)">Order Management</button>
+      <button class="sc-tab"        id="t-sf"        onclick="go('sf',this)">Sales Finance</button>
+      <button class="sc-tab"        id="t-acct"      onclick="go('acct',this)">Accounting</button>
+      <a      class="sc-tab"        href="workbud.html">Work Bud</a>
+      <button class="sc-tab"        id="t-resources" onclick="go('resources',this)">Resources</button>
     </div>
-  </nav>
+    <div class="sc-live"><span class="sc-dot"></span> live</div>
+  </div>
 
-  <!-- HERO -->
-  <div class="hero">
-    <div class="hero-eyebrow">Amplitude · Order Management · Sales Finance</div>
-    <h1>The<br><em>O.M. Suite.</em></h1>
-    <p class="hero-sub">
-      A curated suite of tools and resources for the Amplitude Order Management
-      and Sales Finance team — organized by department, built for the work.
-    </p>
-    <p class="hero-butler">The suite is prepared. Everything in its proper place.</p>
-    <div class="hero-actions">
-      <a class="btn btn-primary" href="bookings.html">Booking Checker</a>
-      <a class="btn btn-outline" href="#work-bud">Work Bud ↓</a>
-      <a class="btn btn-ghost" href="https://github.com/kareem-powell/tools" target="_blank">github ↗</a>
+  <!-- HOME -->
+  <div class="pane active" id="p-home">
+    <div class="home-wrap">
+      <div class="home-eyebrow">Amplitude · Sales Finance · Order Management</div>
+      <div class="home-title">House of O.M..</div>
+      <p class="home-sub">The tools, resources, and references for the Amplitude Order Management and Sales Finance team — organized by department, built for the work.</p>
+      <div class="home-actions">
+        <a class="btn btn-dark" href="bookings.html">Booking Checker</a>
+        <a class="btn btn-out"  href="workbud.html">Work Bud</a>
+        <a class="btn btn-ghost" href="https://github.com/kareem-powell/tools" target="_blank">github ↗</a>
+      </div>
     </div>
   </div>
 
-  <!-- ═══ DEPT 01 · FP&A ═══ -->
-  <div class="section">
-    <div class="dept-head">
-      <div class="dept-label">Department · 01</div>
-      <div class="dept-title">FP&amp;A <span class="jp-label">財務計画</span></div>
-      <p class="dept-desc">
-        Financial Planning &amp; Analysis owns the org-wide view of what Sales Finance is building
-        this half — quarterly priorities, project tracking, and delivery against Amplitude's financial
-        goals. These resources live at the planning layer and are the source of truth for what's
-        in flight across the department.
-      </p>
-    </div>
-    <div class="tools-grid">
+  <!-- ORDER MANAGEMENT -->
+  <div class="pane" id="p-om">
+    <div class="inner">
 
-      <a class="tool-card" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">
-        <div class="tc-tag">Google Sheets · H1 Reference</div>
-        <div class="tc-icon">📊</div>
-        <div class="tc-title">H1 Projects &amp; Tracking</div>
-        <div class="tc-desc">
-          The H1 initiative tracker for Sales Finance. Covers Vol Ramp ATR cleanup, OM booking
-          improvements, AI Week deliverables, and project ownership across the team. Reference point
-          for quarterly priorities and who owns what this half.
-        </div>
-        <div class="tc-status"><span class="dot dot-blue"></span> Google Sheets</div>
-      </a>
-
-      <a class="tool-card" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0#heading=h.wc55ym5tat6e" target="_blank">
-        <div class="tc-tag">Google Docs · OKRs</div>
-        <div class="tc-icon">📋</div>
-        <div class="tc-title">Deliverables Doc</div>
-        <div class="tc-desc">
-          Full breakdown of Sales Finance deliverables, OKRs, and project ownership mapped to
-          Amplitude's broader goals. The definitive reference for understanding what the team
-          is accountable for this half.
-        </div>
-        <div class="tc-status"><span class="dot dot-gray"></span> Google Docs</div>
-      </a>
-
-      <a class="tool-card" href="https://drive.google.com/drive/folders/0AIH8MNQ95VLhUk9PVA" target="_blank">
-        <div class="tc-tag">Google Drive · Team</div>
-        <div class="tc-icon">📁</div>
-        <div class="tc-title">Sales Finance Drive</div>
-        <div class="tc-desc">
-          The shared team drive for the Sales Finance org. Meeting notes, project docs,
-          templates, process guides, and institutional context for all ongoing and completed
-          initiatives across the department.
-        </div>
-        <div class="tc-status"><span class="dot dot-gray"></span> Google Drive</div>
-      </a>
-
-    </div>
-  </div>
-
-  <div class="section-divider"></div>
-
-  <!-- ═══ DEPT 02 · ORDER MANAGEMENT ═══ -->
-  <div class="section">
-    <div class="dept-head">
-      <div class="dept-label">Department · 02</div>
-      <div class="dept-title">Order Management <span class="jp-label">受注管理</span></div>
-      <p class="dept-desc">
-        Order Management is the operational core of Sales Finance — the team that validates,
-        processes, and closes every deal flowing through Amplitude's sales motion. These tools
-        were built specifically for OM workflows: catching booking errors before they become cases,
-        managing the live queue, and getting new team members up to speed fast.
-      </p>
-    </div>
-    <div class="tools-grid">
-
-      <a class="tool-card" href="bookings.html">
-        <div class="tc-tag">Built for OM · Daily Use</div>
-        <div class="tc-icon">🔍</div>
-        <div class="tc-title">Booking Checker</div>
-        <div class="tc-desc">
-          A step-by-step deal validation tool built from the OM booking checklist.
-          Walk through each required field — Contract ID, ARR, deal type, billing terms — for
-          Direct, Reseller, and AWS Marketplace deals. Flags issues before they reach the queue
-          and become correction cases.
-        </div>
-        <div class="tc-status"><span class="dot dot-green"></span> Live · Open Access</div>
-      </a>
-
-      <a class="tool-card" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
-        <div class="tc-tag">Salesforce · Live Queue</div>
-        <div class="tc-icon">⚡</div>
-        <div class="tc-title">OM Case Queue</div>
-        <div class="tc-desc">
-          The live Salesforce OM case queue. All open booking cases, pending AE corrections,
-          and deal escalations in one view. Every booking requiring OM review flows in here —
-          the primary daily intake for the Sales Finance team.
-        </div>
-        <div class="tc-status"><span class="dot dot-blue"></span> Salesforce</div>
-      </a>
-
-      <a class="tool-card" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit?tab=t.0" target="_blank">
-        <div class="tc-tag">Google Docs · Onboarding</div>
-        <div class="tc-icon">🎓</div>
-        <div class="tc-title">OM Onboarding Guide</div>
-        <div class="tc-desc">
-          The foundational OM reference — role definition, Amplitude product structure, SFDC /
-          ARR / ATR explained from first principles, and team context built from day one.
-          Written to orient anyone stepping into an OM function for the first time.
-        </div>
-        <div class="tc-status"><span class="dot dot-gray"></span> Google Docs</div>
-      </a>
-
-    </div>
-  </div>
-
-  <div class="section-divider"></div>
-
-  <!-- ═══ DEPT 03 · ACCOUNTING & FINANCE ═══ -->
-  <div class="section">
-    <div class="dept-head">
-      <div class="dept-label">Department · 03</div>
-      <div class="dept-title">Accounting &amp; Finance <span class="jp-label">会計</span></div>
-      <p class="dept-desc">
-        Accounting and Finance are downstream of every deal OM processes — first to feel it
-        when bookings are wrong, first to act when accounts trend toward overage. This section
-        houses tools built at the intersection of Sales Finance and Accounting workflows,
-        shifting the team from reactive to proactive.
-      </p>
-    </div>
-    <div class="tools-grid">
-
-      <a class="tool-card" href="https://lovable.dev" target="_blank">
-        <div class="tc-tag">AI Build · Active · AI Week</div>
-        <div class="tc-icon">💜</div>
-        <div class="tc-title">G&amp;A Overage Anticipation Agent</div>
-        <div class="tc-desc">
-          A forward-looking consumption monitor being built on Lovable.dev. Tracks accounts
-          trending toward usage overages and automatically alerts AE, FLM, CSM, and Accounting
-          before the overage hits — turning overage management from reactive to anticipatory.
-        </div>
-        <div class="tc-status"><span class="dot dot-amber"></span> In Build · Lovable.dev</div>
-      </a>
-
-    </div>
-  </div>
-
-  <div class="section-divider"></div>
-
-  <!-- ═══ WORK BUD SPOTLIGHT ═══ -->
-  <div class="section" id="work-bud" style="padding-top: 68px; padding-bottom: 80px;">
-    <div class="dept-head">
-      <div class="dept-label">Personal Ops Hub · Password Protected</div>
-      <div class="dept-title">Work Bud <span class="jp-label">作業の友</span></div>
-      <p class="dept-desc">
-        A private, browser-based operations hub built on top of this suite —
-        purpose-built for managing work through the lens of High Output Management
-        and Measure What Matters. Not a task list. A structured daily operating system.
-      </p>
-    </div>
-
-    <div class="wb-spotlight">
-
-      <div class="wb-top">
+      <div class="primer">
         <div>
-          <div class="wb-eyebrow">What is Work Bud?</div>
-          <div class="wb-title">Built for output,<br>not just <em>activity.</em></div>
-          <p class="wb-desc">
-            Work Bud brings your Asana deliverables in-page with checkboxes you can actually use,
-            keeps your meeting notes structured and searchable by week, logs the positive call-outs
-            from teammates that belong in your performance record, and tracks every AI build in
-            flight — all in one focused window, no tab-switching required.
-          </p>
-          <a class="wb-cta" href="workbud.html">Open Work Bud →</a>
+          <div class="primer-label">At a Glance · For the Uninitiated</div>
+          <div class="primer-title">What is Order Management?</div>
+          <p class="primer-body">Every deal Amplitude's sales team closes flows through Order Management before it's recognized as revenue. OM validates that deals are structured correctly — right ARR, right deal type, right billing terms — and processes any corrections before the deal books. When a booking is wrong, it creates a case. These tools exist so that doesn't happen.</p>
         </div>
-        <div class="wb-badge">🤙</div>
+        <div class="deal-flow">
+          <div class="df-step">AE Submits</div>
+          <div class="df-arrow">↓</div>
+          <div class="df-step">OM Validates</div>
+          <div class="df-arrow">↓</div>
+          <div class="df-step">Revenue Books</div>
+        </div>
       </div>
 
-      <div class="wb-features">
+      <div class="sec-head">
+        <div class="sec-label">Planning Context · FP&amp;A</div>
+        <div class="sec-title">Quarterly Planning &amp; Tracking</div>
+        <p class="sec-desc">The org-wide view of what Sales Finance is delivering this half — priorities, ownership, and accountability mapped to Amplitude's financial goals.</p>
+      </div>
+      <div class="card-grid">
+        <a class="tool-card" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">
+          <div class="tc-tag">Google Sheets · H1</div>
+          <div class="tc-icon">📊</div>
+          <div class="tc-title">H1 Projects &amp; Tracking</div>
+          <div class="tc-desc">H1 initiative tracker for Sales Finance. Covers Vol Ramp ATR cleanup, OM booking improvements, AI Week deliverables, and project ownership across the team.</div>
+          <div class="tc-foot"><span class="tc-dot dot-blue"></span> Google Sheets</div>
+        </a>
+        <a class="tool-card" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0#heading=h.wc55ym5tat6e" target="_blank">
+          <div class="tc-tag">Google Docs · OKRs</div>
+          <div class="tc-icon">📋</div>
+          <div class="tc-title">Deliverables Doc</div>
+          <div class="tc-desc">Full breakdown of Sales Finance deliverables, OKRs, and project ownership mapped to Amplitude's goals — the definitive reference for what the team owns this half.</div>
+          <div class="tc-foot"><span class="tc-dot dot-gray"></span> Google Docs</div>
+        </a>
+      </div>
 
-        <div class="wb-feature">
-          <div class="wf-icon">🏠</div>
-          <div class="wf-title">The Den</div>
-          <p class="wf-desc">
-            Your daily home base. A KP profile card with live stat cells — open cases,
-            active builds, throughput — plus curated quick links to your most-used tools.
-            No noise. Just what you actually reach for.
-          </p>
-        </div>
+      <div class="sec-head section-gap sec-gap">
+        <div class="sec-label">Team Tools · Daily Use</div>
+        <div class="sec-title">Order Management Tools</div>
+        <p class="sec-desc">Built specifically for OM workflows — catching booking errors before they queue, managing the live case pipeline, and orienting anyone new to the function.</p>
+      </div>
+      <div class="card-grid">
+        <a class="tool-card" href="bookings.html">
+          <div class="tc-tag">Built for OM · Open Access</div>
+          <div class="tc-icon">🔍</div>
+          <div class="tc-title">Booking Checker</div>
+          <div class="tc-desc">Step-by-step deal validation built from the OM booking checklist. Walk through each required field for Direct, Reseller, and AWS Marketplace deals. Flags issues before they become cases.</div>
+          <div class="tc-foot"><span class="tc-dot dot-green"></span> Live · Open</div>
+        </a>
+        <a class="tool-card" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
+          <div class="tc-tag">Salesforce · Live Queue</div>
+          <div class="tc-icon">⚡</div>
+          <div class="tc-title">OM Case Queue</div>
+          <div class="tc-desc">The live Salesforce OM case queue. All open booking cases, pending AE corrections, and deal escalations — primary daily intake for the Sales Finance team.</div>
+          <div class="tc-foot"><span class="tc-dot dot-blue"></span> Salesforce</div>
+        </a>
+        <a class="tool-card" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit?tab=t.0" target="_blank">
+          <div class="tc-tag">Google Docs · Onboarding</div>
+          <div class="tc-icon">🎓</div>
+          <div class="tc-title">OM Onboarding Guide</div>
+          <div class="tc-desc">The foundational OM reference — SFDC / ARR / ATR explained from first principles, role definition, and team context built from day one.</div>
+          <div class="tc-foot"><span class="tc-dot dot-gray"></span> Google Docs</div>
+        </a>
+      </div>
 
-        <div class="wb-feature">
-          <div class="wf-icon">📋</div>
-          <div class="wf-title">Deliverables</div>
-          <p class="wf-desc">
-            Your Asana deliverables embedded directly in the browser. Each task is checkable
-            in-page — state persists across sessions via local storage. A live progress bar
-            at the top shows where you stand at a glance.
-          </p>
-        </div>
+    </div>
+  </div>
 
-        <div class="wb-feature">
-          <div class="wf-icon">📝</div>
-          <div class="wf-title">Meeting Notes</div>
-          <p class="wf-desc">
-            Weekly notes in a clean accordion layout — collapsed by default so you can scan
-            across weeks without scrolling. Each entry has a date, meeting type, and structured
-            bullet list. Updated directly in the HTML.
-          </p>
-        </div>
-
-        <div class="wb-feature">
-          <div class="wf-icon">🌟</div>
-          <div class="wf-title">Call-Outs</div>
-          <p class="wf-desc">
-            A running log of recognition from teammates — the moments that belong in your
-            performance record. Each entry captures who said it, the context, and the quote.
-            Quiet tab. Important one.
-          </p>
-        </div>
-
-        <div class="wb-feature">
-          <div class="wf-icon">💜</div>
-          <div class="wf-title">Lovable Builds</div>
-          <p class="wf-desc">
-            Tracks every AI-powered tool in active development — links, status, and what each
-            build is trying to accomplish. Right now: the G&A Overage Anticipation agent for
-            AI Week. The tab grows with the work.
-          </p>
-        </div>
-
+  <!-- SALES FINANCE -->
+  <div class="pane" id="p-sf">
+    <div class="inner">
+      <div class="sec-head">
+        <div class="sec-label">Department</div>
+        <div class="sec-title">Sales Finance</div>
+        <p class="sec-desc">Sales Finance bridges the commercial motion and financial reporting — it owns deal economics, revenue integrity, and the operational systems that make accurate bookings possible.</p>
+      </div>
+      <div class="card-grid">
+        <a class="tool-card" href="https://drive.google.com/drive/folders/0AIH8MNQ95VLhUk9PVA" target="_blank">
+          <div class="tc-tag">Google Drive · Team</div>
+          <div class="tc-icon">📁</div>
+          <div class="tc-title">Sales Finance Drive</div>
+          <div class="tc-desc">Shared team drive. Meeting notes, project docs, templates, process guides, and institutional context for all ongoing and completed initiatives.</div>
+          <div class="tc-foot"><span class="tc-dot dot-gray"></span> Google Drive</div>
+        </a>
+        <a class="tool-card" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0#heading=h.wc55ym5tat6e" target="_blank">
+          <div class="tc-tag">Google Docs · OKRs</div>
+          <div class="tc-icon">📋</div>
+          <div class="tc-title">Deliverables Doc</div>
+          <div class="tc-desc">Full breakdown of Sales Finance deliverables, OKRs, and project ownership — the reference for what the team is accountable for this half.</div>
+          <div class="tc-foot"><span class="tc-dot dot-gray"></span> Google Docs</div>
+        </a>
+        <a class="tool-card" href="workbud.html">
+          <div class="tc-tag">Internal · Password Protected</div>
+          <div class="tc-icon">🤙</div>
+          <div class="tc-title">Work Bud</div>
+          <div class="tc-desc">Kareem's private operations hub — deliverables, meeting notes, call-outs, and active builds in one structured, browser-based workspace built around HOM principles.</div>
+          <div class="tc-foot"><span class="tc-dot dot-green"></span> Live · Private</div>
+        </a>
       </div>
     </div>
   </div>
 
-  <!-- FOOTER -->
-  <footer style="border-top: 1px solid var(--ash); padding: 26px var(--pad); max-width:100%; width:100%; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:auto;">
-    <div>
-      <div class="footer-brand">O.M. Suite &nbsp;·&nbsp; 整序</div>
-      <div class="footer-butler">At your service.</div>
+  <!-- ACCOUNTING -->
+  <div class="pane" id="p-acct">
+    <div class="inner">
+      <div class="sec-head">
+        <div class="sec-label">Department</div>
+        <div class="sec-title">Accounting &amp; Finance</div>
+        <p class="sec-desc">Accounting and Finance are downstream of every deal OM processes — first to feel it when bookings are wrong, first to act when accounts trend toward overage. These tools sit at that intersection.</p>
+      </div>
+      <div class="card-grid">
+        <a class="tool-card" href="https://lovable.dev" target="_blank">
+          <div class="tc-tag">AI Build · Active · AI Week</div>
+          <div class="tc-icon">💜</div>
+          <div class="tc-title">G&amp;A Overage Anticipation Agent</div>
+          <div class="tc-desc">A forward-looking consumption monitor on Lovable.dev. Tracks accounts trending toward usage overages and automatically alerts AE, FLM, CSM, and Accounting before the overage hits.</div>
+          <div class="tc-foot"><span class="tc-dot dot-amber"></span> In Build · Lovable.dev</div>
+        </a>
+      </div>
     </div>
-    <div class="footer-links">
-      <a href="workbud.html">Work Bud</a>
-      <a href="bookings.html">Booking Checker</a>
-      <a href="https://github.com/kareem-powell/tools" target="_blank">GitHub</a>
+  </div>
+
+  <!-- WORK BUD INFO -->
+  <div class="pane" id="p-wb">
+    <div class="inner">
+      <div class="sec-head">
+        <div class="sec-label">Personal Ops Hub · Password Protected</div>
+        <div class="sec-title">Work Bud</div>
+        <p class="sec-desc">A private, browser-based operations hub — a structured daily operating system built for output, not just activity, organized around High Output Management and Measure What Matters.</p>
+      </div>
+      <div class="wb-intro">
+        <div>
+          <div class="wbi-label">What is Work Bud?</div>
+          <div class="wbi-title">Built for output,<br>not just <em>activity.</em></div>
+          <p class="wbi-desc">Work Bud surfaces your deliverables with checkboxes you can use right in the browser, keeps meeting notes structured and scannable by week, logs positive call-outs from teammates that belong in your performance record, and tracks every active build in flight — all in one focused window.</p>
+          <a class="wbi-cta" href="workbud.html">Open Work Bud →</a>
+        </div>
+        <div class="wbi-badge">🤙</div>
+      </div>
+      <div class="feat-grid">
+        <div class="feat-card"><div class="feat-icon">🏠</div><div class="feat-title">The Den</div><p class="feat-desc">Priority-first home base. ATR cases and Booking front and center as your biggest tiles — quick access to the tools that drive the most value.</p></div>
+        <div class="feat-card"><div class="feat-icon">📋</div><div class="feat-title">Deliverables</div><p class="feat-desc">Your deliverables, checkable right in the browser. Each item is completable in-page — state persists across sessions. A progress bar shows where you stand.</p></div>
+        <div class="feat-card"><div class="feat-icon">📝</div><div class="feat-title">Meeting Notes</div><p class="feat-desc">Weekly notes in a clean accordion — collapsed by default so you can scan across weeks without scrolling. Each entry has date, type, and structured bullets.</p></div>
+        <div class="feat-card"><div class="feat-icon">🌟</div><div class="feat-title">Call-Outs</div><p class="feat-desc">A running log of recognition from teammates — the moments that belong in your performance record. Who said it, the context, and the quote.</p></div>
+        <div class="feat-card"><div class="feat-icon">💜</div><div class="feat-title">Lovable Builds</div><p class="feat-desc">Tracks every active build — links, status, and what each is accomplishing. Right now: the G&A Overage Anticipation agent. Grows with the work.</p></div>
+      </div>
     </div>
-  </footer>
+  </div>
+
+  <!-- RESOURCES -->
+  <div class="pane" id="p-resources">
+    <div class="inner">
+      <div class="sec-head">
+        <div class="sec-label">External · Reference</div>
+        <div class="sec-title">Resources</div>
+        <p class="sec-desc">Source code, deployment, and the frameworks that inform how this work is organized.</p>
+      </div>
+      <div class="card-grid">
+        <a class="res-card" href="https://github.com/kareem-powell/tools" target="_blank">
+          <div class="res-label">Open Source · GitHub Pages</div>
+          <div class="res-title">kareem-powell/tools</div>
+          <p class="res-desc">Full source for every tool in this suite. Plain HTML — no build step, no dependencies. Deployed via GitHub Pages. Fork to adapt for your own OM workflow.</p>
+        </a>
+        <div class="res-card" style="cursor:default;">
+          <div class="res-label">Book · Management Framework</div>
+          <div class="res-title">High Output Management</div>
+          <p class="res-desc">Andy Grove's framework for measuring and improving the output of knowledge work. The organizational logic behind how Work Bud's priorities and deliverables are structured.</p>
+        </div>
+        <div class="res-card" style="cursor:default;">
+          <div class="res-label">Book · Goal Framework</div>
+          <div class="res-title">Measure What Matters</div>
+          <p class="res-desc">John Doerr's OKR framework for setting and tracking goals that actually move the needle. Informs how deliverables and quarterly priorities are framed inside Work Bud.</p>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </div>
+
+<script>
+function go(id, btn) {
+  document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.sc-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('p-' + id).classList.add('active');
+  btn.classList.add('active');
+}
+// Hash routing — so index.html#om activates the OM tab
+(function() {
+  const map = { om:'t-om', sf:'t-sf', acct:'t-acct', resources:'t-resources' };
+  const hash = window.location.hash.replace('#','');
+  if (map[hash]) {
+    const btn = document.getElementById(map[hash]);
+    if (btn) go(hash, btn);
+  }
+})();
+</script>
 </body>
 </html>

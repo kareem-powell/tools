@@ -13,6 +13,7 @@
   "sf_snapshot": {
     "updated": "Apr 10, 2026",
     "vol_ramp_deals": 138,
-    "vol_ramp_pct_complete": 60
+    "vol_ramp_pct_complete": 60,
+    "arr_recorded": null
   }
 }

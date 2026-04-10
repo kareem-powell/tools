@@ -16,19 +16,28 @@
       --green: #15803d; --green-bg: #dcfce7;
       --red: #b91c1c; --red-bg: #fef2f2;
       --amber: #b45309; --amber-bg: #fffbeb;
-      --bloom: #b83350;       /* cherry blossom / japanese maple */
-      --bloom-soft: #fce4ec;  /* sakura blush */
-      --bloom-dark: #1c0a10;  /* deep warm near-black for dark cards */
+      /* ── BONSAI / TEAL THEME ── */
+      --teal: #0891b2;          /* ocean teal — primary accent */
+      --teal-dark: #062d40;     /* deep ocean for dark cards */
+      --teal-soft: #e0f7fa;     /* pale sky */
+      --sage: #4a7c59;          /* sage green */
+      --bloom: #0891b2;         /* bloom = teal (primary UI accent) */
+      --bloom-dark: #062d40;
+      --bloom-soft: #e0f7fa;
+      --sakura: #b83350;        /* sakura pink — FP&A identity */
+      --sakura-dark: #1c0a10;
       --r: 10px;
       --font: 'DM Sans', -apple-system, sans-serif;
       --mono: 'DM Mono', 'Courier New', monospace;
+      /* Dept identity */
+      --fpa-c: #b83350;   --acct-c: #3b3daf;  --acct-dark: #0d0e2e;
+      --om-c: #15803d;    --om-dark: #071a0e;
     }
     html, body { min-height: 100vh; font-size: 15px; }
     body { font-family: var(--font); background: var(--bg); color: var(--fg); line-height: 1.6; -webkit-font-smoothing: antialiased; }
 
-    /* ── BLOSSOMS ── */
-    .blossom-tr { position: fixed; top: 0; right: 0; width: 280px; height: 280px; pointer-events: none; z-index: 0; opacity: .58; }
-    .blossom-bl { position: fixed; bottom: 0; left: 0; width: 170px; height: 170px; pointer-events: none; z-index: 0; opacity: .32; transform: rotate(180deg); }
+    /* ── BONSAI BACKGROUND ── */
+    .bonsai-bg { position: fixed; bottom: 0; right: 0; width: 240px; height: 320px; pointer-events: none; z-index: 0; opacity: .18; }
 
     /* ── SUITE CHROME (single bar: brand + tabs + live) ── */
     .suite-chrome {
@@ -268,6 +277,43 @@
     .cb-body { font-size: 13.5px; color: var(--fg3); line-height: 1.75; }
     .cb-body strong { color: var(--fg2); font-weight: 600; }
 
+    /* ── OM QUEUE DASHBOARD ── */
+    .queue-hero { border-left: 4px solid var(--om-c); padding: 0 0 0 22px; margin-bottom: 36px; }
+    .queue-meta-row { display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; }
+    .queue-updated { font-family: var(--mono); font-size: 10px; color: var(--fg4); }
+    .queue-sfdc-link { font-family: var(--mono); font-size: 11px; color: var(--teal); font-weight: 600; text-decoration: none; }
+    .queue-sfdc-link:hover { text-decoration: underline; }
+    .queue-total-row { display: flex; align-items: baseline; gap: 14px; margin-bottom: 22px; }
+    .queue-total { font-size: 76px; font-weight: 800; letter-spacing: -.05em; color: var(--fg); line-height: 1; }
+    .queue-total-sub { font-size: 14px; color: var(--fg3); font-weight: 500; line-height: 1.5; }
+    .queue-status-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--bdr); border: 1px solid var(--bdr); border-radius: var(--r); overflow: hidden; margin-bottom: 28px; }
+    .qs-cell { background: var(--bg); padding: 18px 20px; }
+    .qs-new       { border-top: 3px solid var(--acc); }
+    .qs-assigned  { border-top: 3px solid var(--amber); }
+    .qs-inprogress{ border-top: 3px solid var(--green); }
+    .qs-pending   { border-top: 3px solid var(--fg4); }
+    .qs-count { font-size: 36px; font-weight: 800; letter-spacing: -.03em; line-height: 1; margin-bottom: 6px; }
+    .qs-new .qs-count      { color: var(--acc); }
+    .qs-assigned .qs-count { color: var(--amber); }
+    .qs-inprogress .qs-count { color: var(--green); }
+    .qs-pending .qs-count  { color: var(--fg3); }
+    .qs-label { font-size: 13px; font-weight: 600; color: var(--fg2); margin-bottom: 2px; }
+    .qs-sub   { font-family: var(--mono); font-size: 10px; color: var(--fg4); }
+
+    /* ── AMPL DEPT GRID ── */
+    .ampl-intro { font-family: var(--mono); font-size: 11px; color: var(--fg4); margin-bottom: 28px; letter-spacing: .04em; line-height: 1.7; max-width: 600px; }
+    .ampl-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin-bottom: 36px; }
+    .adc { border-radius: var(--r); padding: 26px 28px; border: none; cursor: pointer; text-align: left; font-family: var(--font); transition: opacity .12s, transform .1s; }
+    .adc:hover { opacity: .88; transform: translateY(-1px); }
+    .adc-label { font-family: var(--mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; opacity: .5; margin-bottom: 10px; display: block; color: #fff; }
+    .adc-title { font-size: 21px; font-weight: 800; letter-spacing: -.025em; color: #fff; margin-bottom: 8px; }
+    .adc-desc  { font-size: 13px; line-height: 1.68; color: rgba(255,255,255,.65); }
+    .adc-foot  { font-family: var(--mono); font-size: 11px; margin-top: 18px; color: rgba(255,255,255,.35); }
+    .adc-fpa  { background: linear-gradient(145deg, #2a0818 0%, #1a0a1a 100%); }
+    .adc-sf   { background: linear-gradient(145deg, #062d40 0%, #0a1020 100%); }
+    .adc-acct { background: linear-gradient(145deg, #0d0e2e 0%, #0a0d20 100%); }
+    .adc-om   { background: linear-gradient(145deg, #071a0e 0%, #081408 100%); }
+
     /* ── ECOSYSTEM FLOW (OM) ── */
     .eco-wrap { display: grid; grid-template-columns: 1fr 120px 1fr; gap: 0; align-items: center; background: var(--bg2); border: 1.5px solid var(--bdr); border-radius: var(--r); padding: 24px 28px; margin-bottom: 36px; }
     .eco-col-head { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg4); margin-bottom: 10px; }
@@ -281,29 +327,35 @@
 </head>
 <body>
 
-<svg class="blossom-tr" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path d="M268 0 Q212 58 160 122 Q118 174 104 242" stroke="#c8a0aa" stroke-width="1.2" fill="none"/>
-  <g transform="translate(160,120) rotate(-22)">
-    <ellipse rx="14" ry="8" fill="#fce4ec" opacity=".72"/><ellipse transform="rotate(72)" rx="14" ry="8" fill="#f8bbd0" opacity=".66"/>
-    <ellipse transform="rotate(144)" rx="14" ry="8" fill="#fce4ec" opacity=".72"/><ellipse transform="rotate(216)" rx="14" ry="8" fill="#f48fb1" opacity=".54"/>
-    <ellipse transform="rotate(288)" rx="14" ry="8" fill="#fce4ec" opacity=".72"/>
-    <circle r="4" fill="#fff" opacity=".92"/><circle r="2" fill="#f48fb1" opacity=".76"/>
-  </g>
-  <g transform="translate(216,56) rotate(14)">
-    <ellipse rx="10" ry="5.5" fill="#f8bbd0" opacity=".62"/><ellipse transform="rotate(72)" rx="10" ry="5.5" fill="#fce4ec" opacity=".64"/>
-    <ellipse transform="rotate(144)" rx="10" ry="5.5" fill="#f8bbd0" opacity=".62"/><ellipse transform="rotate(216)" rx="10" ry="5.5" fill="#fce4ec" opacity=".64"/>
-    <ellipse transform="rotate(288)" rx="10" ry="5.5" fill="#f8bbd0" opacity=".62"/>
-    <circle r="2.8" fill="#fff" opacity=".9"/>
-  </g>
-</svg>
-<svg class="blossom-bl" viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path d="M0 170 Q40 118 94 70" stroke="#c8a0aa" stroke-width=".9" fill="none"/>
-  <g transform="translate(94,70) rotate(25)">
-    <ellipse rx="9" ry="5" fill="#fce4ec" opacity=".4"/><ellipse transform="rotate(72)" rx="9" ry="5" fill="#f8bbd0" opacity=".35"/>
-    <ellipse transform="rotate(144)" rx="9" ry="5" fill="#fce4ec" opacity=".4"/><ellipse transform="rotate(216)" rx="9" ry="5" fill="#f8bbd0" opacity=".35"/>
-    <ellipse transform="rotate(288)" rx="9" ry="5" fill="#fce4ec" opacity=".4"/>
-    <circle r="2.6" fill="#fff" opacity=".82"/>
-  </g>
+<!-- Bonsai background -->
+<svg class="bonsai-bg" viewBox="0 0 200 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <!-- pot -->
+  <rect x="72" y="258" width="56" height="16" rx="3" fill="#3d2b1f"/>
+  <rect x="68" y="254" width="64" height="6" rx="2" fill="#5c4a3a"/>
+  <!-- trunk: curved, characterful -->
+  <path d="M100 258 Q96 238 91 218 Q87 200 84 186 Q81 174 78 162 Q76 152 78 140" stroke="#2a1a0e" stroke-width="9" fill="none" stroke-linecap="round"/>
+  <!-- left branch -->
+  <path d="M80 155 Q64 142 48 134 Q34 128 18 124" stroke="#3a2815" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- right branch -->
+  <path d="M81 148 Q97 136 114 128 Q130 122 148 118" stroke="#3a2815" stroke-width="5" fill="none" stroke-linecap="round"/>
+  <!-- upper trunk -->
+  <path d="M78 140 Q74 126 72 114 Q70 102 72 90" stroke="#2a1a0e" stroke-width="7" fill="none" stroke-linecap="round"/>
+  <!-- upper left -->
+  <path d="M72 104 Q56 96 42 92" stroke="#4a3526" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  <!-- upper right -->
+  <path d="M73 98 Q88 90 102 86" stroke="#4a3526" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- foliage -->
+  <ellipse cx="18" cy="114" rx="26" ry="18" fill="#1a5c35"/>
+  <ellipse cx="38" cy="104" rx="22" ry="16" fill="#226b42"/>
+  <ellipse cx="60" cy="96" rx="20" ry="15" fill="#1a5c35"/>
+  <ellipse cx="148" cy="108" rx="28" ry="20" fill="#1a5c35"/>
+  <ellipse cx="126" cy="98" rx="24" ry="18" fill="#226b42"/>
+  <ellipse cx="72" cy="82" rx="26" ry="20" fill="#1a5c35"/>
+  <ellipse cx="90" cy="74" rx="20" ry="15" fill="#2d8050"/>
+  <ellipse cx="42" cy="90" rx="18" ry="14" fill="#1d6b3d"/>
+  <ellipse cx="104" cy="80" rx="16" ry="12" fill="#226b42"/>
+  <!-- ground shadow -->
+  <ellipse cx="100" cy="272" rx="36" ry="5" fill="#111" opacity=".18"/>
 </svg>
 
 <div class="shell">
@@ -315,55 +367,29 @@
       <!-- Home -->
       <button class="sc-tab active" id="t-home" onclick="go('home',this)">Home</button>
 
-      <!-- FP&A (replaces Sales Finance) -->
+      <!-- AMPL — parent tab for all departments -->
       <div class="sc-dropdown">
-        <button class="sc-tab" id="t-fpa" onclick="go('fpa',this)">FP&amp;A <span class="sc-caret">▾</span></button>
+        <button class="sc-tab" id="t-ampl" onclick="go('ampl',this)">AMPL <span class="sc-caret">▾</span></button>
         <div class="sc-dropdown-menu">
-          <button class="sc-dropdown-item" onclick="go('fpa', document.getElementById('t-fpa'))">
-            <span class="sdi-title">FP&amp;A Overview</span>
-            <span class="sdi-desc">Planning cycle, ARR, Vol Ramp</span>
+          <button class="sc-dropdown-item" onclick="go('ampl', document.getElementById('t-ampl'))">
+            <span class="sdi-title">AMPL Overview</span>
+            <span class="sdi-desc">All departments · Amplitude commercial</span>
           </button>
-          <button class="sc-dropdown-item" onclick="go('sf', document.getElementById('t-fpa'))">
+          <button class="sc-dropdown-item" onclick="go('fpa', document.getElementById('t-ampl'))">
+            <span class="sdi-title">FP&amp;A</span>
+            <span class="sdi-desc">Planning, Vol Ramp, ARR forecasting</span>
+          </button>
+          <button class="sc-dropdown-item" onclick="go('sf', document.getElementById('t-ampl'))">
             <span class="sdi-title">Sales Finance</span>
-            <span class="sdi-desc">Deal economics &amp; revenue integrity</span>
+            <span class="sdi-desc">Deal economics, G&amp;A, revenue integrity</span>
           </button>
-        </div>
-      </div>
-
-      <!-- Accounting -->
-      <div class="sc-dropdown">
-        <button class="sc-tab" id="t-acct" onclick="go('acct',this)">Accounting <span class="sc-caret">▾</span></button>
-        <div class="sc-dropdown-menu">
-          <button class="sc-dropdown-item" onclick="go('acct', document.getElementById('t-acct'))">
-            <span class="sdi-title">Accounting Overview</span>
-            <span class="sdi-desc">RevRec, close, ARR ledger</span>
+          <button class="sc-dropdown-item" onclick="go('acct', document.getElementById('t-ampl'))">
+            <span class="sdi-title">Accounting</span>
+            <span class="sdi-desc">Close, RevRec, ARR ledger</span>
           </button>
-          <button class="sc-dropdown-item" onclick="go('acct', document.getElementById('t-acct'))">
-            <span class="sdi-title">ARR Reconciliation</span>
-            <span class="sdi-desc">Monthly close cycle · in progress</span>
-          </button>
-          <button class="sc-dropdown-item" onclick="go('acct', document.getElementById('t-acct'))">
-            <span class="sdi-title">Close Sync</span>
-            <span class="sdi-desc">Accounting ↔ Finance · Jun 9</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Order Management -->
-      <div class="sc-dropdown">
-        <button class="sc-tab" id="t-om" onclick="go('om',this)">Order Management <span class="sc-caret">▾</span></button>
-        <div class="sc-dropdown-menu">
-          <button class="sc-dropdown-item" onclick="go('om', document.getElementById('t-om'))">
-            <span class="sdi-title">OM Overview</span>
-            <span class="sdi-desc">Ecosystem, validation, case queue</span>
-          </button>
-          <button class="sc-dropdown-item" onclick="go('om', document.getElementById('t-om'))">
-            <span class="sdi-title">ATR Validation</span>
-            <span class="sdi-desc">Vol Ramp cleanup · H1 initiative</span>
-          </button>
-          <button class="sc-dropdown-item" onclick="location.href='bookings.html'">
-            <span class="sdi-title">Booking Checker</span>
-            <span class="sdi-desc">Deal validation tool · open</span>
+          <button class="sc-dropdown-item" onclick="go('om', document.getElementById('t-ampl'))">
+            <span class="sdi-title">Order Management</span>
+            <span class="sdi-desc">Queue · ATR · Bookings</span>
           </button>
         </div>
       </div>
@@ -377,15 +403,11 @@
         <div class="sc-dropdown-menu">
           <button class="sc-dropdown-item" onclick="go('resources', document.getElementById('t-resources'))">
             <span class="sdi-title">FP&amp;A · Sales Finance</span>
-            <span class="sdi-desc">H1 sheet, OKRs, Asana</span>
-          </button>
-          <button class="sc-dropdown-item" onclick="go('resources', document.getElementById('t-resources'))">
-            <span class="sdi-title">Accounting</span>
-            <span class="sdi-desc">SFDC, close workbook</span>
+            <span class="sdi-desc">H1 sheet, OKRs, docs</span>
           </button>
           <button class="sc-dropdown-item" onclick="go('resources', document.getElementById('t-resources'))">
             <span class="sdi-title">Order Management</span>
-            <span class="sdi-desc">Booking Checker, OM guide</span>
+            <span class="sdi-desc">Booking Checker, OM guide, SFDC</span>
           </button>
         </div>
       </div>
@@ -422,19 +444,19 @@
         </a>
       </div>
 
-      <!-- Dept nav tiles — colored by department -->
+      <!-- Dept nav tiles — all route through AMPL -->
       <div class="dept-nav">
-        <button class="dept-tile dt-fpa" onclick="go('fpa', document.getElementById('t-fpa'))">
+        <button class="dept-tile dt-fpa" onclick="go('fpa', document.getElementById('t-ampl'))">
           <div class="dt-label" style="color:var(--fpa-c);">FP&amp;A</div>
           <div class="dt-title">Sales Finance</div>
           <div class="dt-desc">Planning, deal economics, and revenue integrity</div>
         </button>
-        <button class="dept-tile dt-acct" onclick="go('acct', document.getElementById('t-acct'))">
+        <button class="dept-tile dt-acct" onclick="go('acct', document.getElementById('t-ampl'))">
           <div class="dt-label" style="color:var(--acct-c);">Accounting</div>
           <div class="dt-title">Close &amp; RevRec</div>
           <div class="dt-desc">ARR reconciliation, revenue recognition, NetSuite</div>
         </button>
-        <button class="dept-tile dt-om" onclick="go('om', document.getElementById('t-om'))">
+        <button class="dept-tile dt-om" onclick="go('om', document.getElementById('t-ampl'))">
           <div class="dt-label" style="color:var(--om-c);">OM</div>
           <div class="dt-title">Order Management</div>
           <div class="dt-desc">Cases, ATRs, bookings, and the deal validation ecosystem</div>
@@ -444,9 +466,111 @@
     </div>
   </div>
 
+  <!-- AMPL — department hub -->
+  <div class="pane" id="p-ampl">
+    <div class="inner">
+
+      <div class="sec-head" style="border-left:4px solid var(--teal);padding-left:16px;border-bottom:none;">
+        <div class="sec-label" style="color:var(--teal);font-weight:600;">Amplitude · Commercial Departments</div>
+        <div class="sec-title">AMPL</div>
+        <p class="sec-desc">The four commercial departments that shape revenue at Amplitude — seen from Order Management's vantage point. OM sits in the center: everything upstream submits through it, everything downstream depends on it being right.</p>
+      </div>
+
+      <!-- 4 Dept Cards -->
+      <div class="ampl-grid">
+        <button class="adc adc-fpa" onclick="go('fpa', document.getElementById('t-ampl'))">
+          <span class="adc-label">Planning &amp; Analysis</span>
+          <div class="adc-title">FP&amp;A</div>
+          <div class="adc-desc">Financial planning, ARR forecasting, Vol Ramp ATR cleanup, G&amp;A consumption monitoring. Sets the assumptions Accounting closes against.</div>
+          <div class="adc-foot">Enter FP&amp;A →</div>
+        </button>
+        <button class="adc adc-sf" onclick="go('sf', document.getElementById('t-ampl'))">
+          <span class="adc-label">Revenue Integrity</span>
+          <div class="adc-title">Sales Finance</div>
+          <div class="adc-desc">Deal economics, quota attainment, overage monitoring, and the financial layer on top of every closed deal. The bridge between field sales and FP&amp;A.</div>
+          <div class="adc-foot">Enter Sales Finance →</div>
+        </button>
+        <button class="adc adc-acct" onclick="go('acct', document.getElementById('t-ampl'))">
+          <span class="adc-label">Close &amp; Recognition</span>
+          <div class="adc-title">Accounting</div>
+          <div class="adc-desc">Monthly close, ARR reconciliation, revenue recognition under ASC 606, NetSuite. The final checkpoint — every OM error becomes an Accounting problem.</div>
+          <div class="adc-foot">Enter Accounting →</div>
+        </button>
+        <button class="adc adc-om" onclick="go('om', document.getElementById('t-ampl'))">
+          <span class="adc-label">Validation &amp; Queue</span>
+          <div class="adc-title">Order Management</div>
+          <div class="adc-desc">Case queue, ATR validation, booking checklist. Every deal from every channel — AEs, Deal Desk, Channel, AWS — routes through OM before it's real.</div>
+          <div class="adc-foot">View OM Queue →</div>
+        </button>
+      </div>
+
+      <!-- MIT Stakeholders strip -->
+      <div class="section-micro" style="color:var(--teal);margin-bottom:14px;">MIT Stakeholders · Most Important Teammates</div>
+      <div class="snap-grid" style="margin-bottom:0;">
+        <div class="snap-cell" style="border-top:2px solid var(--teal);">
+          <div class="snap-label">Deal Desk</div>
+          <div style="font-size:12.5px;font-weight:600;color:var(--fg2);margin-top:4px;line-height:1.5;">Quotes &amp;<br>Complex Deals</div>
+        </div>
+        <div class="snap-cell" style="border-top:2px solid var(--acc);">
+          <div class="snap-label">AEs</div>
+          <div style="font-size:12.5px;font-weight:600;color:var(--fg2);margin-top:4px;line-height:1.5;">Closes Deals<br>in SFDC</div>
+        </div>
+        <div class="snap-cell" style="border-top:2px solid var(--green);">
+          <div class="snap-label">CSM</div>
+          <div style="font-size:12.5px;font-weight:600;color:var(--fg2);margin-top:4px;line-height:1.5;">Onboards &amp;<br>Expands</div>
+        </div>
+        <div class="snap-cell" style="border-top:2px solid var(--amber);">
+          <div class="snap-label">Billing</div>
+          <div style="font-size:12.5px;font-weight:600;color:var(--fg2);margin-top:4px;line-height:1.5;">Invoices from<br>OM-confirmed terms</div>
+        </div>
+        <div class="snap-cell" style="border-top:2px solid var(--fg4);">
+          <div class="snap-label">Channel / AWS</div>
+          <div style="font-size:12.5px;font-weight:600;color:var(--fg2);margin-top:4px;line-height:1.5;">Indirect &amp;<br>Marketplace</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
   <!-- ORDER MANAGEMENT -->
   <div class="pane" id="p-om">
     <div class="inner">
+
+      <!-- ═══ QUEUE DASHBOARD — primary content ═══ -->
+      <!-- [COWORK-AUTO] id="om-queue" — Cowork updates queue counts daily from SFDC Deal Desk cases -->
+      <div class="queue-hero" id="om-queue">
+        <div class="queue-meta-row">
+          <span class="queue-updated" id="om-queue-updated">Last updated: Apr 10, 2026</span>
+          <a class="queue-sfdc-link" href="https://amplitude.lightning.force.com/lightning/o/Case/list?filterName=Order_Management_Case">Open in Salesforce →</a>
+        </div>
+        <div class="queue-total-row">
+          <div class="queue-total" id="om-queue-total">198</div>
+          <div class="queue-total-sub">Open cases<br>Deal Desk queue</div>
+        </div>
+        <div class="queue-status-grid">
+          <div class="qs-cell qs-new">
+            <div class="qs-count" id="om-queue-new">137</div>
+            <div class="qs-label">New</div>
+            <div class="qs-sub">Needs triage</div>
+          </div>
+          <div class="qs-cell qs-assigned">
+            <div class="qs-count" id="om-queue-assigned">10</div>
+            <div class="qs-label">Assigned</div>
+            <div class="qs-sub">Owner set</div>
+          </div>
+          <div class="qs-cell qs-inprogress">
+            <div class="qs-count" id="om-queue-inprogress">1</div>
+            <div class="qs-label">In Progress</div>
+            <div class="qs-sub">Actively working</div>
+          </div>
+          <div class="qs-cell qs-pending">
+            <div class="qs-count" id="om-queue-pending">50</div>
+            <div class="qs-label">Pending Response</div>
+            <div class="qs-sub">Waiting on reply</div>
+          </div>
+        </div>
+      </div>
+      <!-- [/COWORK-AUTO] -->
 
       <div class="sec-head" style="border-left:4px solid var(--om-c);padding-left:16px;border-bottom:none;">
         <div class="sec-label lbl-om">Function · Revenue Operations</div>
@@ -539,9 +663,8 @@
         <div class="section-micro" style="margin-bottom:12px;">References</div>
         <div class="res-links">
           <a class="res-link" href="bookings.html">Booking Checker <span class="res-link-meta">Deal validation tool</span></a>
-          <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">SFDC Case Queue <span class="res-link-meta">Salesforce · live</span></a>
-          <a class="res-link" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit" target="_blank">OM Onboarding Guide <span class="res-link-meta">Google Docs</span></a>
-          <a class="res-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">Deliverables · Asana <span class="res-link-meta">Project tracker</span></a>
+          <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list">SFDC Case Queue <span class="res-link-meta">Salesforce · live</span></a>
+          <a class="res-link" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit">OM Onboarding Guide <span class="res-link-meta">Google Docs</span></a>
         </div>
       </div>
 
@@ -679,9 +802,8 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
       <div class="res-section">
         <div class="section-micro" style="margin-bottom:12px;">References</div>
         <div class="res-links">
-          <a class="res-link" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">H1 Projects &amp; Tracking <span class="res-link-meta">Google Sheets</span></a>
-          <a class="res-link" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0" target="_blank">H1 Deliverables &amp; OKRs <span class="res-link-meta">Google Docs</span></a>
-          <a class="res-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">Deliverables · Asana <span class="res-link-meta">Project tracker</span></a>
+          <a class="res-link" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit">H1 Projects &amp; Tracking <span class="res-link-meta">Google Sheets</span></a>
+          <a class="res-link" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0">H1 Deliverables &amp; OKRs <span class="res-link-meta">Google Docs</span></a>
           <a class="res-link" href="workbud.html">Work Bud <span class="res-link-meta">Personal ops hub · private</span></a>
         </div>
       </div>
@@ -784,7 +906,7 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
       <div class="res-section">
         <div class="section-micro" style="margin-bottom:12px;">References</div>
         <div class="res-links">
-          <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">SFDC Case Queue <span class="res-link-meta">Salesforce · upstream OM cases</span></a>
+          <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list">SFDC Case Queue <span class="res-link-meta">Salesforce · upstream OM cases</span></a>
           <a class="res-link" href="bookings.html">Booking Checker <span class="res-link-meta">Deal validation · reduces RevRec rework</span></a>
         </div>
       </div>
@@ -863,9 +985,8 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
       <div class="res-section">
         <div class="section-micro" style="margin-bottom:12px;">FP&amp;A References</div>
         <div class="res-links">
-          <a class="res-link" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">H1 Projects &amp; Tracking <span class="res-link-meta">Google Sheets</span></a>
-          <a class="res-link" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0" target="_blank">H1 Deliverables &amp; OKRs <span class="res-link-meta">Google Docs</span></a>
-          <a class="res-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">Deliverables · Asana <span class="res-link-meta">Project tracker</span></a>
+          <a class="res-link" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit">H1 Projects &amp; Tracking <span class="res-link-meta">Google Sheets</span></a>
+          <a class="res-link" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0">H1 Deliverables &amp; OKRs <span class="res-link-meta">Google Docs</span></a>
         </div>
       </div>
 
@@ -885,9 +1006,8 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
       <div class="res-dept-block">
         <div class="res-dept-label">Sales Finance · FP&amp;A</div>
         <div class="res-links">
-          <a class="res-link" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">H1 Projects &amp; Tracking <span class="res-link-meta">Google Sheets</span></a>
-          <a class="res-link" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0" target="_blank">H1 Deliverables &amp; OKRs <span class="res-link-meta">Google Docs</span></a>
-          <a class="res-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">Deliverables · Asana <span class="res-link-meta">Project tracker</span></a>
+          <a class="res-link" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit">H1 Projects &amp; Tracking <span class="res-link-meta">Google Sheets</span></a>
+          <a class="res-link" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0">H1 Deliverables &amp; OKRs <span class="res-link-meta">Google Docs</span></a>
           <a class="res-link" href="workbud.html">Work Bud <span class="res-link-meta">Personal ops hub · private</span></a>
         </div>
       </div>
@@ -895,7 +1015,7 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
       <div class="res-dept-block">
         <div class="res-dept-label">Accounting</div>
         <div class="res-links">
-          <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">SFDC Case Queue <span class="res-link-meta">Salesforce · OM cases upstream</span></a>
+          <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list">SFDC Case Queue <span class="res-link-meta">Salesforce · OM cases upstream</span></a>
           <a class="res-link" href="#" style="opacity:.5;cursor:default;">Close Workbook <span class="res-link-meta">Add link · Accounting shared doc</span></a>
         </div>
       </div>
@@ -904,9 +1024,8 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
         <div class="res-dept-label">Order Management</div>
         <div class="res-links">
           <a class="res-link" href="bookings.html">Booking Checker <span class="res-link-meta">Deal validation tool</span></a>
-          <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">SFDC Case Queue <span class="res-link-meta">Salesforce · live</span></a>
-          <a class="res-link" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit" target="_blank">OM Onboarding Guide <span class="res-link-meta">Google Docs</span></a>
-          <a class="res-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">Deliverables · Asana <span class="res-link-meta">Project tracker</span></a>
+          <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list">SFDC Case Queue <span class="res-link-meta">Salesforce · live</span></a>
+          <a class="res-link" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit">OM Onboarding Guide <span class="res-link-meta">Google Docs</span></a>
         </div>
       </div>
 
@@ -921,7 +1040,7 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
       <div class="res-dept-block">
         <div class="res-dept-label">Source</div>
         <div class="res-links">
-          <a class="res-link" href="https://github.com/kareem-powell/tools" target="_blank">kareem-powell/tools <span class="res-link-meta">GitHub Pages · source code</span></a>
+          <a class="res-link" href="https://github.com/kareem-powell/tools">kareem-powell/tools <span class="res-link-meta">GitHub Pages · source code</span></a>
         </div>
       </div>
 
@@ -934,18 +1053,39 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
 function go(id, btn) {
   document.querySelectorAll('.pane').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.sc-tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('p-' + id).classList.add('active');
-  btn.classList.add('active');
+  const pane = document.getElementById('p-' + id);
+  if (pane) pane.classList.add('active');
+  if (btn) btn.classList.add('active');
 }
-// Hash routing — so index.html#om activates the OM tab
+// Hash routing — index.html#om, #sf, #fpa, #acct, #ampl, #resources
 (function() {
-  const map = { om:'t-om', sf:'t-fpa', acct:'t-acct', fpa:'t-fpa', resources:'t-resources' };
+  const map = {
+    ampl:'t-ampl', om:'t-ampl', sf:'t-ampl',
+    fpa:'t-ampl', acct:'t-ampl', resources:'t-resources'
+  };
   const hash = window.location.hash.replace('#','');
   if (map[hash]) {
     const btn = document.getElementById(map[hash]);
     if (btn) go(hash, btn);
   }
 })();
+// Dynamic queue data — Cowork writes /tools/data.json daily from Salesforce
+fetch('/tools/data.json?' + Date.now())
+  .then(r => r.json())
+  .then(d => {
+    if (!d.om_queue) return;
+    const q = d.om_queue;
+    const s = q.by_status || {};
+    const total = (s['New']||0) + (s['Assigned']||0) + (s['In Progress']||0) + (s['Pending Response']||0);
+    const set = (id, val) => { const el = document.getElementById(id); if (el) el.textContent = val; };
+    set('om-queue-total',      total);
+    set('om-queue-new',        s['New'] || 0);
+    set('om-queue-assigned',   s['Assigned'] || 0);
+    set('om-queue-inprogress', s['In Progress'] || 0);
+    set('om-queue-pending',    s['Pending Response'] || 0);
+    if (q.updated) set('om-queue-updated', 'Last updated: ' + q.updated);
+  })
+  .catch(() => {});
 </script>
 </body>
 </html>

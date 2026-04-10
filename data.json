@@ -1,0 +1,18 @@
+{
+  "om_queue": {
+    "updated": "Apr 10, 2026",
+    "source": "Salesforce · Deal Desk record type",
+    "total_open": 198,
+    "by_status": {
+      "New": 137,
+      "Assigned": 10,
+      "In Progress": 1,
+      "Pending Response": 50
+    }
+  },
+  "sf_snapshot": {
+    "updated": "Apr 10, 2026",
+    "vol_ramp_deals": 138,
+    "vol_ramp_pct_complete": 60
+  }
+}

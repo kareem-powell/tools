@@ -12,8 +12,8 @@
     :root {
       --ink:      #080808;
       --ink2:     #2c2c2c;
-      --stone:    #686868;
-      --mist:     #a8a8a8;
+      --stone:    #525252;
+      --mist:     #909090;
       --bg:       #ffffff;
       --bg2:      #f8f8f7;
       --bg3:      #f0f0ef;
@@ -30,397 +30,241 @@
       --font-display: 'Shippori Mincho B1', 'Noto Serif JP', Georgia, serif;
       --font-body:    'Inter', -apple-system, sans-serif;
       --font-mono:    'Space Mono', 'Courier New', monospace;
+      --wrap: 1100px;
+      --pad:  52px;
     }
 
-    html, body { min-height: 100vh; font-size: 15px; }
+    html, body { min-height: 100vh; font-size: 16px; }
     body {
       font-family: var(--font-body);
-      background: var(--bg);
-      color: var(--ink);
-      line-height: 1.6;
-      -webkit-font-smoothing: antialiased;
+      background: var(--bg); color: var(--ink);
+      line-height: 1.65; -webkit-font-smoothing: antialiased;
     }
 
-    /* ─── AMBIENT JAPANESE CHARACTERS ─── */
-    .jp-ambient {
-      position: fixed; inset: 0; pointer-events: none; z-index: 0;
-      overflow: hidden;
-    }
+    /* ─── AMBIENT ─── */
+    .jp-ambient { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
     .jp-char {
-      position: absolute;
-      font-family: var(--font-display);
-      font-weight: 800;
-      color: var(--ink);
-      opacity: .018;
-      line-height: 1;
-      user-select: none;
+      position: absolute; font-family: var(--font-display); font-weight: 800;
+      color: var(--ink); opacity: .018; line-height: 1; user-select: none;
     }
-    .jp-c1 { font-size: 28vw; top: -8%; right: -6%; letter-spacing: -.04em; }
-    .jp-c2 { font-size: 18vw; bottom: -4%; left: -3%; letter-spacing: -.04em; }
-    .jp-c3 { font-size: 8vw;  top: 42%;  right: 4%;  opacity: .012; }
+    .jp-c1 { font-size: 28vw; top: -8%; right: -6%; }
+    .jp-c2 { font-size: 18vw; bottom: -4%; left: -3%; }
+    .jp-c3 { font-size: 8vw; top: 42%; right: 4%; opacity: .012; }
 
     /* ─── BLOSSOM ─── */
-    .blossom-fixed {
-      position: fixed; top: 0; right: 0;
-      width: 260px; height: 260px;
-      pointer-events: none; z-index: 0; opacity: .28;
-    }
-    .blossom-bl {
-      position: fixed; bottom: 0; left: 0;
-      width: 160px; height: 160px;
-      pointer-events: none; z-index: 0; opacity: .14;
-      transform: rotate(180deg);
-    }
+    .blossom-tr { position: fixed; top: 0; right: 0; width: 280px; height: 280px; pointer-events: none; z-index: 0; opacity: .26; }
+    .blossom-bl { position: fixed; bottom: 0; left: 0; width: 170px; height: 170px; pointer-events: none; z-index: 0; opacity: .13; transform: rotate(180deg); }
 
     /* ─── LAYOUT ─── */
     .site { position: relative; z-index: 1; min-height: 100vh; display: flex; flex-direction: column; }
+    .wrap { max-width: var(--wrap); margin: 0 auto; padding-left: var(--pad); padding-right: var(--pad); width: 100%; }
 
     /* ─── NAV ─── */
     .nav {
       position: sticky; top: 0; z-index: 200;
-      background: rgba(255,255,255,.94);
-      backdrop-filter: blur(16px);
-      border-bottom: 1px solid var(--ash);
-      height: 50px;
-      display: flex; align-items: center;
-      padding: 0 40px; gap: 16px;
+      background: rgba(255,255,255,.94); backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--ash); height: 52px;
+    }
+    .nav-inner {
+      max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad);
+      height: 100%; display: flex; align-items: center; gap: 18px;
     }
     .nav-logo {
-      font-family: var(--font-display);
-      font-size: 15px; font-weight: 600;
-      color: var(--ink); letter-spacing: .01em;
-      display: flex; align-items: center; gap: 10px;
+      font-family: var(--font-display); font-size: 15px; font-weight: 600;
+      color: var(--ink); display: flex; align-items: center; gap: 10px;
     }
-    .nav-logo .jp { font-size: 18px; opacity: .7; }
+    .nav-logo .jp { font-size: 19px; opacity: .65; }
     .nav-sep { width: 1px; height: 16px; background: var(--ash2); }
-    .nav-sub {
-      font-family: var(--font-mono); font-size: 10px;
-      color: var(--mist); letter-spacing: .08em; text-transform: uppercase;
-    }
-    .nav-live {
-      margin-left: auto;
-      display: flex; align-items: center; gap: 6px;
-      font-family: var(--font-mono); font-size: 10px; color: var(--mist);
-      letter-spacing: .06em; text-transform: uppercase;
-    }
-    .nav-dot {
-      width: 6px; height: 6px; border-radius: 50%;
-      background: var(--green); animation: pulse 2.4s ease-in-out infinite;
-    }
+    .nav-sub { font-family: var(--font-mono); font-size: 10px; color: var(--mist); letter-spacing: .08em; text-transform: uppercase; }
+    .nav-live { margin-left: auto; display: flex; align-items: center; gap: 6px; font-family: var(--font-mono); font-size: 10px; color: var(--mist); letter-spacing: .06em; text-transform: uppercase; }
+    .nav-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--green); animation: pulse 2.4s ease-in-out infinite; }
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
 
     /* ─── HERO ─── */
     .hero {
-      padding: 96px 40px 80px;
-      border-bottom: 1px solid var(--ash);
-      max-width: 960px; margin: 0 auto; width: 100%;
+      padding: 100px var(--pad) 88px; border-bottom: 1px solid var(--ash);
+      max-width: var(--wrap); margin: 0 auto; width: 100%;
     }
     .hero-eyebrow {
-      font-family: var(--font-mono); font-size: 10px;
-      letter-spacing: .16em; text-transform: uppercase;
-      color: var(--mist); margin-bottom: 28px;
-      display: flex; align-items: center; gap: 14px;
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: .18em;
+      text-transform: uppercase; color: var(--mist); margin-bottom: 32px;
+      display: flex; align-items: center; gap: 16px;
     }
-    .hero-eyebrow::before { content: ''; flex: 0 0 32px; height: 1px; background: var(--ash2); }
+    .hero-eyebrow::before { content: ''; flex: 0 0 36px; height: 1px; background: var(--ash2); }
     .hero h1 {
-      font-family: var(--font-display);
-      font-size: clamp(2.8rem, 6vw, 5rem);
-      font-weight: 800;
-      line-height: 1.08;
-      letter-spacing: -.03em;
-      color: var(--ink);
-      margin-bottom: 24px;
+      font-family: var(--font-display); font-size: clamp(3.2rem, 7vw, 5.6rem);
+      font-weight: 800; line-height: 1.06; letter-spacing: -.03em; color: var(--ink); margin-bottom: 28px;
     }
-    .hero h1 em {
-      font-style: normal;
-      color: var(--red);
-    }
-    .hero-sub {
-      font-size: .97rem; font-weight: 300;
-      color: var(--stone); line-height: 1.8;
-      max-width: 520px; margin-bottom: 8px;
-    }
-    .hero-butler {
-      font-family: var(--font-display);
-      font-size: .92rem; font-style: italic;
-      color: var(--mist); margin-bottom: 40px;
-      letter-spacing: .01em;
-    }
-    .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; }
+    .hero h1 em { font-style: normal; color: var(--red); }
+    .hero-sub { font-size: 1.05rem; font-weight: 300; color: var(--stone); line-height: 1.85; max-width: 580px; margin-bottom: 10px; }
+    .hero-butler { font-family: var(--font-display); font-size: 1rem; font-style: italic; color: var(--mist); margin-bottom: 44px; }
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    /* ─── BUTTONS ─── */
     .btn {
-      display: inline-flex; align-items: center; gap: 8px;
-      padding: 10px 24px; font-size: .85rem; font-weight: 600;
-      border-radius: var(--r); cursor: pointer; text-decoration: none;
-      font-family: var(--font-body); transition: all .16s ease;
-      letter-spacing: .01em; border: 1.5px solid transparent;
+      display: inline-flex; align-items: center; gap: 8px; padding: 11px 26px;
+      font-size: .9rem; font-weight: 600; border-radius: var(--r);
+      cursor: pointer; text-decoration: none; font-family: var(--font-body);
+      transition: all .15s ease; letter-spacing: .01em; border: 1.5px solid transparent;
     }
     .btn-primary { background: var(--ink); color: #fff; border-color: var(--ink); }
-    .btn-primary:hover { background: var(--ink2); border-color: var(--ink2); }
+    .btn-primary:hover { background: var(--ink2); }
     .btn-outline { background: transparent; color: var(--ink2); border-color: var(--ash2); }
     .btn-outline:hover { border-color: var(--ink); color: var(--ink); }
-    .btn-ghost {
-      background: transparent; color: var(--stone); border-color: var(--ash);
-      font-family: var(--font-mono); font-size: .78rem; letter-spacing: .05em;
-    }
+    .btn-ghost { background: transparent; color: var(--stone); border-color: var(--ash); font-family: var(--font-mono); font-size: .8rem; letter-spacing: .05em; }
     .btn-ghost:hover { border-color: var(--ash2); color: var(--ink2); }
 
     /* ─── SECTION ─── */
-    .section {
-      max-width: 960px; margin: 0 auto;
-      padding: 60px 40px; width: 100%;
-    }
-    .section-head {
-      margin-bottom: 28px; padding-bottom: 16px;
-      border-bottom: 1px solid var(--ash);
-    }
-    .section-dept {
-      font-family: var(--font-mono); font-size: 9px;
-      letter-spacing: .18em; text-transform: uppercase;
-      color: var(--mist); margin-bottom: 6px;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: 1.1rem; font-weight: 600;
+    .section { max-width: var(--wrap); margin: 0 auto; padding: 64px var(--pad); width: 100%; }
+    .section-divider { max-width: var(--wrap); margin: 0 auto; padding: 0 var(--pad); border-top: 1px solid var(--ash); }
+
+    /* ─── DEPARTMENT HEADER ─── */
+    .dept-head { margin-bottom: 36px; padding-bottom: 24px; border-bottom: 1px solid var(--ash); }
+    .dept-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--mist); margin-bottom: 10px; }
+    .dept-title {
+      font-family: var(--font-display); font-size: 1.3rem; font-weight: 600;
       color: var(--ink); letter-spacing: -.01em;
-      display: flex; align-items: baseline; gap: 12px;
+      display: flex; align-items: baseline; gap: 12px; margin-bottom: 14px;
     }
-    .section-title .jp-label {
-      font-size: .82rem; font-weight: 400; opacity: .4;
-      letter-spacing: .04em;
-    }
-    .section-divider {
-      max-width: 960px; margin: 0 auto; padding: 0 40px;
-      border-top: 1px solid var(--ash);
-    }
+    .dept-title .jp-label { font-size: .88rem; font-weight: 400; opacity: .36; letter-spacing: .04em; }
+    .dept-desc { font-size: .95rem; color: var(--stone); font-weight: 300; line-height: 1.85; max-width: 680px; }
 
     /* ─── TOOL CARDS ─── */
     .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 1px;
-      background: var(--ash);
-      border: 1px solid var(--ash);
-      border-radius: calc(var(--r) + 1px);
-      overflow: hidden;
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1px; background: var(--ash); border: 1px solid var(--ash);
+      border-radius: calc(var(--r) + 1px); overflow: hidden;
     }
     .tool-card {
-      background: var(--bg);
-      padding: 28px 26px;
-      text-decoration: none;
-      color: var(--ink);
-      display: flex; flex-direction: column;
-      transition: background .14s;
-      position: relative;
+      background: var(--bg); padding: 30px 28px; text-decoration: none; color: var(--ink);
+      display: flex; flex-direction: column; transition: background .14s; position: relative;
     }
     .tool-card:hover { background: var(--bg2); }
     .tool-card::after {
-      content: '↗';
-      position: absolute; top: 24px; right: 22px;
-      font-size: .75rem; color: var(--mist);
-      transition: color .14s, transform .14s;
+      content: '↗'; position: absolute; top: 26px; right: 24px;
+      font-size: .8rem; color: var(--mist); transition: color .14s, transform .14s;
     }
-    .tool-card:hover::after { color: var(--red); transform: translate(2px, -2px); }
-    .tool-card.no-arrow::after { content: none; }
-
-    .tc-tag {
-      font-family: var(--font-mono); font-size: 9px;
-      letter-spacing: .14em; text-transform: uppercase;
-      color: var(--mist); margin-bottom: 14px;
-    }
-    .tc-icon { font-size: 1.4rem; margin-bottom: 10px; }
-    .tc-title {
-      font-family: var(--font-display);
-      font-size: 1.05rem; font-weight: 600;
-      margin-bottom: 10px; color: var(--ink);
-      letter-spacing: -.01em; line-height: 1.2;
-    }
-    .tc-desc {
-      font-size: .82rem; color: var(--stone);
-      line-height: 1.7; flex: 1; font-weight: 300;
-    }
+    .tool-card:hover::after { color: var(--red); transform: translate(2px,-2px); }
+    .tc-tag { font-family: var(--font-mono); font-size: 10px; letter-spacing: .12em; text-transform: uppercase; color: var(--mist); margin-bottom: 16px; }
+    .tc-icon { font-size: 1.5rem; margin-bottom: 12px; }
+    .tc-title { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; margin-bottom: 12px; color: var(--ink); letter-spacing: -.01em; line-height: 1.2; }
+    .tc-desc { font-size: .9rem; color: var(--stone); line-height: 1.75; flex: 1; font-weight: 300; }
     .tc-status {
-      margin-top: 18px; padding-top: 14px;
-      border-top: 1px solid var(--ash);
-      font-family: var(--font-mono); font-size: 9px;
-      letter-spacing: .1em; text-transform: uppercase;
-      color: var(--mist);
-      display: flex; align-items: center; gap: 6px;
+      margin-top: 20px; padding-top: 14px; border-top: 1px solid var(--ash);
+      font-family: var(--font-mono); font-size: 10px; letter-spacing: .08em; text-transform: uppercase;
+      color: var(--mist); display: flex; align-items: center; gap: 6px;
     }
-    .tc-status .dot {
-      width: 5px; height: 5px; border-radius: 50%;
-    }
-    .dot-green  { background: var(--green); }
-    .dot-blue   { background: var(--blue); }
-    .dot-amber  { background: var(--amber); }
-    .dot-gray   { background: var(--mist); }
+    .tc-status .dot { width: 5px; height: 5px; border-radius: 50%; }
+    .dot-green { background: var(--green); }
+    .dot-blue  { background: var(--blue); }
+    .dot-amber { background: var(--amber); }
+    .dot-gray  { background: var(--mist); }
 
-    /* ─── RECREATE SECTION ─── */
-    .recreate-wrap {
+    /* ─── WORK BUD SPOTLIGHT ─── */
+    .wb-spotlight {
       background: var(--bg2); border: 1px solid var(--ash);
-      border-radius: var(--r);
+      border-radius: calc(var(--r) + 1px); overflow: hidden;
     }
-    .recreate-header {
-      padding: 28px 30px 24px;
+    .wb-top {
+      display: grid; grid-template-columns: 1fr 88px;
+      gap: 40px; align-items: start;
+      padding: 44px 44px 40px;
       border-bottom: 1px solid var(--ash);
     }
-    .recreate-header h3 {
-      font-family: var(--font-display);
-      font-size: 1.05rem; font-weight: 600;
-      color: var(--ink); margin-bottom: 6px;
+    .wb-eyebrow { font-family: var(--font-mono); font-size: 10px; letter-spacing: .16em; text-transform: uppercase; color: var(--mist); margin-bottom: 14px; }
+    .wb-title {
+      font-family: var(--font-display); font-size: 1.6rem; font-weight: 800;
+      color: var(--ink); letter-spacing: -.02em; margin-bottom: 16px; line-height: 1.1;
     }
-    .recreate-header p {
-      font-size: .82rem; color: var(--stone);
-      font-weight: 300; line-height: 1.75; max-width: 560px;
+    .wb-title em { font-style: normal; color: var(--red); }
+    .wb-desc { font-size: .95rem; color: var(--stone); font-weight: 300; line-height: 1.85; max-width: 580px; }
+    .wb-cta {
+      display: inline-flex; align-items: center; gap: 8px; margin-top: 22px;
+      padding: 11px 24px; background: var(--ink); color: #fff;
+      border-radius: var(--r); text-decoration: none; font-size: .88rem; font-weight: 600;
+      transition: background .14s;
     }
-    .recreate-steps { padding: 0 30px; }
-    .step-row {
-      display: flex; gap: 24px; align-items: flex-start;
-      padding: 24px 0;
-      border-bottom: 1px solid var(--ash);
+    .wb-cta:hover { background: var(--ink2); }
+    .wb-badge {
+      width: 72px; height: 72px; border-radius: 50%;
+      background: var(--ink); color: #fff; font-size: 1.6rem;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0; margin-top: 2px;
     }
-    .step-row:last-child { border-bottom: none; }
-    .step-num {
-      font-family: var(--font-mono); font-size: 10px;
-      letter-spacing: .12em; color: var(--mist);
-      text-transform: uppercase;
-      min-width: 52px; padding-top: 2px;
+
+    /* Feature grid */
+    .wb-features {
+      display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1px; background: var(--ash);
     }
-    .step-body { flex: 1; }
-    .step-title {
-      font-family: var(--font-display);
-      font-size: .95rem; font-weight: 600;
-      color: var(--ink); margin-bottom: 6px;
-      letter-spacing: -.01em;
-    }
-    .step-desc {
-      font-size: .82rem; color: var(--stone);
-      font-weight: 300; line-height: 1.7; margin-bottom: 12px;
-    }
-    .step-desc:last-child { margin-bottom: 0; }
-    .step-code {
-      display: flex; align-items: stretch;
-      border: 1px solid var(--ash2); border-radius: var(--r);
-      overflow: hidden; background: var(--bg);
-    }
-    .step-code code {
-      flex: 1; padding: 10px 16px;
-      font-family: var(--font-mono); font-size: .76rem;
-      color: var(--ink2); user-select: all;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
-    }
-    .step-code a, .step-code button {
-      padding: 10px 18px; background: var(--ink); color: #fff;
-      font-family: var(--font-mono); font-size: .72rem;
-      letter-spacing: .06em; text-transform: uppercase;
-      text-decoration: none; white-space: nowrap; border: none;
-      cursor: pointer; transition: background .14s;
-      display: flex; align-items: center;
-    }
-    .step-code a:hover, .step-code button:hover { background: var(--ink2); }
-    .step-note {
-      margin-top: 10px;
-      font-family: var(--font-mono); font-size: .72rem;
-      color: var(--mist); letter-spacing: .04em;
-      padding: 8px 12px; background: var(--bg3);
-      border-radius: var(--r); border-left: 2px solid var(--ash2);
-    }
-    .step-link {
-      display: inline-flex; align-items: center; gap: 6px;
-      font-family: var(--font-mono); font-size: .75rem;
-      color: var(--blue); letter-spacing: .04em;
-      text-decoration: none;
-    }
-    .step-link:hover { text-decoration: underline; }
+    .wb-feature { background: var(--bg); padding: 26px 28px; }
+    .wf-icon { font-size: 1.2rem; margin-bottom: 12px; }
+    .wf-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; color: var(--ink); margin-bottom: 8px; }
+    .wf-desc { font-size: .88rem; color: var(--stone); font-weight: 300; line-height: 1.75; }
 
     /* ─── FOOTER ─── */
     footer {
-      margin-top: auto;
-      border-top: 1px solid var(--ash);
-      padding: 24px 40px;
-      display: flex; align-items: center; justify-content: space-between;
-      flex-wrap: wrap; gap: 12px;
+      margin-top: auto; border-top: 1px solid var(--ash); padding: 26px var(--pad);
+      max-width: var(--wrap); margin: 0 auto; width: 100%;
+      display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px;
     }
-    .footer-brand {
-      font-family: var(--font-display);
-      font-size: .85rem; font-weight: 600;
-      color: var(--stone);
-    }
-    .footer-butler {
-      font-family: var(--font-display);
-      font-size: .78rem; font-style: italic;
-      color: var(--mist);
-    }
-    .footer-links {
-      display: flex; gap: 20px;
-    }
-    .footer-links a {
-      font-family: var(--font-mono); font-size: .72rem;
-      letter-spacing: .08em; text-transform: uppercase;
-      color: var(--mist); text-decoration: none;
-      transition: color .14s;
-    }
+    .footer-brand { font-family: var(--font-display); font-size: .9rem; font-weight: 600; color: var(--stone); }
+    .footer-butler { font-family: var(--font-display); font-size: .82rem; font-style: italic; color: var(--mist); margin-top: 2px; }
+    .footer-links { display: flex; gap: 24px; }
+    .footer-links a { font-family: var(--font-mono); font-size: .74rem; letter-spacing: .08em; text-transform: uppercase; color: var(--mist); text-decoration: none; transition: color .14s; }
     .footer-links a:hover { color: var(--ink); }
   </style>
 </head>
 <body>
 
-<!-- Ambient Japanese Characters -->
 <div class="jp-ambient" aria-hidden="true">
   <span class="jp-char jp-c1">整</span>
   <span class="jp-char jp-c2">序</span>
   <span class="jp-char jp-c3">備</span>
 </div>
 
-<!-- Blossom decorations -->
-<svg class="blossom-fixed" viewBox="0 0 260 260" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path d="M245 0 Q194 52 145 112 Q108 158 96 220" stroke="#c8a0aa" stroke-width="1" fill="none"/>
-  <path d="M210 18 Q178 66 152 82" stroke="#c8a0aa" stroke-width=".7" fill="none" opacity=".6"/>
-  <g transform="translate(145,110) rotate(-20)">
-    <ellipse rx="14" ry="8" fill="#f9d0da" opacity=".6"/>
-    <ellipse transform="rotate(72)" rx="14" ry="8" fill="#f2bac8" opacity=".55"/>
-    <ellipse transform="rotate(144)" rx="14" ry="8" fill="#f9d0da" opacity=".6"/>
-    <ellipse transform="rotate(216)" rx="14" ry="8" fill="#e8a0b4" opacity=".45"/>
-    <ellipse transform="rotate(288)" rx="14" ry="8" fill="#f9d0da" opacity=".6"/>
-    <circle r="4" fill="#fff" opacity=".9"/>
-    <circle r="2" fill="#e8a0b4" opacity=".7"/>
+<svg class="blossom-tr" viewBox="0 0 280 280" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M265 0 Q210 56 158 120 Q116 170 102 236" stroke="#c8a0aa" stroke-width="1.1" fill="none"/>
+  <path d="M226 20 Q190 72 162 90" stroke="#c8a0aa" stroke-width=".7" fill="none" opacity=".55"/>
+  <g transform="translate(158,118) rotate(-20)">
+    <ellipse rx="15" ry="9" fill="#f9d0da" opacity=".58"/>
+    <ellipse transform="rotate(72)" rx="15" ry="9" fill="#f2bac8" opacity=".52"/>
+    <ellipse transform="rotate(144)" rx="15" ry="9" fill="#f9d0da" opacity=".58"/>
+    <ellipse transform="rotate(216)" rx="15" ry="9" fill="#e8a0b4" opacity=".44"/>
+    <ellipse transform="rotate(288)" rx="15" ry="9" fill="#f9d0da" opacity=".58"/>
+    <circle r="4.5" fill="#fff" opacity=".88"/>
+    <circle r="2.2" fill="#e8a0b4" opacity=".65"/>
   </g>
-  <g transform="translate(198,50) rotate(12)">
-    <ellipse rx="10" ry="6" fill="#f2bac8" opacity=".5"/>
-    <ellipse transform="rotate(72)" rx="10" ry="6" fill="#f9d0da" opacity=".52"/>
-    <ellipse transform="rotate(144)" rx="10" ry="6" fill="#f2bac8" opacity=".5"/>
-    <ellipse transform="rotate(216)" rx="10" ry="6" fill="#f9d0da" opacity=".52"/>
-    <ellipse transform="rotate(288)" rx="10" ry="6" fill="#f2bac8" opacity=".5"/>
-    <circle r="3" fill="#fff" opacity=".9"/>
-    <circle r="1.4" fill="#d4708a" opacity=".55"/>
+  <g transform="translate(214,52) rotate(14)">
+    <ellipse rx="11" ry="6.5" fill="#f2bac8" opacity=".48"/>
+    <ellipse transform="rotate(72)" rx="11" ry="6.5" fill="#f9d0da" opacity=".5"/>
+    <ellipse transform="rotate(144)" rx="11" ry="6.5" fill="#f2bac8" opacity=".48"/>
+    <ellipse transform="rotate(216)" rx="11" ry="6.5" fill="#f9d0da" opacity=".5"/>
+    <ellipse transform="rotate(288)" rx="11" ry="6.5" fill="#f2bac8" opacity=".48"/>
+    <circle r="3.2" fill="#fff" opacity=".88"/>
+    <circle r="1.5" fill="#d4708a" opacity=".5"/>
   </g>
-  <ellipse cx="108" cy="46" rx="6" ry="3.5" fill="#f9d0da" opacity=".32" transform="rotate(-16 108 46)"/>
-  <ellipse cx="80" cy="72" rx="5" ry="3" fill="#f2bac8" opacity=".28" transform="rotate(24 80 72)"/>
 </svg>
-<svg class="blossom-bl" viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-  <path d="M0 160 Q38 112 88 66" stroke="#c8a0aa" stroke-width=".8" fill="none"/>
-  <g transform="translate(88,66) rotate(25)">
-    <ellipse rx="9" ry="5" fill="#f9d0da" opacity=".45"/>
-    <ellipse transform="rotate(72)" rx="9" ry="5" fill="#f2bac8" opacity=".4"/>
-    <ellipse transform="rotate(144)" rx="9" ry="5" fill="#f9d0da" opacity=".45"/>
-    <ellipse transform="rotate(216)" rx="9" ry="5" fill="#f2bac8" opacity=".4"/>
-    <ellipse transform="rotate(288)" rx="9" ry="5" fill="#f9d0da" opacity=".45"/>
-    <circle r="2.6" fill="#fff" opacity=".85"/>
+<svg class="blossom-bl" viewBox="0 0 170 170" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+  <path d="M0 170 Q40 118 94 70" stroke="#c8a0aa" stroke-width=".9" fill="none"/>
+  <g transform="translate(94,70) rotate(25)">
+    <ellipse rx="10" ry="5.5" fill="#f9d0da" opacity=".44"/>
+    <ellipse transform="rotate(72)" rx="10" ry="5.5" fill="#f2bac8" opacity=".38"/>
+    <ellipse transform="rotate(144)" rx="10" ry="5.5" fill="#f9d0da" opacity=".44"/>
+    <ellipse transform="rotate(216)" rx="10" ry="5.5" fill="#f2bac8" opacity=".38"/>
+    <ellipse transform="rotate(288)" rx="10" ry="5.5" fill="#f9d0da" opacity=".44"/>
+    <circle r="2.8" fill="#fff" opacity=".84"/>
   </g>
 </svg>
 
 <div class="site">
 
-  <!-- NAV -->
   <nav class="nav">
-    <div class="nav-logo">
-      <span class="jp">整</span>
-      O.M. Suite
-    </div>
-    <div class="nav-sep"></div>
-    <span class="nav-sub">Amplitude · Sales Finance</span>
-    <div class="nav-live">
-      <span class="nav-dot"></span>
-      suite live
+    <div class="nav-inner">
+      <div class="nav-logo"><span class="jp">整</span> O.M. Suite</div>
+      <div class="nav-sep"></div>
+      <span class="nav-sub">Amplitude · Sales Finance</span>
+      <div class="nav-live"><span class="nav-dot"></span> suite live</div>
     </div>
   </nav>
 
@@ -429,22 +273,28 @@
     <div class="hero-eyebrow">Amplitude · Order Management · Sales Finance</div>
     <h1>The<br><em>O.M. Suite.</em></h1>
     <p class="hero-sub">
-      Every resource, tool, and reference for the Amplitude Order Management and
-      Sales Finance team — curated by department, maintained for the work.
+      A curated suite of tools and resources for the Amplitude Order Management
+      and Sales Finance team — organized by department, built for the work.
     </p>
     <p class="hero-butler">The suite is prepared. Everything in its proper place.</p>
     <div class="hero-actions">
-      <a class="btn btn-primary" href="workbud.html">Work Bud 🤙</a>
-      <a class="btn btn-outline" href="bookings.html">Booking Checker</a>
+      <a class="btn btn-primary" href="bookings.html">Booking Checker</a>
+      <a class="btn btn-outline" href="#work-bud">Work Bud ↓</a>
       <a class="btn btn-ghost" href="https://github.com/kareem-powell/tools" target="_blank">github ↗</a>
     </div>
   </div>
 
-  <!-- ── FP&A ── -->
+  <!-- ═══ DEPT 01 · FP&A ═══ -->
   <div class="section">
-    <div class="section-head">
-      <div class="section-dept">Department · 01</div>
-      <div class="section-title">FP&amp;A <span class="jp-label">財務計画</span></div>
+    <div class="dept-head">
+      <div class="dept-label">Department · 01</div>
+      <div class="dept-title">FP&amp;A <span class="jp-label">財務計画</span></div>
+      <p class="dept-desc">
+        Financial Planning &amp; Analysis owns the org-wide view of what Sales Finance is building
+        this half — quarterly priorities, project tracking, and delivery against Amplitude's financial
+        goals. These resources live at the planning layer and are the source of truth for what's
+        in flight across the department.
+      </p>
     </div>
     <div class="tools-grid">
 
@@ -453,23 +303,11 @@
         <div class="tc-icon">📊</div>
         <div class="tc-title">H1 Projects &amp; Tracking</div>
         <div class="tc-desc">
-          H1 initiative tracker for the Sales Finance org. Covers Vol Ramp ATR cleanup,
-          OM booking improvements, AI Week deliverables, and project ownership across the
-          team. Reference for understanding quarterly priorities across functions.
+          The H1 initiative tracker for Sales Finance. Covers Vol Ramp ATR cleanup, OM booking
+          improvements, AI Week deliverables, and project ownership across the team. Reference point
+          for quarterly priorities and who owns what this half.
         </div>
         <div class="tc-status"><span class="dot dot-blue"></span> Google Sheets</div>
-      </a>
-
-      <a class="tool-card" href="https://drive.google.com/drive/folders/0AIH8MNQ95VLhUk9PVA" target="_blank">
-        <div class="tc-tag">Google Drive · Team</div>
-        <div class="tc-icon">📁</div>
-        <div class="tc-title">Sales Finance Drive</div>
-        <div class="tc-desc">
-          Shared team drive for the Sales Finance org. Contains meeting notes, project docs,
-          templates, process guides, and historical context for all ongoing and completed
-          initiatives across the department.
-        </div>
-        <div class="tc-status"><span class="dot dot-gray"></span> Google Drive</div>
       </a>
 
       <a class="tool-card" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0#heading=h.wc55ym5tat6e" target="_blank">
@@ -477,11 +315,23 @@
         <div class="tc-icon">📋</div>
         <div class="tc-title">Deliverables Doc</div>
         <div class="tc-desc">
-          Full breakdown of Sales Finance deliverables, OKRs, and project ownership.
-          The reference document for understanding what the team owns this half and
-          how each project maps to broader Amplitude goals.
+          Full breakdown of Sales Finance deliverables, OKRs, and project ownership mapped to
+          Amplitude's broader goals. The definitive reference for understanding what the team
+          is accountable for this half.
         </div>
         <div class="tc-status"><span class="dot dot-gray"></span> Google Docs</div>
+      </a>
+
+      <a class="tool-card" href="https://drive.google.com/drive/folders/0AIH8MNQ95VLhUk9PVA" target="_blank">
+        <div class="tc-tag">Google Drive · Team</div>
+        <div class="tc-icon">📁</div>
+        <div class="tc-title">Sales Finance Drive</div>
+        <div class="tc-desc">
+          The shared team drive for the Sales Finance org. Meeting notes, project docs,
+          templates, process guides, and institutional context for all ongoing and completed
+          initiatives across the department.
+        </div>
+        <div class="tc-status"><span class="dot dot-gray"></span> Google Drive</div>
       </a>
 
     </div>
@@ -489,61 +339,31 @@
 
   <div class="section-divider"></div>
 
-  <!-- ── SALES FINANCE ── -->
+  <!-- ═══ DEPT 02 · ORDER MANAGEMENT ═══ -->
   <div class="section">
-    <div class="section-head">
-      <div class="section-dept">Department · 02</div>
-      <div class="section-title">Sales Finance <span class="jp-label">営業財務</span></div>
-    </div>
-    <div class="tools-grid">
-
-      <a class="tool-card" href="workbud.html">
-        <div class="tc-tag">Internal · Password Protected</div>
-        <div class="tc-icon">🤙</div>
-        <div class="tc-title">Work Bud</div>
-        <div class="tc-desc">
-          Kareem's private operations hub. Surfaces live Asana deliverables checked off
-          in-page, weekly meeting notes, call-outs from teammates, and a curated set of
-          quick links across the OM stack. Built around High Output Management principles.
-        </div>
-        <div class="tc-status"><span class="dot dot-green"></span> Live · Private</div>
-      </a>
-
-      <a class="tool-card" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit?tab=t.0" target="_blank">
-        <div class="tc-tag">Google Docs · Onboarding</div>
-        <div class="tc-icon">🎓</div>
-        <div class="tc-title">OM Onboarding Guide</div>
-        <div class="tc-desc">
-          Full onboarding document — role definition, Amplitude product goals, SFDC / ARR / ATR
-          explained from first principles, and team context built from day one. Updated
-          continuously as reference for any OM team member getting started.
-        </div>
-        <div class="tc-status"><span class="dot dot-gray"></span> Google Docs</div>
-      </a>
-
-    </div>
-  </div>
-
-  <div class="section-divider"></div>
-
-  <!-- ── ORDER MANAGEMENT ── -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-dept">Department · 03</div>
-      <div class="section-title">Order Management <span class="jp-label">受注管理</span></div>
+    <div class="dept-head">
+      <div class="dept-label">Department · 02</div>
+      <div class="dept-title">Order Management <span class="jp-label">受注管理</span></div>
+      <p class="dept-desc">
+        Order Management is the operational core of Sales Finance — the team that validates,
+        processes, and closes every deal flowing through Amplitude's sales motion. These tools
+        were built specifically for OM workflows: catching booking errors before they become cases,
+        managing the live queue, and getting new team members up to speed fast.
+      </p>
     </div>
     <div class="tools-grid">
 
       <a class="tool-card" href="bookings.html">
-        <div class="tc-tag">OM Team · Daily Use</div>
+        <div class="tc-tag">Built for OM · Daily Use</div>
         <div class="tc-icon">🔍</div>
         <div class="tc-title">Booking Checker</div>
         <div class="tc-desc">
-          Step-by-step deal validation tool built from Dorothy's OM booking checklist.
-          Covers Direct, Reseller, and AWS Marketplace deal types. Validates each field
-          before submission — flags issues before they become cases.
+          A step-by-step deal validation tool built from the OM booking checklist.
+          Walk through each required field — Contract ID, ARR, deal type, billing terms — for
+          Direct, Reseller, and AWS Marketplace deals. Flags issues before they reach the queue
+          and become correction cases.
         </div>
-        <div class="tc-status"><span class="dot dot-green"></span> Live · Open</div>
+        <div class="tc-status"><span class="dot dot-green"></span> Live · Open Access</div>
       </a>
 
       <a class="tool-card" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">
@@ -552,35 +372,22 @@
         <div class="tc-title">OM Case Queue</div>
         <div class="tc-desc">
           The live Salesforce OM case queue. All open booking cases, pending AE corrections,
-          and deal escalations in one view. Primary intake point for every booking that
-          flows through the Sales Finance team.
+          and deal escalations in one view. Every booking requiring OM review flows in here —
+          the primary daily intake for the Sales Finance team.
         </div>
         <div class="tc-status"><span class="dot dot-blue"></span> Salesforce</div>
       </a>
 
-    </div>
-  </div>
-
-  <div class="section-divider"></div>
-
-  <!-- ── ACCOUNTING & FINANCE ── -->
-  <div class="section">
-    <div class="section-head">
-      <div class="section-dept">Department · 04</div>
-      <div class="section-title">Accounting &amp; Finance <span class="jp-label">会計</span></div>
-    </div>
-    <div class="tools-grid">
-
-      <a class="tool-card" href="https://lovable.dev" target="_blank">
-        <div class="tc-tag">AI Builder · In Progress</div>
-        <div class="tc-icon">💜</div>
-        <div class="tc-title">G&amp;A Overage Anticipation Agent</div>
+      <a class="tool-card" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit?tab=t.0" target="_blank">
+        <div class="tc-tag">Google Docs · Onboarding</div>
+        <div class="tc-icon">🎓</div>
+        <div class="tc-title">OM Onboarding Guide</div>
         <div class="tc-desc">
-          Being built on Lovable.dev with a Supabase backend. A forward-looking consumption
-          monitor that auto-alerts AE, FLM, CSM, and Accounting when accounts are trending
-          toward overages — designed for AI Week and beyond.
+          The foundational OM reference — role definition, Amplitude product structure, SFDC /
+          ARR / ATR explained from first principles, and team context built from day one.
+          Written to orient anyone stepping into an OM function for the first time.
         </div>
-        <div class="tc-status"><span class="dot dot-amber"></span> In Build · AI Week</div>
+        <div class="tc-status"><span class="dot dot-gray"></span> Google Docs</div>
       </a>
 
     </div>
@@ -588,106 +395,116 @@
 
   <div class="section-divider"></div>
 
-  <!-- ── RECREATE THIS SUITE ── -->
-  <div class="section" style="padding-top: 56px; padding-bottom: 72px;">
-    <div class="section-head">
-      <div class="section-dept">Open Source · For the Team</div>
-      <div class="section-title">Recreate This Suite <span class="jp-label">複製</span></div>
+  <!-- ═══ DEPT 03 · ACCOUNTING & FINANCE ═══ -->
+  <div class="section">
+    <div class="dept-head">
+      <div class="dept-label">Department · 03</div>
+      <div class="dept-title">Accounting &amp; Finance <span class="jp-label">会計</span></div>
+      <p class="dept-desc">
+        Accounting and Finance are downstream of every deal OM processes — first to feel it
+        when bookings are wrong, first to act when accounts trend toward overage. This section
+        houses tools built at the intersection of Sales Finance and Accounting workflows,
+        shifting the team from reactive to proactive.
+      </p>
+    </div>
+    <div class="tools-grid">
+
+      <a class="tool-card" href="https://lovable.dev" target="_blank">
+        <div class="tc-tag">AI Build · Active · AI Week</div>
+        <div class="tc-icon">💜</div>
+        <div class="tc-title">G&amp;A Overage Anticipation Agent</div>
+        <div class="tc-desc">
+          A forward-looking consumption monitor being built on Lovable.dev. Tracks accounts
+          trending toward usage overages and automatically alerts AE, FLM, CSM, and Accounting
+          before the overage hits — turning overage management from reactive to anticipatory.
+        </div>
+        <div class="tc-status"><span class="dot dot-amber"></span> In Build · Lovable.dev</div>
+      </a>
+
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ═══ WORK BUD SPOTLIGHT ═══ -->
+  <div class="section" id="work-bud" style="padding-top: 68px; padding-bottom: 80px;">
+    <div class="dept-head">
+      <div class="dept-label">Personal Ops Hub · Password Protected</div>
+      <div class="dept-title">Work Bud <span class="jp-label">作業の友</span></div>
+      <p class="dept-desc">
+        A private, browser-based operations hub built on top of this suite —
+        purpose-built for managing work through the lens of High Output Management
+        and Measure What Matters. Not a task list. A structured daily operating system.
+      </p>
     </div>
 
-    <div class="recreate-wrap">
-      <div class="recreate-header">
-        <h3>How to bring this suite into your own environment</h3>
-        <p>
-          Every tool in this suite is plain HTML — no build step, no framework, no dependencies.
-          If you're on the OM or Sales Finance team and want to adapt these for yourself,
-          follow these five steps. You'll have a live version running in under ten minutes.
-        </p>
+    <div class="wb-spotlight">
+
+      <div class="wb-top">
+        <div>
+          <div class="wb-eyebrow">What is Work Bud?</div>
+          <div class="wb-title">Built for output,<br>not just <em>activity.</em></div>
+          <p class="wb-desc">
+            Work Bud brings your Asana deliverables in-page with checkboxes you can actually use,
+            keeps your meeting notes structured and searchable by week, logs the positive call-outs
+            from teammates that belong in your performance record, and tracks every AI build in
+            flight — all in one focused window, no tab-switching required.
+          </p>
+          <a class="wb-cta" href="workbud.html">Open Work Bud →</a>
+        </div>
+        <div class="wb-badge">🤙</div>
       </div>
 
-      <div class="recreate-steps">
+      <div class="wb-features">
 
-        <div class="step-row">
-          <div class="step-num">Step 01</div>
-          <div class="step-body">
-            <div class="step-title">Fork the repository on GitHub</div>
-            <p class="step-desc">
-              Forking creates your own copy of the repo under your GitHub account.
-              Every tool, every file, yours to edit — without touching the original.
-            </p>
-            <a class="step-link" href="https://github.com/kareem-powell/tools/fork" target="_blank">
-              github.com/kareem-powell/tools/fork ↗
-            </a>
-          </div>
+        <div class="wb-feature">
+          <div class="wf-icon">🏠</div>
+          <div class="wf-title">The Den</div>
+          <p class="wf-desc">
+            Your daily home base. A KP profile card with live stat cells — open cases,
+            active builds, throughput — plus curated quick links to your most-used tools.
+            No noise. Just what you actually reach for.
+          </p>
         </div>
 
-        <div class="step-row">
-          <div class="step-num">Step 02</div>
-          <div class="step-body">
-            <div class="step-title">Clone it to your local machine</div>
-            <p class="step-desc">
-              Replace <code style="font-family:var(--font-mono);font-size:.8em;background:var(--bg3);padding:2px 6px;border-radius:2px;">YOUR-USERNAME</code>
-              with your GitHub handle. This downloads the full repo to your computer.
-            </p>
-            <div class="step-code">
-              <code id="clone-cmd">git clone https://github.com/YOUR-USERNAME/tools.git</code>
-              <button onclick="copyClone()">Copy</button>
-            </div>
-          </div>
+        <div class="wb-feature">
+          <div class="wf-icon">📋</div>
+          <div class="wf-title">Deliverables</div>
+          <p class="wf-desc">
+            Your Asana deliverables embedded directly in the browser. Each task is checkable
+            in-page — state persists across sessions via local storage. A live progress bar
+            at the top shows where you stand at a glance.
+          </p>
         </div>
 
-        <div class="step-row">
-          <div class="step-num">Step 03</div>
-          <div class="step-body">
-            <div class="step-title">Open any file directly in your browser</div>
-            <p class="step-desc">
-              No server required. Navigate to the cloned folder and open
-              <code style="font-family:var(--font-mono);font-size:.8em;background:var(--bg3);padding:2px 6px;border-radius:2px;">bookings.html</code>,
-              <code style="font-family:var(--font-mono);font-size:.8em;background:var(--bg3);padding:2px 6px;border-radius:2px;">workbud.html</code>,
-              or <code style="font-family:var(--font-mono);font-size:.8em;background:var(--bg3);padding:2px 6px;border-radius:2px;">index.html</code>
-              in Chrome. Everything runs client-side.
-            </p>
-            <div class="step-note">
-              Tip — on Mac: <span style="font-family:var(--font-mono)">open bookings.html</span> from Terminal opens it immediately.
-            </div>
-          </div>
+        <div class="wb-feature">
+          <div class="wf-icon">📝</div>
+          <div class="wf-title">Meeting Notes</div>
+          <p class="wf-desc">
+            Weekly notes in a clean accordion layout — collapsed by default so you can scan
+            across weeks without scrolling. Each entry has a date, meeting type, and structured
+            bullet list. Updated directly in the HTML.
+          </p>
         </div>
 
-        <div class="step-row">
-          <div class="step-num">Step 04</div>
-          <div class="step-body">
-            <div class="step-title">Adapt the tool cards and content to your role</div>
-            <p class="step-desc">
-              Each tool card in <code style="font-family:var(--font-mono);font-size:.8em;background:var(--bg3);padding:2px 6px;border-radius:2px;">index.html</code>
-              is a plain <code style="font-family:var(--font-mono);font-size:.8em;background:var(--bg3);padding:2px 6px;border-radius:2px;">&lt;a&gt;</code> tag.
-              Update the title, description, icon, and <code style="font-family:var(--font-mono);font-size:.8em;background:var(--bg3);padding:2px 6px;border-radius:2px;">href</code>
-              to match your own links and workflow. The Work Bud password is set in
-              <code style="font-family:var(--font-mono);font-size:.8em;background:var(--bg3);padding:2px 6px;border-radius:2px;">workbud.html</code>
-              — search for <code style="font-family:var(--font-mono);font-size:.8em;background:var(--bg3);padding:2px 6px;border-radius:2px;">CORRECT_PASSWORD</code>
-              and replace it with your own.
-            </p>
-            <div class="step-note">
-              The Booking Checker checklist logic lives in a single JS function — swap in the checklist items relevant to your deal types.
-            </div>
-          </div>
+        <div class="wb-feature">
+          <div class="wf-icon">🌟</div>
+          <div class="wf-title">Call-Outs</div>
+          <p class="wf-desc">
+            A running log of recognition from teammates — the moments that belong in your
+            performance record. Each entry captures who said it, the context, and the quote.
+            Quiet tab. Important one.
+          </p>
         </div>
 
-        <div class="step-row">
-          <div class="step-num">Step 05</div>
-          <div class="step-body">
-            <div class="step-title">Deploy to GitHub Pages — your suite goes live</div>
-            <p class="step-desc">
-              In your forked repo on GitHub, go to <strong>Settings → Pages</strong>.
-              Under "Branch," select <code style="font-family:var(--font-mono);font-size:.8em;background:var(--bg3);padding:2px 6px;border-radius:2px;">main</code>
-              and save. Within about 60 seconds, your suite will be live at:
-            </p>
-            <div class="step-code" style="margin-top: 10px;">
-              <code>https://YOUR-USERNAME.github.io/tools/</code>
-            </div>
-            <div class="step-note" style="margin-top: 10px;">
-              Push any update to <span style="font-family:var(--font-mono)">main</span> and GitHub Pages redeploys automatically — usually within 30 seconds.
-            </div>
-          </div>
+        <div class="wb-feature">
+          <div class="wf-icon">💜</div>
+          <div class="wf-title">Lovable Builds</div>
+          <p class="wf-desc">
+            Tracks every AI-powered tool in active development — links, status, and what each
+            build is trying to accomplish. Right now: the G&A Overage Anticipation agent for
+            AI Week. The tab grows with the work.
+          </p>
         </div>
 
       </div>
@@ -695,7 +512,7 @@
   </div>
 
   <!-- FOOTER -->
-  <footer>
+  <footer style="border-top: 1px solid var(--ash); padding: 26px var(--pad); max-width:100%; width:100%; display:flex; align-items:center; justify-content:space-between; flex-wrap:wrap; gap:12px; margin-top:auto;">
     <div>
       <div class="footer-brand">O.M. Suite &nbsp;·&nbsp; 整序</div>
       <div class="footer-butler">At your service.</div>
@@ -708,17 +525,5 @@
   </footer>
 
 </div>
-
-<script>
-function copyClone() {
-  const text = document.getElementById('clone-cmd').textContent;
-  navigator.clipboard.writeText(text).then(() => {
-    const btn = document.querySelector('.step-code button');
-    btn.textContent = 'Copied';
-    setTimeout(() => btn.textContent = 'Copy', 1800);
-  });
-}
-</script>
-
 </body>
 </html>

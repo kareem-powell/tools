@@ -1,4 +1,50 @@
 {
+  "om_pipeline": {
+    "updated": "Apr 10, 2026",
+    "source": "Salesforce · Stage 6.5 - Order Submitted",
+    "stage65_count": 4,
+    "stage65_arr": 1328014,
+    "closed_won_mtd_count": 1489,
+    "closed_won_mtd_arr": 5271873,
+    "deals": [
+      {
+        "account": "Lime",
+        "type": "Renewal + Expand",
+        "ae": "Lucas Demiguel",
+        "arr": 1250639,
+        "close_date": "2026-04-07",
+        "days_overdue": 3,
+        "sfdc_id": "006Uw00000JmvNhIAJ"
+      },
+      {
+        "account": "Gorafeeq",
+        "type": "Expand - Vertical",
+        "ae": "Mustafa Guechi",
+        "arr": 50375,
+        "close_date": "2026-04-08",
+        "days_overdue": 2,
+        "sfdc_id": "006VH00000l3tL5YAI"
+      },
+      {
+        "account": "Postscript",
+        "type": "Expand - Horizontal",
+        "ae": "George Souvall",
+        "arr": 20250,
+        "close_date": "2026-04-07",
+        "days_overdue": 3,
+        "sfdc_id": "006VH00000lcvAHYAY"
+      },
+      {
+        "account": "Beyond ONE MEA",
+        "type": "Expand - Vertical",
+        "ae": "Mustafa Guechi",
+        "arr": 6750,
+        "close_date": "2026-04-08",
+        "days_overdue": 2,
+        "sfdc_id": "006VH00000jOoxpYAC"
+      }
+    ]
+  },
   "om_queue": {
     "updated": "Apr 10, 2026",
     "source": "Salesforce · Deal Desk record type",

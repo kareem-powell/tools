@@ -360,6 +360,21 @@
         </div>
       </div>
 
+      <!-- Cowork status block -->
+      <!-- [COWORK-AUTO] id="om-status" — Cowork updates this section with current OM status -->
+      <div class="cowork-block" id="om-status">
+        <div class="cb-header">
+          <span class="cb-label">Cowork · What's Happening</span>
+          <span class="cb-date" id="om-status-date">Last updated: —</span>
+        </div>
+        <div class="cb-body" id="om-status-body">
+          <strong>ATR Cases:</strong> 5 open in SFDC queue. Vol Ramp ATR cleanup ~60% complete — contract ACV values being folded in daily.<br><br>
+          <strong>Active Booking:</strong> 1 booking in validation. Running through checklist with KaBoth Vu daily.<br><br>
+          <strong>Booking Checker:</strong> Live and in use. Step-by-step validation for Direct, Reseller, and AWS Marketplace deals.
+        </div>
+      </div>
+      <!-- [/COWORK-AUTO] -->
+
       <!-- Current snapshot -->
       <div class="section-micro">Current Snapshot</div>
       <div class="snap-grid">
@@ -421,6 +436,42 @@
         </div>
       </div>
 
+      <!-- Work Bud clone instructions -->
+      <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--bdr);">
+        <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg4);margin-bottom:12px;">Clone Work Bud · For Your Own Workflow</div>
+        <details style="background:var(--bg2);border:1.5px solid var(--bdr);border-radius:var(--r);overflow:hidden;">
+          <summary style="padding:14px 18px;cursor:pointer;font-size:13.5px;font-weight:600;color:var(--fg2);list-style:none;display:flex;align-items:center;justify-content:space-between;">
+            How to set up your own Work Bud with Cowork
+            <span style="font-family:var(--mono);font-size:11px;color:var(--fg4);font-weight:400;">expand ↓</span>
+          </summary>
+          <div style="padding:0 18px 18px;border-top:1px solid var(--bdr);">
+            <p style="font-size:13px;color:var(--fg3);line-height:1.75;margin:14px 0 10px;">Work Bud is built on plain HTML deployed to GitHub Pages. To adapt it for your own OM workflow, paste the following initialization prompt into a Cowork session:</p>
+            <pre style="background:var(--bg3);border:1px solid var(--bdr);border-radius:8px;padding:16px;font-family:var(--mono);font-size:12px;color:var(--fg2);line-height:1.7;overflow-x:auto;white-space:pre-wrap;">You are setting up a personal Work Bud ops hub.
+
+Files to use as a base:
+  workbud.html — personal ops center (password-protect with your chosen password)
+  bookings.html — OM deal validation checklist
+  index.html — House of O.M. department dashboard
+
+Connect the following:
+  - Asana: your project GID (find it in your project URL)
+  - Salesforce: your org's SFDC URL + Case Queue view
+  - Slack: channels relevant to your OM/Finance workflow
+  - Google Calendar: for morning briefing scheduling
+
+Set up these Cowork scheduled skills:
+  - Morning briefing (Slack digest + tasks + calendar + schedule)
+  - EOD recap (completed vs open task summary → Slack DM)
+  - ATR progress tracker (weekly ATR case count update)
+  - Meeting notes generator (creates note stubs from calendar)
+
+Update workbud.html with your name, Asana project GID,
+Salesforce URL, and Slack user ID. Set your password.
+Deploy to GitHub Pages via GitHub Desktop.</pre>
+          </div>
+        </details>
+      </div>
+
     </div>
   </div>
 
@@ -429,9 +480,9 @@
     <div class="inner">
 
       <div class="sec-head">
-        <div class="sec-label">Function · FP&amp;A</div>
+        <div class="sec-label">FP&amp;A · Sales Finance</div>
         <div class="sec-title">Sales Finance</div>
-        <p class="sec-desc">Sales Finance owns deal economics, revenue integrity, and the financial planning layer on top of Amplitude's commercial motion. It partners with Sales on deal structure, sets the analytical framework for how bookings translate to revenue, and ensures the numbers that hit the books are accurate — quarter over quarter.</p>
+        <p class="sec-desc">Sales Finance (FP&amp;A) owns the financial planning layer on top of Amplitude's commercial motion — deal economics, ARR forecasting, forward-looking risk monitoring, and revenue integrity. It sets the assumptions that Accounting closes against and the models that leadership decides from. FP&amp;A sits above both Accounting and OM in the data flow: plan first, track second, report third.</p>
       </div>
 
       <!-- HOM output definition -->
@@ -439,7 +490,7 @@
         <div>
           <div class="primer-label">High Output Management · Output Definition</div>
           <div class="primer-title">What does Sales Finance produce?</div>
-          <p class="primer-body">In HOM terms, the output of Sales Finance is reliable financial intelligence that enables better decisions. That means accurate planning models, validated deal economics, clean revenue recognition, and the proactive surfacing of risk before it becomes a problem. FP&A's job is to make the invisible legible — translating complex deal activity into numbers leadership can act on.</p>
+          <p class="primer-body">Reliable financial intelligence that enables faster, better decisions. That means accurate ARR forecasts, validated deal economics, proactive overage alerts before accounts breach contract limits, and clean ATR data before it creates downstream RevRec problems. FP&amp;A makes the invisible legible — turning complex deal activity into numbers leadership can act on.</p>
         </div>
         <div class="deal-flow">
           <div class="df-step">Plan</div>
@@ -450,24 +501,39 @@
         </div>
       </div>
 
+      <!-- Cowork status block -->
+      <!-- [COWORK-AUTO] id="sf-status" — Cowork updates this section with current FP&A status -->
+      <div class="cowork-block" id="sf-status">
+        <div class="cb-header">
+          <span class="cb-label">Cowork · What's Happening</span>
+          <span class="cb-date" id="sf-status-date">Last updated: —</span>
+        </div>
+        <div class="cb-body" id="sf-status-body">
+          <strong>Vol Ramp ATR Cleanup:</strong> ~60% complete across 138 deals. Contract ACV values being folded in daily — corrections routed through #order-up.<br><br>
+          <strong>AI Week — G&amp;A Consumption Monitoring Agent:</strong> In active build. Forward-looking overage alerter for AE, FLM, CSM, and Accounting. Presenting at offsite Friday.<br><br>
+          <strong>OM Booking Checklist:</strong> Daily review with KaBoth Vu ongoing. Reducing downstream case volume.
+        </div>
+      </div>
+      <!-- [/COWORK-AUTO] -->
+
       <!-- Snapshot -->
       <div class="section-micro">Current Snapshot · H1</div>
       <div class="snap-grid">
         <div class="snap-cell">
-          <div class="snap-label">Deliverables Done</div>
-          <div class="snap-val green">34</div>
+          <div class="snap-label">Vol Ramp Deals</div>
+          <div class="snap-val">138</div>
         </div>
         <div class="snap-cell">
-          <div class="snap-label">Open Deliverables</div>
-          <div class="snap-val amber">20</div>
+          <div class="snap-label">ATR Progress</div>
+          <div class="snap-val amber">~60%</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">G&amp;A Overage Agent</div>
+          <div style="font-size:13px;font-weight:700;color:var(--amber);margin-top:6px;">AI Week Build</div>
         </div>
         <div class="snap-cell">
           <div class="snap-label">Active Builds</div>
           <div class="snap-val blue">2</div>
-        </div>
-        <div class="snap-cell">
-          <div class="snap-label">Vol Ramp Progress</div>
-          <div class="snap-val">~60%</div>
         </div>
       </div>
 
@@ -477,34 +543,36 @@
         <div class="if-item">
           <div class="if-dot green"></div>
           <div class="if-body">
-            <div class="if-title">H1 Vol Ramp ATR Cleanup</div>
-            <div class="if-desc">Largest H1 initiative — reviewing and resolving ATR exceptions across the Vol Ramp deal cohort. Contract ACV validation against Salesforce case data. Shared with OM.</div>
-            <div class="if-tag">HIGH PRIORITY · Cross-functional with OM</div>
+            <div class="if-title">Vol Ramp ATR Cleanup — 138 deals</div>
+            <div class="if-desc">Sales Finance owns this. Katie Helie flagged the discrepancy: ATR values using average ARR instead of exit-year ACV across the Vol Ramp cohort. Kareem leads cleanup. Corrections routed through #order-up.</div>
+            <div class="if-tag">HIGH · Sales Finance owns · ~60% complete</div>
           </div>
         </div>
         <div class="if-item">
           <div class="if-dot blue"></div>
           <div class="if-body">
-            <div class="if-title">AI Week — G&amp;A Overage Anticipation Agent</div>
-            <div class="if-desc">Building a forward-looking consumption monitor that identifies accounts trending toward usage overages and alerts AE, FLM, CSM, and Accounting before the overage hits. Presenting at offsite.</div>
-            <div class="if-tag">AI WEEK · Active Build · Due This Week</div>
+            <div class="if-title">AI Week — G&amp;A Consumption Monitoring Agent</div>
+            <div class="if-desc">FP&amp;A build. Forward-looking consumption monitor that predicts overage scenarios 3–6 months ahead and proactively alerts AE, FLM, CSM, and Accounting before accounts breach contract limits. Presenting at offsite Friday.</div>
+            <div class="if-tag">AI WEEK · FP&amp;A · Due Friday</div>
           </div>
         </div>
         <div class="if-item">
           <div class="if-dot amber"></div>
           <div class="if-body">
-            <div class="if-title">OM Booking Checklist — Validation</div>
-            <div class="if-desc">Daily OM checklist review with KaBoth Vu. Each booking validated before it moves downstream — part of the broader effort to reduce OM cases created by booking errors.</div>
-            <div class="if-tag">DAILY · Shared with OM</div>
+            <div class="if-title">OM Booking Process Improvement</div>
+            <div class="if-desc">Reducing the volume of OM cases created by AE booking errors. Tooling (Booking Checker), daily checklist review with KaBoth, and process documentation all feeding into this.</div>
+            <div class="if-tag">H1 INITIATIVE · Cross-functional with OM</div>
           </div>
         </div>
       </div>
 
-      <!-- Resources (de-emphasized) -->
+      <!-- Resources -->
       <div class="res-section">
         <div class="section-micro" style="margin-bottom:12px;">References</div>
         <div class="res-links">
-          <a class="res-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">H1 Deliverables <span class="res-link-meta">Asana · project tracker</span></a>
+          <a class="res-link" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">H1 Projects &amp; Tracking <span class="res-link-meta">Google Sheets</span></a>
+          <a class="res-link" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0" target="_blank">H1 Deliverables &amp; OKRs <span class="res-link-meta">Google Docs</span></a>
+          <a class="res-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">Deliverables · Asana <span class="res-link-meta">Project tracker</span></a>
           <a class="res-link" href="workbud.html">Work Bud <span class="res-link-meta">Personal ops hub · private</span></a>
         </div>
       </div>
@@ -517,9 +585,9 @@
     <div class="inner">
 
       <div class="sec-head">
-        <div class="sec-label">Function · RevRec &amp; Compliance</div>
+        <div class="sec-label">Function · RevRec &amp; Close</div>
         <div class="sec-title">Accounting</div>
-        <p class="sec-desc">Accounting is the final downstream recipient of every deal OM processes. It owns revenue recognition, ensures bookings comply with ASC 606, and closes the loop between what Sales promised and what Finance can recognize. When OM delivers a clean booking, Accounting moves fast. When it doesn't, Accounting creates the case that sends it back.</p>
+        <p class="sec-desc">Accounting owns the close — ARR reconciliation, revenue recognition against ASC 606, NetSuite integration, and the monthly sync between what Sales booked and what Finance can report. It is the final checkpoint in Amplitude's revenue flow. Every OM booking that's wrong creates rework here; every clean booking accelerates close. Accounting closes against the assumptions FP&amp;A set and the bookings OM validated.</p>
       </div>
 
       <!-- HOM output definition -->
@@ -527,35 +595,50 @@
         <div>
           <div class="primer-label">High Output Management · Output Definition</div>
           <div class="primer-title">What does Accounting produce?</div>
-          <p class="primer-body">Accounting's output is recognized revenue — the moment a deal moves from committed ARR to booked revenue on Amplitude's financial statements. In MWM terms, the key result is accuracy: every deal that hits the books reflects the true economic agreement. The secondary output is speed: the faster Accounting closes, the faster Finance can report and leadership can decide.</p>
+          <p class="primer-body">Recognized revenue — the moment a committed deal moves onto Amplitude's financial statements accurately and on time. In MWM terms: accuracy (every booked deal reflects the true economic agreement) and speed (close completes on schedule so Finance can report and leadership can decide). Accounting's leverage point is upstream quality — the cleaner OM's bookings, the faster Accounting closes.</p>
         </div>
         <div class="deal-flow">
-          <div class="df-step">Booking Received</div>
+          <div class="df-step">Booking In</div>
           <div class="df-arrow">↓</div>
-          <div class="df-step">RevRec Applied</div>
+          <div class="df-step">ARR Reconciled</div>
           <div class="df-arrow">↓</div>
           <div class="df-step">Revenue Recognized</div>
         </div>
       </div>
 
+      <!-- Cowork status block -->
+      <!-- [COWORK-AUTO] id="acct-status" — Cowork updates this section with current Accounting status -->
+      <div class="cowork-block" id="acct-status">
+        <div class="cb-header">
+          <span class="cb-label">Cowork · What's Happening</span>
+          <span class="cb-date" id="acct-status-date">Last updated: —</span>
+        </div>
+        <div class="cb-body" id="acct-status-body">
+          <strong>Monthly Close:</strong> Accounting ↔ Finance close sync scheduled (Jun 9). ARR ledger reconciliation ongoing.<br><br>
+          <strong>ATR Impact:</strong> 5 open ATR cases upstream in OM — each resolved saves a RevRec correction cycle here. Tracking resolution order with Sales Finance.<br><br>
+          <strong>NetSuite:</strong> ARR/Overage/Discounts field accuracy review as part of post-close verification.
+        </div>
+      </div>
+      <!-- [/COWORK-AUTO] -->
+
       <!-- Snapshot -->
       <div class="section-micro">Current Snapshot</div>
       <div class="snap-grid">
         <div class="snap-cell">
-          <div class="snap-label">G&amp;A Overage Agent</div>
-          <div style="font-size:14px;font-weight:700;color:var(--amber);margin-top:6px;">In Build</div>
-        </div>
-        <div class="snap-cell">
-          <div class="snap-label">ATR Cases (Impact)</div>
+          <div class="snap-label">ATR Upstream Cases</div>
           <div class="snap-val">5</div>
         </div>
         <div class="snap-cell">
-          <div class="snap-label">Accounts Monitored</div>
-          <div class="snap-val blue">TBD</div>
+          <div class="snap-label">Close Sync</div>
+          <div style="font-size:13px;font-weight:700;color:var(--fg2);margin-top:6px;">Jun 9</div>
         </div>
         <div class="snap-cell">
-          <div class="snap-label">Alert Coverage</div>
-          <div style="font-size:14px;font-weight:700;color:var(--fg3);margin-top:6px;">Pre-launch</div>
+          <div class="snap-label">ARR Recon</div>
+          <div style="font-size:13px;font-weight:700;color:var(--amber);margin-top:6px;">In Progress</div>
+        </div>
+        <div class="snap-cell">
+          <div class="snap-label">NetSuite Sync</div>
+          <div style="font-size:13px;font-weight:700;color:var(--green);margin-top:6px;">Active</div>
         </div>
       </div>
 
@@ -563,29 +646,37 @@
       <div class="section-micro">In Flight · Docket</div>
       <div class="inflight-list">
         <div class="if-item">
-          <div class="if-dot blue"></div>
+          <div class="if-dot amber"></div>
           <div class="if-body">
-            <div class="if-title">G&amp;A Overage Anticipation Agent — AI Week Build</div>
-            <div class="if-desc">A forward-looking consumption monitor that identifies accounts trending toward usage overages and proactively alerts AE, FLM, CSM, and Accounting before the overage occurs. Addresses the reactive gap in current monitoring — giving the team time to act rather than just respond.</div>
-            <div class="if-tag">AI WEEK · Building on Lovable.dev · Presenting at Offsite</div>
+            <div class="if-title">ARR Reconciliation &amp; Post-Close Verification</div>
+            <div class="if-desc">Monthly ARR ledger reconciliation — verifying ARR, Overage, and Discounts field accuracy in NetSuite against SFDC. Certifying customer counts and ARR figures after each close period.</div>
+            <div class="if-tag">RECURRING · Monthly close cycle</div>
           </div>
         </div>
         <div class="if-item">
-          <div class="if-dot amber"></div>
+          <div class="if-dot blue"></div>
           <div class="if-body">
-            <div class="if-title">ATR Case Upstream Impact</div>
-            <div class="if-desc">The 5 open ATR cases in the OM queue all have downstream accounting implications — each one resolved upstream saves a RevRec correction cycle. Close coordination between OM and Accounting on exception resolution order.</div>
-            <div class="if-tag">SHARED · Upstream dependency on OM</div>
+            <div class="if-title">Accounting ↔ Finance Close Sync</div>
+            <div class="if-desc">Monthly scheduled sync between Accounting and Finance to align on close status, flag any booking discrepancies, and confirm revenue recognition timing. Next: Jun 9.</div>
+            <div class="if-tag">SCHEDULED · Monthly · Jun 9</div>
+          </div>
+        </div>
+        <div class="if-item">
+          <div class="if-dot gray"></div>
+          <div class="if-body">
+            <div class="if-title">ATR Case Resolution — Upstream Dependency</div>
+            <div class="if-desc">5 open ATR cases in the OM queue each have a downstream RevRec implication. Sales Finance and OM resolving upstream — Accounting tracks impact and sequencing for close accuracy.</div>
+            <div class="if-tag">WATCHING · Owned upstream by Sales Finance &amp; OM</div>
           </div>
         </div>
       </div>
 
-      <!-- Resources (de-emphasized) -->
+      <!-- Resources -->
       <div class="res-section">
         <div class="section-micro" style="margin-bottom:12px;">References</div>
         <div class="res-links">
           <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">SFDC Case Queue <span class="res-link-meta">Salesforce · upstream OM cases</span></a>
-          <a class="res-link" href="bookings.html">Booking Checker <span class="res-link-meta">Deal validation · prevent RevRec rework</span></a>
+          <a class="res-link" href="bookings.html">Booking Checker <span class="res-link-meta">Deal validation · reduces RevRec rework</span></a>
         </div>
       </div>
 

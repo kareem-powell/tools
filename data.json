@@ -8,6 +8,13 @@
       "Assigned": 10,
       "In Progress": 1,
       "Pending Response": 50
+    },
+    "oldest_open_days": null,
+    "closed_today": null,
+    "team": {
+      "Matt": null,
+      "KB": null,
+      "Unassigned": null
     }
   },
   "sf_snapshot": {

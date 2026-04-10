@@ -185,6 +185,32 @@
     .res-link:hover { background: var(--bg2); }
     .res-link-meta { font-family: var(--mono); font-size: 10.5px; color: var(--fg4); }
 
+    /* ── DROPDOWN NAV ── */
+    .sc-dropdown { position: relative; display: flex; align-items: stretch; }
+    .sc-caret { font-size: 9px; margin-left: 5px; opacity: .5; }
+    .sc-dropdown-menu {
+      display: none; position: absolute; top: calc(100% + 1px); left: 0;
+      background: var(--bg); border: 1px solid var(--bdr2);
+      border-radius: 8px; flex-direction: column; min-width: 156px;
+      z-index: 300; box-shadow: 0 4px 18px rgba(0,0,0,.09); overflow: hidden;
+    }
+    .sc-dropdown:hover .sc-dropdown-menu,
+    .sc-dropdown-menu.open { display: flex; }
+    .sc-dropdown-item {
+      padding: 10px 16px; border: none; background: none;
+      text-align: left; cursor: pointer; font-size: 13px; font-weight: 500;
+      color: var(--fg3); font-family: var(--font); transition: background .1s, color .1s;
+      border-bottom: 1px solid var(--bdr); white-space: nowrap;
+    }
+    .sc-dropdown-item:last-child { border-bottom: none; }
+    .sc-dropdown-item:hover { background: var(--bg2); color: var(--fg); }
+    .sc-dropdown-item.sub { padding-left: 24px; font-size: 12.5px; color: var(--fg4); }
+    .sc-dropdown-item.sub:hover { color: var(--fg2); }
+
+    /* ── RESOURCES PANE ── */
+    .res-dept-block { margin-bottom: 36px; }
+    .res-dept-label { font-family: var(--mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--fg4); margin-bottom: 10px; padding-bottom: 8px; border-bottom: 1px solid var(--bdr); }
+
     /* ── COWORK STATUS BLOCK ── */
     .cowork-block { background: var(--bg2); border: 1.5px solid var(--bdr); border-radius: var(--r); padding: 20px 24px; margin-bottom: 36px; }
     .cb-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
@@ -237,11 +263,18 @@
   <div class="suite-chrome">
     <a class="sc-brand" href="index.html">House of O.M.</a>
     <div class="sc-tabs">
-      <button class="sc-tab active" id="t-home" onclick="go('home',this)">Home</button>
-      <button class="sc-tab"        id="t-sf"   onclick="go('sf',this)">Sales Finance</button>
-      <button class="sc-tab"        id="t-acct" onclick="go('acct',this)">Accounting</button>
-      <button class="sc-tab"        id="t-om"   onclick="go('om',this)">Order Management</button>
-      <a      class="sc-tab"        href="workbud.html">Work Bud</a>
+      <button class="sc-tab active" id="t-home"      onclick="go('home',this)">Home</button>
+      <div class="sc-dropdown">
+        <button class="sc-tab" id="t-sf" onclick="go('sf',this)">Sales Finance <span class="sc-caret">▾</span></button>
+        <div class="sc-dropdown-menu">
+          <button class="sc-dropdown-item" onclick="go('sf',  document.getElementById('t-sf'))">Sales Finance</button>
+          <button class="sc-dropdown-item sub" onclick="go('fpa', document.getElementById('t-sf'))">↳ FP&amp;A</button>
+        </div>
+      </div>
+      <button class="sc-tab" id="t-acct"      onclick="go('acct',this)">Accounting</button>
+      <button class="sc-tab" id="t-om"        onclick="go('om',this)">Order Management</button>
+      <a      class="sc-tab" href="workbud.html">Work Bud</a>
+      <button class="sc-tab" id="t-resources" onclick="go('resources',this)">Resources</button>
     </div>
     <div class="sc-live"><span class="sc-dot"></span> live</div>
   </div>
@@ -683,6 +716,141 @@ Deploy to GitHub Pages via GitHub Desktop.</pre>
     </div>
   </div>
 
+  <!-- FP&A sub-pane (under Sales Finance dropdown) -->
+  <div class="pane" id="p-fpa">
+    <div class="inner">
+
+      <div class="sec-head">
+        <div class="sec-label">Sales Finance · Sub-function</div>
+        <div class="sec-title">FP&amp;A</div>
+        <p class="sec-desc">Financial Planning &amp; Analysis owns the forward-looking layer of Sales Finance — ARR forecasting models, Vol Ramp assumptions, consumption monitoring, and the planning cycle that sets targets for the rest of the org. FP&amp;A is where deals become projections and projections become decisions.</p>
+      </div>
+
+      <div class="primer" style="margin-bottom:36px;">
+        <div>
+          <div class="primer-label">Planning Cycle · How FP&amp;A Works</div>
+          <div class="primer-title">Plan → Forecast → Align → Report</div>
+          <p class="primer-body">FP&amp;A runs on a quarterly cadence anchored by the close. Each month: actuals come in from Accounting, get loaded into Anaplan, and variance analysis begins. Each quarter: ARR forecast is certified with CEO approval, department narratives go out, and a new estimate is set for the following period. H1 is the current planning window.</p>
+        </div>
+        <div class="deal-flow">
+          <div class="df-step">Close</div>
+          <div class="df-arrow">↓</div>
+          <div class="df-step">Actualize</div>
+          <div class="df-arrow">↓</div>
+          <div class="df-step">Forecast</div>
+          <div class="df-arrow">↓</div>
+          <div class="df-step">Certify</div>
+        </div>
+      </div>
+
+      <!-- Cowork status block (inherits SF status) -->
+      <div class="cowork-block">
+        <div class="cb-header">
+          <span class="cb-label">Cowork · FP&amp;A Status</span>
+          <span class="cb-date">See Sales Finance → What's Happening</span>
+        </div>
+        <div class="cb-body">
+          <strong>Vol Ramp ATR Cleanup:</strong> 138 deals, ~60% complete. ATR values using avg ARR instead of exit-year ACV — being corrected deal by deal through #order-up.<br><br>
+          <strong>Consumption Monitoring Model:</strong> Forward-looking overage prediction (3–6 months ahead). G&amp;A Consumption Agent is the AI Week implementation of this.<br><br>
+          <strong>H1 ARR Forecast:</strong> Alignment ongoing with Sales on Vol Ramp assumptions. Anaplan actualization follows each monthly close.
+        </div>
+      </div>
+
+      <div class="section-micro">FP&amp;A Deliverables · H1</div>
+      <div class="inflight-list" style="margin-bottom:36px;">
+        <div class="if-item">
+          <div class="if-dot green"></div>
+          <div class="if-body">
+            <div class="if-title">Vol Ramp Assumptions Alignment</div>
+            <div class="if-desc">Aligning Sales Finance and FP&amp;A on the Vol Ramp deal assumptions — ensuring the ATR/ACV data used in forecasting matches the corrected contract values coming out of the ATR cleanup.</div>
+            <div class="if-tag">H1 · FP&amp;A owns · in progress</div>
+          </div>
+        </div>
+        <div class="if-item">
+          <div class="if-dot blue"></div>
+          <div class="if-body">
+            <div class="if-title">Consumption Monitoring Forward-Looking Model</div>
+            <div class="if-desc">Predictive model for identifying accounts trending toward G&amp;A usage overages 3–6 months before they breach contract limits. The G&amp;A Consumption Agent (AI Week) is the tooling layer on top of this model.</div>
+            <div class="if-tag">H1 · FP&amp;A owns · AI Week implementation</div>
+          </div>
+        </div>
+        <div class="if-item">
+          <div class="if-dot amber"></div>
+          <div class="if-body">
+            <div class="if-title">H1 ARR Forecast &amp; Anaplan Actualization</div>
+            <div class="if-desc">Monthly actualization of ARR, headcount, and cost data in Anaplan following each close. Drives the quarterly flash report and department narratives.</div>
+            <div class="if-tag">RECURRING · Monthly close cycle</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="res-section">
+        <div class="section-micro" style="margin-bottom:12px;">FP&amp;A References</div>
+        <div class="res-links">
+          <a class="res-link" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">H1 Projects &amp; Tracking <span class="res-link-meta">Google Sheets</span></a>
+          <a class="res-link" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0" target="_blank">H1 Deliverables &amp; OKRs <span class="res-link-meta">Google Docs</span></a>
+          <a class="res-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">Deliverables · Asana <span class="res-link-meta">Project tracker</span></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RESOURCES -->
+  <div class="pane" id="p-resources">
+    <div class="inner">
+
+      <div class="sec-head">
+        <div class="sec-label">Reference · All Departments</div>
+        <div class="sec-title">Resources</div>
+        <p class="sec-desc">All links, docs, tools, and references across the House of O.M. — organized by function. De-emphasized by design: the information that matters is in the dept tabs; these are here when you need to go directly to the source.</p>
+      </div>
+
+      <div class="res-dept-block">
+        <div class="res-dept-label">Sales Finance · FP&amp;A</div>
+        <div class="res-links">
+          <a class="res-link" href="https://docs.google.com/spreadsheets/d/1qusBsieaUivnRpYWgylbM8uLEyemzqjl63jvqSEEIBw/edit" target="_blank">H1 Projects &amp; Tracking <span class="res-link-meta">Google Sheets</span></a>
+          <a class="res-link" href="https://docs.google.com/document/d/1JPn52DoNQUc_ovElDM4NDiAsX3TeApvA1MAg5Faf_28/edit?tab=t.0" target="_blank">H1 Deliverables &amp; OKRs <span class="res-link-meta">Google Docs</span></a>
+          <a class="res-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">Deliverables · Asana <span class="res-link-meta">Project tracker</span></a>
+          <a class="res-link" href="workbud.html">Work Bud <span class="res-link-meta">Personal ops hub · private</span></a>
+        </div>
+      </div>
+
+      <div class="res-dept-block">
+        <div class="res-dept-label">Accounting</div>
+        <div class="res-links">
+          <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">SFDC Case Queue <span class="res-link-meta">Salesforce · OM cases upstream</span></a>
+          <a class="res-link" href="#" style="opacity:.5;cursor:default;">Close Workbook <span class="res-link-meta">Add link · Accounting shared doc</span></a>
+        </div>
+      </div>
+
+      <div class="res-dept-block">
+        <div class="res-dept-label">Order Management</div>
+        <div class="res-links">
+          <a class="res-link" href="bookings.html">Booking Checker <span class="res-link-meta">Deal validation tool</span></a>
+          <a class="res-link" href="https://amplitude.lightning.force.com/lightning/r/Case/list" target="_blank">SFDC Case Queue <span class="res-link-meta">Salesforce · live</span></a>
+          <a class="res-link" href="https://docs.google.com/document/d/1P3AfMbrra1dZHxPbWX0sd_QzDjSZD7YzWjM1rYyzDcs/edit" target="_blank">OM Onboarding Guide <span class="res-link-meta">Google Docs</span></a>
+          <a class="res-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">Deliverables · Asana <span class="res-link-meta">Project tracker</span></a>
+        </div>
+      </div>
+
+      <div class="res-dept-block">
+        <div class="res-dept-label">Frameworks</div>
+        <div class="res-links">
+          <div class="res-link" style="cursor:default;">High Output Management — Andy Grove <span class="res-link-meta">Management framework · book</span></div>
+          <div class="res-link" style="cursor:default;">Measure What Matters — John Doerr <span class="res-link-meta">OKR framework · book</span></div>
+        </div>
+      </div>
+
+      <div class="res-dept-block">
+        <div class="res-dept-label">Source</div>
+        <div class="res-links">
+          <a class="res-link" href="https://github.com/kareem-powell/tools" target="_blank">kareem-powell/tools <span class="res-link-meta">GitHub Pages · source code</span></a>
+        </div>
+      </div>
+
+    </div>
+  </div>
 
 </div>
 
@@ -695,7 +863,7 @@ function go(id, btn) {
 }
 // Hash routing — so index.html#om activates the OM tab
 (function() {
-  const map = { om:'t-om', sf:'t-sf', acct:'t-acct' };
+  const map = { om:'t-om', sf:'t-sf', acct:'t-acct', fpa:'t-sf', resources:'t-resources' };
   const hash = window.location.hash.replace('#','');
   if (map[hash]) {
     const btn = document.getElementById(map[hash]);

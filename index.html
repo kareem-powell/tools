@@ -105,11 +105,12 @@
       color: var(--fg3); cursor: pointer; white-space: nowrap;
       border-bottom: 2px solid transparent; margin-bottom: -1px;
       transition: color .13s, border-color .13s;
-      display: flex; align-items: center;
-      text-decoration: none;
+      display: flex; flex-direction: column; align-items: flex-start; justify-content: center;
+      text-decoration: none; gap: 1px;
     }
     .sc-tab:hover { color: var(--fg2); border-bottom-color: var(--bdr2); }
     .sc-tab.active { color: var(--fg); font-weight: 600; border-bottom-color: var(--bloom); }
+    .sc-tab-sub { font-family: var(--mono); font-size: 9.5px; color: var(--fg4); font-weight: 400; letter-spacing: .03em; line-height: 1; }
     .sc-live {
       margin-left: auto; display: flex; align-items: center; gap: 6px;
       font-family: var(--mono); font-size: 11px; color: var(--fg4);
@@ -183,6 +184,17 @@
     .feat-icon { font-size: 1.1rem; margin-bottom: 9px; }
     .feat-title { font-size: 14px; font-weight: 700; color: var(--fg); margin-bottom: 5px; }
     .feat-desc { font-size: 13px; color: var(--fg3); line-height: 1.68; }
+
+    /* ── TOP BANNER (thin, pink-black) ── */
+    .site-banner {
+      background: linear-gradient(90deg, #1c0a10 0%, #3d0f22 100%);
+      color: #fff; padding: 9px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12.5px; font-family: var(--font);
+    }
+    .site-banner strong { font-weight: 700; color: #f9a8c9; }
+    .site-banner a { color: #f9a8c9; text-decoration: none; font-weight: 600; font-family: var(--mono); font-size: 11px; }
+    .site-banner a:hover { text-decoration: underline; }
 
     /* ── HOME PANEL ── */
     .home-panel { padding: 36px 48px; max-width: 1080px; margin: 0 auto; }
@@ -529,16 +541,22 @@
 
 <div class="shell">
 
+  <!-- THIN TOP BANNER -->
+  <div class="site-banner">
+    <span><strong>House of O.M.</strong> · Amplitude Revenue Operations · Order Management Dashboard</span>
+    <a href="workbud.html">Work Bud →</a>
+  </div>
+
   <!-- SUITE CHROME: single bar with brand + tabs -->
   <div class="suite-chrome">
     <a class="sc-brand" href="index.html">House of O.M.</a>
     <div class="sc-tabs">
       <!-- Home -->
-      <button class="sc-tab active" id="t-home" onclick="go('home',this)">Home</button>
+      <button class="sc-tab active" id="t-home" onclick="go('home',this)">Home<span class="sc-tab-sub">OM Dashboard</span></button>
 
       <!-- AMPL — parent tab for all departments -->
       <div class="sc-dropdown">
-        <button class="sc-tab" id="t-ampl" onclick="go('ampl',this)">AMPL <span class="sc-caret">▾</span></button>
+        <button class="sc-tab" id="t-ampl" onclick="go('ampl',this)">AMPL<span class="sc-tab-sub">Dept hub — FP&amp;A, Acct, SF, OM</span></button>
         <div class="sc-dropdown-menu">
           <button class="sc-dropdown-item" onclick="go('ampl', document.getElementById('t-ampl'))">
             <span class="sdi-title">AMPL Overview</span>
@@ -564,11 +582,12 @@
       </div>
 
       <!-- Work Bud -->
-      <a class="sc-tab" href="workbud.html">Work Bud</a>
+      <a class="sc-tab" href="workbud.html">Work Bud<span class="sc-tab-sub">Private ops hub</span></a>
+      <a class="sc-tab" href="workbud-preview.html">Work Bud Preview<span class="sc-tab-sub">No-login demo</span></a>
 
-      <!-- Resources -->
+      <!-- OM Resources -->
       <div class="sc-dropdown">
-        <button class="sc-tab" id="t-resources" onclick="go('resources',this)">Resources <span class="sc-caret">▾</span></button>
+        <button class="sc-tab" id="t-resources" onclick="go('resources',this)">OM Resources<span class="sc-tab-sub">Guides · Tools · Links</span></button>
         <div class="sc-dropdown-menu">
           <button class="sc-dropdown-item" onclick="go('resources', document.getElementById('t-resources'))">
             <span class="sdi-title">FP&amp;A · Sales Finance</span>
@@ -677,41 +696,50 @@
           <div style="font-size:13px;color:var(--fg3);margin-bottom:6px;">137 new · 10 assigned</div>
           <div style="font-family:var(--mono);font-size:10px;color:var(--acct-c);opacity:.7;">View queue →</div>
         </button>
-        <!-- Work Bud -->
-        <a class="hp-card hp-wb" href="workbud.html" style="text-decoration:none;">
-          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg4);margin-bottom:8px;">Personal · Private</div>
-          <div style="font-size:20px;font-weight:700;color:var(--fg);margin-bottom:8px;">Work Bud</div>
-          <div style="font-size:13px;color:var(--fg3);line-height:1.6;">Morning briefing, ATR queue, daily tasks.</div>
-          <div style="font-family:var(--mono);font-size:11px;font-weight:600;color:var(--fg3);margin-top:14px;">Open →</div>
-        </a>
-        <!-- Booking Checker -->
-        <a href="bookings.html" style="text-decoration:none;background:linear-gradient(145deg,var(--jp-bamboo-bg) 0%,#f8fdf9 100%);border:1.5px solid var(--jp-bamboo-mid);border-radius:var(--r);padding:22px 24px;display:flex;flex-direction:column;">
-          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--om-c);opacity:.8;margin-bottom:8px;">OM · Deal Validation</div>
-          <div style="font-size:20px;font-weight:700;color:var(--fg);margin-bottom:8px;">Booking Checker</div>
-          <div style="font-size:13px;color:var(--fg3);line-height:1.6;">Direct, Reseller &amp; AWS checklists. Logs to your Google Sheet.</div>
-          <div style="font-family:var(--mono);font-size:11px;font-weight:600;color:var(--om-c);margin-top:auto;padding-top:14px;">Open →</div>
-        </a>
+        <!-- Vol Ramp ATR Progress -->
+        <div style="background:linear-gradient(145deg,var(--amber-bg) 0%,#fffdf5 100%);border:1.5px solid #fcd34d;border-radius:var(--r);padding:22px 24px;display:flex;flex-direction:column;">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);opacity:.9;margin-bottom:8px;">OM · H1 Initiative</div>
+          <div style="font-size:20px;font-weight:700;color:var(--fg);margin-bottom:6px;">Vol Ramp ATR</div>
+          <div style="font-size:36px;font-weight:800;letter-spacing:-.04em;color:var(--amber);line-height:1;margin-bottom:6px;" id="home-vol-ramp-remaining">138</div>
+          <div style="height:4px;background:rgba(180,83,9,.15);border-radius:2px;margin-bottom:8px;overflow:hidden;">
+            <div style="height:100%;background:var(--amber);border-radius:2px;width:60%;" id="home-vol-ramp-bar"></div>
+          </div>
+          <div style="font-size:12px;color:var(--fg3);line-height:1.5;">deals remaining · ~60% complete</div>
+        </div>
+        <!-- Cases Closed This Week -->
+        <div style="background:linear-gradient(145deg,var(--green-bg) 0%,#f0fdf4 100%);border:1.5px solid #86efac;border-radius:var(--r);padding:22px 24px;display:flex;flex-direction:column;">
+          <div style="font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--green);opacity:.9;margin-bottom:8px;">OM · Queue Health</div>
+          <div style="font-size:36px;font-weight:800;letter-spacing:-.04em;color:var(--green);line-height:1;margin-bottom:6px;" id="home-closed-week">—</div>
+          <div style="font-size:13px;color:var(--fg3);line-height:1.5;flex:1;">cases closed this week</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--fg4);margin-top:12px;" id="home-opened-week">— opened · — net change</div>
+        </div>
       </div>
 
-      <!-- Dept nav tiles — bigger, richer -->
-      <div class="dept-nav" style="grid-template-columns:repeat(3,1fr);">
-        <button class="dept-tile dt-fpa" onclick="go('fpa', document.getElementById('t-ampl'))" style="padding:22px 24px;">
-          <div class="dt-label" style="color:var(--fpa-c);font-size:11px;">FP&amp;A · Sales Finance</div>
-          <div class="dt-title" style="font-size:16px;margin-bottom:6px;">Planning &amp; Analysis</div>
-          <div class="dt-desc">ARR forecasting, Vol Ramp ATR cleanup, G&amp;A overage monitoring, deal economics</div>
-          <div style="font-family:var(--mono);font-size:10px;color:var(--fpa-c);margin-top:12px;font-weight:600;">Enter →</div>
+      <!-- OM Quick Nav -->
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:4px;">
+        <button onclick="go('om', document.getElementById('t-ampl'))" style="background:linear-gradient(145deg,#eef2fc 0%,#e2e8fa 100%);border:1.5px solid #c7cbef;border-radius:var(--r);padding:20px;text-align:left;cursor:pointer;font-family:var(--font);border-left:4px solid var(--acct-c);">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--acct-c);opacity:.8;margin-bottom:8px;">Case Queue</div>
+          <div style="font-size:15px;font-weight:700;color:var(--fg);margin-bottom:5px;">Pipeline</div>
+          <div style="font-size:12px;color:var(--fg3);line-height:1.5;">Stage 6.5 deals, queue counts, team load</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--acct-c);margin-top:12px;font-weight:600;">View →</div>
         </button>
-        <button class="dept-tile dt-acct" onclick="go('acct', document.getElementById('t-ampl'))" style="padding:22px 24px;">
-          <div class="dt-label" style="color:var(--acct-c);font-size:11px;">Accounting · RevRec</div>
-          <div class="dt-title" style="font-size:16px;margin-bottom:6px;">Close &amp; Recognition</div>
-          <div class="dt-desc">Monthly close, ARR reconciliation, ASC 606 revenue recognition, NetSuite</div>
-          <div style="font-family:var(--mono);font-size:10px;color:var(--acct-c);margin-top:12px;font-weight:600;">Enter →</div>
+        <button onclick="go('om', document.getElementById('t-ampl'))" style="background:linear-gradient(145deg,var(--amber-bg) 0%,#fffcf0 100%);border:1.5px solid #fcd34d;border-radius:var(--r);padding:20px;text-align:left;cursor:pointer;font-family:var(--font);border-left:4px solid var(--amber);">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);opacity:.9;margin-bottom:8px;">H1 Initiative</div>
+          <div style="font-size:15px;font-weight:700;color:var(--fg);margin-bottom:5px;">ATR Cleanup</div>
+          <div style="font-size:12px;color:var(--fg3);line-height:1.5;">138-deal Vol Ramp ATR verification</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--amber);margin-top:12px;font-weight:600;">~60% done →</div>
         </button>
-        <button class="dept-tile dt-om" onclick="go('om', document.getElementById('t-ampl'))" style="padding:22px 24px;">
-          <div class="dt-label" style="color:var(--om-c);font-size:11px;">OM · Revenue Operations</div>
-          <div class="dt-title" style="font-size:16px;margin-bottom:6px;">Order Management</div>
-          <div class="dt-desc">Case queue, Stage 6.5 pipeline, ATR validation, booking checklist, team load</div>
-          <div style="font-family:var(--mono);font-size:10px;color:var(--om-c);margin-top:12px;font-weight:600;">View Command Center →</div>
+        <a href="workbud.html" style="background:linear-gradient(145deg,var(--green-bg) 0%,#edfaef 100%);border:1.5px solid #86efac;border-radius:var(--r);padding:20px;text-decoration:none;display:block;border-left:4px solid var(--green);">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);opacity:.9;margin-bottom:8px;">Deal Validation</div>
+          <div style="font-size:15px;font-weight:700;color:var(--fg);margin-bottom:5px;">Bookings Checker</div>
+          <div style="font-size:12px;color:var(--fg3);line-height:1.5;">Direct, Reseller &amp; AWS booking checklists</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--green);margin-top:12px;font-weight:600;">Open in Work Bud →</div>
+        </a>
+        <button onclick="go('ampl', document.getElementById('t-ampl'))" style="background:linear-gradient(145deg,#1c0a10 0%,#171717 100%);border:none;border-radius:var(--r);padding:20px;text-align:left;cursor:pointer;font-family:var(--font);">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">Other Depts</div>
+          <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:5px;">AMPL</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.5;">FP&amp;A, Sales Finance, Accounting</div>
+          <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);margin-top:12px;font-weight:600;">Enter →</div>
         </button>
       </div>
 
@@ -1084,6 +1112,111 @@
         </div>
       </div>
       <!-- [/COWORK-AUTO] -->
+
+      <!-- ══ OM PRIORITIES & PROJECTS ══ -->
+      <div style="margin-bottom:44px;">
+        <div class="section-micro" style="color:var(--om-c);margin-bottom:14px;">Priorities &amp; Projects · H1 2026</div>
+        <div style="display:flex;flex-direction:column;gap:1px;background:var(--bdr);border:1.5px solid var(--bdr);border-radius:var(--r);overflow:hidden;">
+
+          <!-- 1: Finalize Bookings Policy -->
+          <div style="background:#fff;padding:16px 20px;border-left:3px solid var(--om-c);display:flex;align-items:flex-start;gap:14px;">
+            <div style="font-family:var(--mono);font-size:10px;font-weight:700;color:#fff;background:var(--om-c);border-radius:4px;padding:2px 7px;flex-shrink:0;margin-top:1px;">HIGH</div>
+            <div style="flex:1;">
+              <div style="font-size:13.5px;font-weight:700;color:var(--fg);">Finalize Bookings Policy</div>
+              <div style="font-size:12px;color:var(--fg4);margin-top:2px;font-family:var(--mono);">Owner: Matt</div>
+            </div>
+          </div>
+
+          <!-- 2: OM Checklist -->
+          <div style="background:#fff;padding:16px 20px;border-left:3px solid var(--om-c);display:flex;align-items:flex-start;gap:14px;">
+            <div style="font-family:var(--mono);font-size:10px;font-weight:700;color:#fff;background:var(--om-c);border-radius:4px;padding:2px 7px;flex-shrink:0;margin-top:1px;">HIGH</div>
+            <div style="flex:1;">
+              <div style="font-size:13.5px;font-weight:700;color:var(--fg);">OM Checklist</div>
+              <div style="font-size:12px;color:var(--fg4);margin-top:2px;font-family:var(--mono);">Owner: KB / Kareem</div>
+            </div>
+          </div>
+
+          <!-- 3: Processes group -->
+          <div style="background:var(--bg2);padding:12px 20px 4px;border-left:3px solid var(--bdr2);">
+            <div style="font-family:var(--mono);font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--fg4);margin-bottom:10px;">Processes</div>
+            <div style="display:flex;flex-direction:column;gap:6px;margin-bottom:12px;">
+              <div style="background:#fff;border:1px solid var(--bdr);border-radius:8px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:13px;font-weight:500;color:var(--fg2);">Debook Process <span style="font-size:11.5px;font-weight:400;color:var(--fg4);"> · needs call w/ Angie, Corey, Anu</span></div>
+                <div style="font-family:var(--mono);font-size:10.5px;color:var(--fg4);flex-shrink:0;margin-left:12px;">KB / Dorothy</div>
+              </div>
+              <div style="background:#fff;border:1px solid var(--bdr);border-radius:8px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:13px;font-weight:500;color:var(--fg2);">Late Renewals</div>
+                <div style="font-family:var(--mono);font-size:10.5px;color:var(--fg4);flex-shrink:0;margin-left:12px;">Matt</div>
+              </div>
+              <div style="background:#fff;border:1px solid var(--bdr);border-radius:8px;padding:12px 16px;display:flex;align-items:center;justify-content:space-between;">
+                <div style="font-size:13px;font-weight:500;color:var(--fg2);">Auto Renewals</div>
+                <div style="font-family:var(--mono);font-size:10.5px;color:var(--fg4);flex-shrink:0;margin-left:12px;">KB / Amour</div>
+              </div>
+              <!-- Internal OM Docs — HIGH -->
+              <div style="background:#fff;border:1.5px solid var(--jp-bamboo-mid);border-radius:8px;padding:12px 16px;">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;">
+                  <div style="display:flex;align-items:center;gap:8px;">
+                    <div style="font-family:var(--mono);font-size:9.5px;font-weight:700;color:#fff;background:var(--om-c);border-radius:3px;padding:1px 6px;">HIGH</div>
+                    <div style="font-size:13px;font-weight:700;color:var(--fg);">Internal OM Documentation</div>
+                  </div>
+                  <div style="font-family:var(--mono);font-size:10.5px;color:var(--fg4);">Kareem</div>
+                </div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;">
+                  <span style="font-family:var(--mono);font-size:10.5px;color:var(--fg3);background:var(--bg2);border:1px solid var(--bdr);border-radius:4px;padding:3px 8px;">Opt Out Booking</span>
+                  <span style="font-family:var(--mono);font-size:10.5px;color:var(--fg3);background:var(--bg2);border:1px solid var(--bdr);border-radius:4px;padding:3px 8px;">AWS Booking</span>
+                  <span style="font-family:var(--mono);font-size:10.5px;color:var(--fg3);background:var(--bg2);border:1px solid var(--bdr);border-radius:4px;padding:3px 8px;">Late Renewals</span>
+                  <span style="font-family:var(--mono);font-size:10.5px;color:var(--fg3);background:var(--bg2);border:1px solid var(--bdr);border-radius:4px;padding:3px 8px;">C&amp;R Booking</span>
+                  <span style="font-family:var(--mono);font-size:10.5px;color:var(--fg3);background:var(--bg2);border:1px solid var(--bdr);border-radius:4px;padding:3px 8px;">MSP Booking</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4: Contract Effective End Date Cleanup -->
+          <div style="background:#fff;padding:16px 20px;border-left:3px solid var(--bdr2);display:flex;align-items:flex-start;gap:14px;">
+            <div style="font-family:var(--mono);font-size:10px;font-weight:700;color:var(--fg3);background:var(--bg3);border-radius:4px;padding:2px 7px;flex-shrink:0;margin-top:1px;">MED</div>
+            <div style="flex:1;">
+              <div style="font-size:13.5px;font-weight:600;color:var(--fg);">Contract Effective End Date Clean Up</div>
+              <div style="font-size:12px;color:var(--fg4);margin-top:2px;font-family:var(--mono);">Owner: Matt / Dorothy</div>
+              <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:8px;">
+                <span style="font-family:var(--mono);font-size:10.5px;color:var(--acct-c);background:var(--jp-indigo-bg);border:1px solid var(--jp-indigo-mid);border-radius:4px;padding:3px 8px;font-weight:600;">SFDC Contract Eff. End Dates</span>
+                <span style="font-family:var(--mono);font-size:10.5px;color:var(--fg3);background:var(--bg2);border:1px solid var(--bdr);border-radius:4px;padding:3px 8px;">Customer Termination</span>
+                <span style="font-family:var(--mono);font-size:10.5px;color:var(--fg3);background:var(--bg2);border:1px solid var(--bdr);border-radius:4px;padding:3px 8px;">Q1 2026</span>
+                <span style="font-family:var(--mono);font-size:10.5px;color:var(--fg3);background:var(--bg2);border:1px solid var(--bdr);border-radius:4px;padding:3px 8px;">2024–2025 active contracts</span>
+                <span style="font-family:var(--mono);font-size:10.5px;color:var(--red);background:var(--red-bg);border:1px solid #fca5a5;border-radius:4px;padding:3px 8px;">Lusha #00047967</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 5: 2026 PPL on 2024 SKUs -->
+          <div style="background:#fff;padding:16px 20px;border-left:3px solid var(--bdr2);display:flex;align-items:flex-start;gap:14px;">
+            <div style="font-family:var(--mono);font-size:10px;font-weight:700;color:var(--fg3);background:var(--bg3);border-radius:4px;padding:2px 7px;flex-shrink:0;margin-top:1px;">MED</div>
+            <div style="flex:1;">
+              <div style="font-size:13.5px;font-weight:600;color:var(--fg);">2026 PPL on 2024 PPL SKUs</div>
+              <div style="font-size:12px;color:var(--fg4);margin-top:2px;font-family:var(--mono);">Owner: KB</div>
+            </div>
+          </div>
+
+          <!-- 6: ATR Verification -->
+          <div style="background:#fff;padding:16px 20px;border-left:3px solid var(--amber);display:flex;align-items:flex-start;gap:14px;">
+            <div style="font-family:var(--mono);font-size:10px;font-weight:700;color:#fff;background:var(--amber);border-radius:4px;padding:2px 7px;flex-shrink:0;margin-top:1px;">HIGH</div>
+            <div style="flex:1;">
+              <div style="font-size:13.5px;font-weight:700;color:var(--fg);">ATR Verification</div>
+              <div style="font-size:12px;color:var(--fg4);margin-top:2px;font-family:var(--mono);">Owner: Kareem · 138-deal Vol Ramp cohort</div>
+            </div>
+          </div>
+
+          <!-- 7: Sales Finance Dashboard -->
+          <div style="background:#fff;padding:16px 20px;border-left:3px solid var(--bdr2);display:flex;align-items:flex-start;gap:14px;">
+            <div style="font-family:var(--mono);font-size:10px;font-weight:700;color:var(--fg3);background:var(--bg3);border-radius:4px;padding:2px 7px;flex-shrink:0;margin-top:1px;">TBD</div>
+            <div style="flex:1;">
+              <div style="font-size:13.5px;font-weight:600;color:var(--fg);">Sales Finance Dashboard</div>
+              <div style="font-size:12px;color:var(--fg4);margin-top:2px;font-family:var(--mono);">Owner: TBD</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
 
       <!-- ── WHAT OM IS ── -->
       <div class="sec-head" style="border-left:4px solid var(--om-c);padding-left:16px;border-bottom:none;">
@@ -1626,6 +1759,7 @@ fetch('/tools/data.json?' + Date.now())
         const cwStr = '$' + (p.closed_won_mtd_arr / 1e6).toFixed(1) + 'M';
         set('om-cw-mtd-arr', cwStr);
         set('h-cw-mtd-arr',  cwStr);
+        set('hs-arr', cwStr);
       }
     }
 
@@ -1642,6 +1776,7 @@ fetch('/tools/data.json?' + Date.now())
       set('om-kpi-queue',        total);
       set('om-kpi-assigned',     s['Assigned'] || 0);
       set('h-queue-total-home',  total);
+      set('hs-queue', total);
       if (q.updated) set('om-queue-updated', 'Last updated: ' + q.updated);
       // Team load
       if (q.team) {
@@ -1667,8 +1802,10 @@ fetch('/tools/data.json?' + Date.now())
 
     // ── Vol Ramp ──
     if (d.sf_snapshot && d.sf_snapshot.vol_ramp_deals != null) {
-      set('om-vol-ramp-open',  d.sf_snapshot.vol_ramp_deals);
-      set('om-kpi-vol-ramp',   d.sf_snapshot.vol_ramp_deals);
+      set('om-vol-ramp-open',         d.sf_snapshot.vol_ramp_deals);
+      set('om-kpi-vol-ramp',          d.sf_snapshot.vol_ramp_deals);
+      set('home-vol-ramp-remaining',  d.sf_snapshot.vol_ramp_deals);
+      set('hs-atr',                   d.sf_snapshot.vol_ramp_deals);
     }
 
     // ── ARR by type (OM bookings section) ──

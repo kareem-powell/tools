@@ -889,287 +889,43 @@
 
     <div class="del-header">
       <h2>Deliverables</h2>
-      <a class="asana-link" href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank">Open in Asana ↗</a>
+      <div style="display:flex;align-items:center;gap:10px;">
+        <span style="font-family:var(--font-mono);font-size:10px;color:var(--mist);" id="del-sync-time">Loading…</span>
+        <button onclick="loadDeliverables(true)" style="padding:5px 12px;border:1px solid var(--ash);border-radius:6px;background:var(--bg);font-family:var(--font-mono);font-size:10px;font-weight:600;color:var(--stone);cursor:pointer;" id="del-sync-btn">↻ Sync</button>
+        <a class="asana-link" href="https://app.asana.com/0/home" target="_blank">Open Asana ↗</a>
+      </div>
     </div>
 
-    <div class="prog-bar-wrap">
+    <!-- Progress bar (populated by JS) -->
+    <div class="prog-bar-wrap" id="del-progress-wrap" style="display:none;">
       <div class="prog-bar-top">
-        <span>Overall Progress</span>
-        <span><strong id="done-count">34</strong> done &nbsp;·&nbsp; <strong>20</strong> open &nbsp;·&nbsp; 54 total</span>
+        <span id="del-prog-label">Loading tasks…</span>
+        <span id="del-prog-counts"></span>
       </div>
-      <div class="prog-track">
-        <div class="prog-fill" style="width:63%"></div>
+      <div class="prog-track"><div class="prog-fill" id="del-prog-fill" style="width:0%"></div></div>
+    </div>
+
+    <!-- Overdue banner (shown when there are overdue tasks) -->
+    <div id="del-overdue-banner" style="display:none;background:#fef2f2;border:1.5px solid #fca5a5;border-radius:var(--r);padding:12px 16px;margin-bottom:14px;font-size:13px;color:var(--red);font-weight:500;"></div>
+
+    <!-- Sub-tabs -->
+    <div class="sub-tabs" id="del-subtabs">
+      <button class="sub-tab active" id="stab-today"     onclick="delFilter('today',this)">📅 Today</button>
+      <button class="sub-tab"        id="stab-week"      onclick="delFilter('week',this)">This Week</button>
+      <button class="sub-tab"        id="stab-all"       onclick="delFilter('all',this)">All Open</button>
+      <button class="sub-tab"        id="stab-checked"   onclick="delFilter('checked',this)">✓ Checked Off</button>
+    </div>
+
+    <!-- Task list container -->
+    <div id="del-task-list">
+      <div style="padding:32px;text-align:center;color:var(--mist);font-family:var(--font-mono);font-size:12px;">
+        Loading tasks from Asana…
       </div>
     </div>
 
-    <div class="sub-tabs">
-      <button class="sub-tab active" onclick="switchSub('active',this)">🔥 Active (6)</button>
-      <button class="sub-tab" onclick="switchSub('open',this)">Open (14)</button>
-      <button class="sub-tab" onclick="switchSub('done',this)">✓ Done (34)</button>
-    </div>
-
-    <!-- ACTIVE -->
-    <div class="sub-panel active" id="sub-active">
-      <div class="task-list">
-        <div class="task-item" data-id="t1">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta">
-              <span class="badge badge-ip">In Progress</span>
-              <span class="badge badge-high">High</span>
-            </div>
-            <div class="task-title">ATR checks — fold in contract ACV values</div>
-            <div class="task-desc">Daily ATR review task. Folding contract ACV values into the Vol Ramp ATR cleanup process. Due Apr 9.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="t2">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta">
-              <span class="badge badge-ip">In Progress</span>
-              <span class="badge badge-high">High</span>
-            </div>
-            <div class="task-title">A.I. Week prep</div>
-            <div class="task-desc">Daily prep for AI Week. Building out the G&A Overage Anticipation & Alerting agent. Presenting Friday at offsite. Due Apr 9.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="t3">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta">
-              <span class="badge badge-ip">In Progress</span>
-              <span class="badge badge-high">High</span>
-            </div>
-            <div class="task-title">OM Checklist w/ KB</div>
-            <div class="task-desc">Running through OM booking checklist with KaBoth Vu. Daily task for deal review and validation. Due Apr 9.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="t4">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta">
-              <span class="badge badge-ip">In Progress</span>
-              <span class="badge badge-high">High</span>
-            </div>
-            <div class="task-title">Internal OM documentation formatting</div>
-            <div class="task-desc">Formatting and organizing internal OM documentation. Cleaning up structure and ensuring consistency across docs. Due Apr 9.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="t5">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta">
-              <span class="badge badge-ip">In Progress</span>
-              <span class="badge badge-low">Low</span>
-            </div>
-            <div class="task-title">Trailhead</div>
-            <div class="task-desc">Daily Salesforce Trailhead learning. Building out SFDC knowledge base. Due Apr 9.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="t6">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta">
-              <span class="badge badge-ip">In Progress</span>
-              <span class="badge badge-low">Low</span>
-            </div>
-            <div class="task-title">Add to Case Record Enhancements</div>
-            <div class="task-desc">Contributing to the Case Record Enhancement project. Adding documentation and process notes from daily deal review. Due Apr 9.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- OPEN -->
-    <div class="sub-panel" id="sub-open">
-      <div class="task-list">
-        <div class="task-item" data-id="o1">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Not Started</span><span class="badge badge-high">High</span></div>
-            <div class="task-title">AI Week Project — Overage Anticipation & Alerting</div>
-            <div class="task-desc">G&A AI Week project with Angie Lau, Kyle Helstad, Mykieu Tran, Jack Perejaun. Forward-looking consumption monitoring agent — predicts accounts exceeding contracted usage 3–6 months out. Auto-notifies AE, FLM, CSM, Accounting, Sales Finance.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o2">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Not Started</span><span class="badge badge-high">High</span></div>
-            <div class="task-title">Run Work Bud (in Claude)</div>
-            <div class="task-desc">Set up and run the Work Bud automated morning briefing and EOD recap via Claude. Due Apr 9.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o3">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Not Started</span><span class="badge badge-high">High</span></div>
-            <div class="task-title">Automate ATR dump to Slack using previous artifact</div>
-            <div class="task-desc">Build automation to push ATR review output to Slack using the existing Claude artifact. Reduces manual steps in the daily ATR workflow.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o4">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Not Started</span><span class="badge badge-high">High</span></div>
-            <div class="task-title">Connect with Jordyn about AI SME role</div>
-            <div class="task-desc">Jordyn is DealDesk's AI subject matter expert. Set up time to discuss how she installed AI agents for her team — explore same for OM/Sales Finance. Due Apr 9.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o5">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Not Started</span><span class="badge badge-high">High</span></div>
-            <div class="task-title">Install Granola</div>
-            <div class="task-desc">Set up Granola AI meeting notes tool. Allison got Kareem approved for access during AI Week. Due Apr 10.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o6">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Not Started</span><span class="badge badge-high">High</span></div>
-            <div class="task-title">Send PTO / OOO hours</div>
-            <div class="task-desc">Submit PTO and out-of-office hours. Due Apr 9.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o7">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Not Started</span><span class="badge badge-high">High</span></div>
-            <div class="task-title">Find sales call recording — product overview</div>
-            <div class="task-desc">Source a sales call recording to get a full overview of Amplitude products from a go-to-market perspective. Due Apr 9.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o8">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Queued</span><span class="badge badge-med">Medium</span></div>
-            <div class="task-title">Send Matt — short-term goals</div>
-            <div class="task-desc">AI SME role, Closed Lost process ownership, areas for exposure, internship goals. Reference: Sales Finance FY26 H1 Projects. Due Apr 10.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o9">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Queued</span><span class="badge badge-med">Medium</span></div>
-            <div class="task-title">Send Matt — long-term goals</div>
-            <div class="task-desc">Long-term career direction and areas of interest to discuss with Matt. Due Apr 10.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o10">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Queued</span><span class="badge badge-med">Medium</span></div>
-            <div class="task-title">Sort through starred docs</div>
-            <div class="task-desc">Organize starred docs in Google Drive — clean up, remove outdated, consolidate into onboarding doc. Due Apr 10.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o11">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Queued</span><span class="badge badge-med">Medium</span></div>
-            <div class="task-title">Contract → intern transition: permissions request</div>
-            <div class="task-desc">Before start of summer internship, notify team of contract-to-intern switch so SFDC access and permissions are preserved. Due Apr 7.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o12">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Queued</span><span class="badge badge-low">Low</span></div>
-            <div class="task-title">Onboarding doc validation</div>
-            <div class="task-desc">(1) Validate all Q&A · (2) Organize by relevance · (3) Fill in missing content · (4) Fold in external documents. Due Apr 8.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o13">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Queued</span><span class="badge badge-low">Low</span></div>
-            <div class="task-title">Edit class schedule</div>
-            <div class="task-desc">Update class schedule for upcoming term. Due Apr 8.</div>
-          </div>
-        </div>
-        <div class="task-item" data-id="o14">
-          <div class="task-check" onclick="toggleTask(this)"></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-open">Queued</span><span class="badge badge-low">Low</span></div>
-            <div class="task-title">Check out Asana teammates</div>
-            <div class="task-desc">Explore the Asana workspace to connect with and follow teammates in Sales Finance. Due Apr 8.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DONE -->
-    <div class="sub-panel" id="sub-done">
-      <p style="font-family:var(--font-mono);font-size:.68rem;letter-spacing:.06em;text-transform:uppercase;color:var(--mist);margin-bottom:20px;">34 completed since Mar 22, 2026</p>
-      <div class="task-list">
-        <div class="task-item">
-          <div class="task-check checked" style="cursor:default"><span style="color:#fff;font-size:10px;font-weight:700">✓</span></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-done">Done</span></div>
-            <div class="task-title">Incorporate OM Booking Doc into Onboarding doc</div>
-            <div class="task-desc">Merged the OM booking checklist into the main onboarding doc. Added screenshots. Requested by KB. Completed Mar 30.</div>
-          </div>
-        </div>
-        <div class="task-item">
-          <div class="task-check checked" style="cursor:default"><span style="color:#fff;font-size:10px;font-weight:700">✓</span></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-done">Done</span></div>
-            <div class="task-title">Create Asana template for Booking Deals</div>
-            <div class="task-desc">Built out the Asana Deliverables project template for booking deal tracking. Completed Mar 30.</div>
-          </div>
-        </div>
-        <div class="task-item">
-          <div class="task-check checked" style="cursor:default"><span style="color:#fff;font-size:10px;font-weight:700">✓</span></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-done">Done</span></div>
-            <div class="task-title">Schedule recurring meeting with Matt</div>
-            <div class="task-desc">Weekly 1:1 with Matt Murray scheduled. Completed Mar 30.</div>
-          </div>
-        </div>
-        <div class="task-item">
-          <div class="task-check checked" style="cursor:default"><span style="color:#fff;font-size:10px;font-weight:700">✓</span></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-done">Done</span></div>
-            <div class="task-title">Positive call-outs scan (Claude / Slack)</div>
-            <div class="task-desc">Aggregated all genuine recognition moments since inception from Slack. Now live in Call-Outs tab. Completed Apr 8.</div>
-          </div>
-        </div>
-        <div class="task-item">
-          <div class="task-check checked" style="cursor:default"><span style="color:#fff;font-size:10px;font-weight:700">✓</span></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-done">Done</span></div>
-            <div class="task-title">Schedule ARR amend meeting</div>
-            <div class="task-desc">ARR Amends 1hr call scheduled with Kyle (optional). Completed Apr 8–9.</div>
-          </div>
-        </div>
-        <div class="task-item">
-          <div class="task-check checked" style="cursor:default"><span style="color:#fff;font-size:10px;font-weight:700">✓</span></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-done">Done · High</span></div>
-            <div class="task-title">ATR Check Working Session — Zoom notation</div>
-            <div class="task-desc">Completed ATR check working session with full Zoom notation. Matt noted: include screenshots in onboarding doc for new starters. Completed Mar 23.</div>
-          </div>
-        </div>
-        <div class="task-item">
-          <div class="task-check checked" style="cursor:default"><span style="color:#fff;font-size:10px;font-weight:700">✓</span></div>
-          <div class="task-body">
-            <div class="task-meta"><span class="badge badge-done">Done · High</span></div>
-            <div class="task-title">Book offsite flight</div>
-            <div class="task-desc">Flight booked for Q2 team offsite. Completed Mar 24.</div>
-          </div>
-        </div>
-        <div class="task-item" style="opacity:.55">
-          <div class="task-check checked" style="cursor:default;opacity:.5"></div>
-          <div class="task-body">
-            <div class="task-title" style="color:var(--mist)">+ 26 more completed</div>
-            <div class="task-desc"><a href="https://app.asana.com/1/18285554557078/project/1213754127165438" target="_blank" style="color:var(--stone)">View all in Asana →</a></div>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 
-  <!-- ══════ MEETING NOTES ══════ -->
+    <!-- ══════ MEETING NOTES ══════ -->
   <div class="tab-panel" id="tab-notes">
     <div class="page-h">
       <h2>Meeting Notes</h2>
@@ -1733,25 +1489,47 @@
     <div class="config-section">
       <div class="config-section-title">Master Cowork Prompt</div>
       <p style="font-size:.8rem;color:var(--stone);margin-bottom:12px;line-height:1.7;">Full prompt for configuring Cowork automations. Copy and paste into Claude's Cowork settings.</p>
-      <div class="prompt-box" id="master-prompt-box">You are Work Bud, Kareem Powell's personal OM ops assistant at Amplitude. You run automated workflows across Slack, Salesforce, Google Sheets, and Asana on a defined schedule.
+      <div class="prompt-box" id="master-prompt-box">You are Work Bud, Kareem Powell's personal OM ops assistant at Amplitude. You run automated workflows across Slack, Salesforce, and Asana on a defined schedule.
 
-AUTOMATION 1 — MORNING BRIEFING (8AM PT daily)
-Pull today's ATR case queue from #order-up and #order-processing. Summarize open cases, flag any with urgent language. Check Asana for today's active deliverables. Format as a short Slack-ready briefing.
+HOW TO READ ASANA DATA
+Before running any automation, fetch task data from:
+  https://kareem-powell.github.io/tools/asana-tasks.json
+This file is auto-updated by GitHub Actions every weekday at 8:30 AM ET.
+Parse the JSON — it contains: synced_at, counts (total/overdue/today/this_week), and a tasks array.
+Each task has: name, due_on, bucket (overdue/today/this_week/later/no_date), projects[], notes.
+Use this data as the source of truth for Kareem's Asana tasks. Do NOT call the Asana API directly.
 
-AUTOMATION 2 — EOD RECAP (5:30PM PT daily)
-Summarize what was completed today. ATR cases closed, bookings processed, Asana tasks updated. Flag anything that spilled to tomorrow. Output a brief Slack DM to Kareem.
+AUTOMATION 1 — MORNING BRIEFING (8:30 AM ET, Mon–Fri)
+1. Fetch asana-tasks.json (see above).
+2. Pull #order-up and #order-processing in Slack — summarize new cases since yesterday.
+3. Output a concise Slack-ready briefing covering:
+   - Asana: overdue tasks (if any), today's tasks (list by name + due date), count for the week
+   - ATR queue: open cases, any flagged urgent
+   - One-line priority recommendation for the day
+Keep it under 200 words. Post to Kareem via Slack DM.
 
-AUTOMATION 3 — WEEKLY RESET (Monday 8AM PT)
-Clear daily counters. Prompt OKR self-scoring review. Surface any deliverables marked open for 7+ days. Generate a weekly intention note.
+AUTOMATION 2 — EOD RECAP (5:30 PM ET, Mon–Fri)
+1. Fetch asana-tasks.json.
+2. Cross-reference against wb_checked_tasks in Work Bud localStorage (tasks Kareem marked done).
+3. Summarize: tasks completed today (checked off), tasks still open, anything overdue that wasn't touched.
+4. Flag anything that should move to tomorrow.
+Output as a brief Slack DM to Kareem. Under 150 words.
+
+AUTOMATION 3 — WEEKLY RESET (Monday 8:30 AM ET)
+1. Fetch asana-tasks.json.
+2. Surface any task open for 7+ days (bucket = later or no_date with old modified date).
+3. Prompt OKR self-scoring review — ask Kareem to rate each KR 0.0–1.0.
+4. Generate a short weekly intention note (top 3 priorities for the week based on task buckets).
+Post to Slack DM.
 
 AUTOMATION 4 — MEETING NOTES
-After any calendar event ends, pull transcript from Granola if available. Summarize key decisions, action items, and follow-ups. Post structured summary as a note.
+After any calendar event ends, pull transcript from Granola if available. Summarize key decisions, action items, and follow-ups. Post structured note to Work Bud Meeting Notes tab and Slack DM.
 
-AUTOMATION 5 — RESOURCES MONITOR (every 2 hours)
-Scan monitored Slack channels for new threads. Flag anything mentioning ATR, booking exceptions, Vol Ramp, or AI Week. Surface to Kareem as a digest.
+AUTOMATION 5 — RESOURCES MONITOR (on demand or 2× daily)
+Scan #om-team and #deals-approval for new threads mentioning: ATR, booking exception, Vol Ramp, amend, escalation. Surface a digest to Kareem. Skip if no relevant threads since last scan.
 
-AUTOMATION 6 — AI WEEK SCAN
-During AI Week (Apr 7–11): Scan #cfo-ai and #ai-week-april-2026 every 30 minutes. Alert Kareem to any action items, tool access updates, or presentation schedule changes.</div>
+AUTOMATION 6 — AI WEEK SCAN (on demand)
+Scan #cfo-ai and #ai-week-2026 for action items, tool access updates, or presentation schedule changes. Alert Kareem to anything requiring a response.</div>
       <button class="copy-btn" onclick="copyCoworkPrompt()">Copy Master Prompt</button>
     </div>
   </div>
@@ -2368,17 +2146,172 @@ During AI Week (Apr 7–11): Scan #cfo-ai and #ai-week-april-2026 every 30 minut
     navigator.clipboard.writeText(snippets[type] || '').then(() => { event.target.querySelector('span').textContent = '✓ copied'; setTimeout(()=>event.target.querySelector('span').textContent='click to copy',1800); });
   }
 
+  // ── DELIVERABLES: Asana JSON loader ──────────────────────────────────────
+  const ASANA_JSON = 'asana-tasks.json';
+  let _delData   = null;
+  let _delFilter = 'today';
+
+  async function loadDeliverables(forceRefresh = false) {
+    const btn    = document.getElementById('del-sync-btn');
+    const timeEl = document.getElementById('del-sync-time');
+    if (btn) btn.textContent = '↻ Syncing…';
+
+    if (!forceRefresh) {
+      try {
+        const cached   = localStorage.getItem('kp_asana_cache');
+        const cachedAt = localStorage.getItem('kp_asana_cache_at');
+        if (cached && cachedAt && (Date.now() - parseInt(cachedAt)) < 4 * 60 * 60 * 1000) {
+          _delData = JSON.parse(cached);
+          renderDeliverables();
+          if (btn) btn.textContent = '↻ Sync';
+          return;
+        }
+      } catch(e) {}
+    }
+
+    try {
+      const res = await fetch(ASANA_JSON + '?t=' + Date.now());
+      if (!res.ok) throw new Error('HTTP ' + res.status);
+      _delData = await res.json();
+      try {
+        localStorage.setItem('kp_asana_cache', JSON.stringify(_delData));
+        localStorage.setItem('kp_asana_cache_at', Date.now().toString());
+      } catch(e) {}
+      renderDeliverables();
+    } catch(err) {
+      if (timeEl) timeEl.textContent = 'Not synced yet — run GitHub Action first';
+      if (btn) btn.textContent = '↻ Retry';
+      document.getElementById('del-task-list').innerHTML =
+        '<div style="padding:32px;text-align:center;color:var(--mist);font-family:var(--font-mono);font-size:12px;">' +
+        'asana-tasks.json not found.<br>' +
+        '<span style="opacity:.6">Trigger the GitHub Action once: repo → Actions → Sync Asana Tasks → Run workflow.</span>' +
+        '</div>';
+    }
+  }
+
+  function renderDeliverables() {
+    if (!_delData) return;
+    const data   = _delData;
+    const timeEl = document.getElementById('del-sync-time');
+    const wrap   = document.getElementById('del-progress-wrap');
+    const banner = document.getElementById('del-overdue-banner');
+
+    if (timeEl) {
+      const d    = new Date(data.synced_at);
+      const diff = Math.round((Date.now() - d) / 60000);
+      timeEl.textContent = diff < 60
+        ? 'Synced ' + diff + 'm ago'
+        : 'Synced ' + Math.round(diff / 60) + 'h ago · ' + data.synced_date;
+    }
+
+    if (wrap) {
+      const c            = data.counts;
+      const checked      = checkedGids();
+      const checkedCount = data.tasks.filter(t => checked.has(t.gid)).length;
+      const pct          = c.total > 0 ? Math.round((checkedCount / c.total) * 100) : 0;
+      wrap.style.display = '';
+      document.getElementById('del-prog-label').textContent   = 'Progress';
+      document.getElementById('del-prog-counts').innerHTML    =
+        '<strong>' + checkedCount + '</strong> checked off &nbsp;·&nbsp; ' +
+        '<strong>' + (c.total - checkedCount) + '</strong> open &nbsp;·&nbsp; ' + c.total + ' total';
+      document.getElementById('del-prog-fill').style.width = pct + '%';
+    }
+
+    if (banner) {
+      if (data.counts.overdue > 0) {
+        banner.style.display = '';
+        banner.textContent   = '⚠ ' + data.counts.overdue + ' task' + (data.counts.overdue > 1 ? 's' : '') + ' overdue in Asana.';
+      } else {
+        banner.style.display = 'none';
+      }
+    }
+
+    delFilter(_delFilter);
+  }
+
+  function checkedGids() {
+    try { return new Set(JSON.parse(localStorage.getItem('wb_checked_tasks') || '[]')); }
+    catch(e) { return new Set(); }
+  }
+
+  function toggleDelTask(gid, el) {
+    const row     = el.closest('.task-item');
+    const checked = el.classList.toggle('checked');
+    row.classList.toggle('checked-row', checked);
+    el.innerHTML  = checked ? '<span style="color:#fff;font-size:10px;font-weight:700">✓</span>' : '';
+    try {
+      const s = checkedGids();
+      if (checked) s.add(gid); else s.delete(gid);
+      localStorage.setItem('wb_checked_tasks', JSON.stringify([...s]));
+    } catch(e) {}
+    renderDeliverables();
+  }
+
+  function delFilter(bucket, btn) {
+    _delFilter = bucket;
+    document.querySelectorAll('#del-subtabs .sub-tab').forEach(b => b.classList.remove('active'));
+    const tabMap = { today:'stab-today', week:'stab-week', all:'stab-all', checked:'stab-checked' };
+    const activeTab = btn || document.getElementById(tabMap[bucket]);
+    if (activeTab) activeTab.classList.add('active');
+    if (!_delData) return;
+
+    const checked = checkedGids();
+    let tasks;
+    if (bucket === 'checked') {
+      tasks = _delData.tasks.filter(t => checked.has(t.gid));
+    } else if (bucket === 'today') {
+      tasks = _delData.tasks.filter(t => (t.bucket === 'today' || t.bucket === 'overdue') && !checked.has(t.gid));
+    } else if (bucket === 'week') {
+      tasks = _delData.tasks.filter(t => t.bucket === 'this_week' && !checked.has(t.gid));
+    } else {
+      tasks = _delData.tasks.filter(t => !checked.has(t.gid));
+    }
+    renderTaskList(tasks, bucket === 'checked');
+  }
+
+  function renderTaskList(tasks, isDone) {
+    const container = document.getElementById('del-task-list');
+    if (!tasks.length) {
+      container.innerHTML = '<div style="padding:28px;text-align:center;color:var(--mist);font-family:var(--font-mono);font-size:12px;">' +
+        (isDone ? 'Nothing checked off yet.' : 'No tasks in this bucket — you're clear.') + '</div>';
+      return;
+    }
+    const checked = checkedGids();
+    const bucketLabel = {
+      overdue:   '<span class="badge badge-high">Overdue</span>',
+      today:     '<span class="badge badge-ip">Due Today</span>',
+      this_week: '<span class="badge badge-med">This Week</span>',
+      later:     '<span class="badge badge-low">Later</span>',
+      no_date:   '<span class="badge badge-open">No Date</span>',
+    };
+    container.innerHTML = '<div class="task-list">' +
+      tasks.map(t => {
+        const isChecked  = checked.has(t.gid);
+        const bBadge     = bucketLabel[t.bucket] || '';
+        const projBadge  = t.projects.length ? '<span class="badge" style="background:var(--bg3);color:var(--stone);">' + t.projects[0] + '</span>' : '';
+        const due        = t.due_on ? '<span style="font-family:var(--font-mono);font-size:10px;color:var(--mist);">' + t.due_on + '</span>' : '';
+        const notes      = t.notes  ? '<div class="task-desc">' + t.notes.replace(/</g,'&lt;') + '</div>' : '';
+        const chkStyle   = isChecked ? 'background:var(--green);border-color:var(--green);' : '';
+        const chkInner   = isChecked ? '<span style="color:#fff;font-size:10px;font-weight:700">✓</span>' : '';
+        return '<div class="task-item' + (isChecked ? ' checked-row' : '') + '" data-gid="' + t.gid + '">' +
+          '<div class="task-check" style="' + chkStyle + '" onclick="toggleDelTask(\'' + t.gid + '\',this)">' + chkInner + '</div>' +
+          '<div class="task-body">' +
+          '<div class="task-meta">' + bBadge + projBadge + due + '</div>' +
+          '<div class="task-title">' + t.name.replace(/</g,'&lt;') + '</div>' +
+          notes +
+          '</div></div>';
+      }).join('') + '</div>';
+  }
+
   /* ── INIT ── */
   document.addEventListener('DOMContentLoaded', () => {
     loadCounters();
+    loadDeliverables();
     renderDeals();
     renderOKRs();
     loadAmplData();
     renderChannels();
-    // Load saved bookings URL
     try { const url = localStorage.getItem('kp_bookings_url'); if(url && document.getElementById('bookings-url')) document.getElementById('bookings-url').value = url; } catch(e) {}
-    // Check for pw override
-    try { const pw = localStorage.getItem('kp_pw_override'); if(pw) { /* pw override set but still requires manual entry */ } } catch(e) {}
   });
 </script>
 </body>

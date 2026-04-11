@@ -1,0 +1,137 @@
+name: Sync Asana Tasks
+
+on:
+  schedule:
+    - cron: '30 12 * * 1-5'   # 8:30 AM ET Mon–Fri (12:30 UTC)
+  workflow_dispatch:            # Manual trigger from GitHub Actions tab
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Fetch tasks from Asana API
+        env:
+          ASANA_TOKEN: ${{ secrets.ASANA_TOKEN }}
+          python3 << 'PYEOF'
+          import urllib.request, urllib.error, json, os, datetime
+
+          token = os.environ['ASANA_TOKEN']
+          headers = {
+            'Authorization': f'Bearer {token}',
+            'Accept': 'application/json'
+          }
+
+          def get(url):
+            req = urllib.request.Request(url, headers=headers)
+            with urllib.request.urlopen(req, timeout=15) as r:
+              return json.loads(r.read().decode())
+
+          # ── 1. Identify user + workspace ──────────────────────────────────
+          me_data = get(
+            'https://app.asana.com/api/1.0/users/me'
+            '?opt_fields=gid,name,email,workspaces.gid,workspaces.name'
+          )['data']
+          user_gid      = me_data['gid']
+          workspace     = me_data['workspaces'][0]
+          workspace_gid = workspace['gid']
+          print(f"User: {me_data['name']}  Workspace: {workspace['name']} ({workspace_gid})")
+
+          # ── 2. Pull all incomplete tasks assigned to me ───────────────────
+          fields = ','.join([
+            'gid', 'name', 'due_on', 'completed', 'notes',
+            'projects.name', 'projects.gid',
+            'tags.name',
+            'memberships.section.name',
+            'custom_fields.name', 'custom_fields.display_value',
+            'modified_at', 'created_at'
+          ])
+          url = (
+            f'https://app.asana.com/api/1.0/tasks'
+            f'?assignee={user_gid}'
+            f'&workspace={workspace_gid}'
+            f'&completed_since=now'
+            f'&opt_fields={fields}'
+            f'&limit=100'
+          )
+          tasks_raw = get(url)['data']
+          print(f"Fetched {len(tasks_raw)} open tasks")
+
+          # ── 3. Clean + categorise ─────────────────────────────────────────
+          today = datetime.date.today()
+
+          def categorise(due_on):
+            if not due_on:
+              return 'no_date'
+            d = datetime.date.fromisoformat(due_on)
+            if d < today:
+              return 'overdue'
+            if d == today:
+              return 'today'
+            if (d - today).days <= 7:
+              return 'this_week'
+            return 'later'
+
+          tasks = []
+          for t in tasks_raw:
+            due = t.get('due_on')
+            projects = [p['name'] for p in (t.get('projects') or [])]
+            section  = None
+            for m in (t.get('memberships') or []):
+              if m.get('section'):
+                section = m['section']['name']
+                break
+            tasks.append({
+              'gid':       t['gid'],
+              'name':      t['name'],
+              'due_on':    due,
+              'bucket':    categorise(due),
+              'projects':  projects,
+              'section':   section,
+              'notes':     (t.get('notes') or '')[:300],   # cap at 300 chars
+              'tags':      [tg['name'] for tg in (t.get('tags') or [])],
+              'modified':  t.get('modified_at', ''),
+            })
+
+          # Sort: overdue first, then by due date
+          bucket_order = {'overdue': 0, 'today': 1, 'this_week': 2, 'later': 3, 'no_date': 4}
+          tasks.sort(key=lambda x: (bucket_order[x['bucket']], x['due_on'] or '9999'))
+
+          # ── 4. Write JSON ─────────────────────────────────────────────────
+          output = {
+            'synced_at':  datetime.datetime.utcnow().strftime('%Y-%m-%dT%H:%M:%SZ'),
+            'synced_date': today.isoformat(),
+            'user':       me_data['name'],
+            'workspace':  workspace['name'],
+            'counts': {
+              'total':      len(tasks),
+              'overdue':    sum(1 for t in tasks if t['bucket'] == 'overdue'),
+              'today':      sum(1 for t in tasks if t['bucket'] == 'today'),
+              'this_week':  sum(1 for t in tasks if t['bucket'] == 'this_week'),
+              'later':      sum(1 for t in tasks if t['bucket'] == 'later'),
+            },
+            'tasks': tasks
+          }
+
+          with open('asana-tasks.json', 'w') as f:
+            json.dump(output, f, indent=2)
+
+          print(f"Wrote asana-tasks.json — {len(tasks)} tasks")
+          print(f"  Overdue: {output['counts']['overdue']}")
+          print(f"  Today:   {output['counts']['today']}")
+          print(f"  Week:    {output['counts']['this_week']}")
+          PYEOF
+
+      - name: Commit updated task file
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add asana-tasks.json
+          git diff --staged --quiet \
+            || git commit -m "chore: sync asana tasks $(date -u +%Y-%m-%d)" \
+            && git push

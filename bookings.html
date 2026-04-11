@@ -29,18 +29,19 @@ body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--fg);line-
 /* APP */
 .app{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column;}
 
-/* NAV */
-.nav{
-  background:rgba(255,255,255,.97);backdrop-filter:blur(14px);
-  border-bottom:1px solid var(--bdr);
-  display:flex;align-items:center;height:52px;padding:0 24px;gap:12px;
-  position:sticky;top:0;z-index:200;flex-shrink:0;
-}
-.nav-back{font-size:14px;font-weight:500;color:var(--fg3);text-decoration:none;padding-right:14px;border-right:1px solid var(--bdr);display:flex;align-items:center;gap:4px;white-space:nowrap;}
-.nav-back:hover{color:var(--fg);}
-.nav-bc{font-size:11px;font-family:'DM Mono',monospace;color:var(--fg4);display:flex;align-items:center;gap:6px;}
-.nav-bc-sep{color:var(--bdr2);}
-.nav-bc-cur{color:var(--fg2);font-weight:600;}
+/* ── SUITE CHROME ── */
+.suite-chrome{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.97);backdrop-filter:blur(14px);border-bottom:1px solid var(--bdr);height:52px;display:flex;align-items:stretch;padding:0 28px;}
+.sc-brand{font-size:15px;font-weight:700;color:var(--fg);display:flex;align-items:center;padding-right:20px;margin-right:4px;border-right:1px solid var(--bdr2);white-space:nowrap;flex-shrink:0;text-decoration:none;}
+.sc-tabs{display:flex;align-items:stretch;flex:1;overflow-x:auto;}
+.sc-tabs::-webkit-scrollbar{display:none;}
+.sc-tab{padding:0 15px;border:none;background:none;font-family:'DM Sans',sans-serif;font-size:13.5px;font-weight:500;color:var(--fg3);cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;margin-bottom:-1px;display:flex;align-items:center;text-decoration:none;transition:color .13s,border-color .13s;}
+.sc-tab:hover{color:var(--fg2);}
+.sc-tab.active{color:var(--fg);font-weight:600;border-bottom-color:#0891b2;}
+.sc-tab-sub{font-family:'DM Mono',monospace;font-size:9.5px;color:var(--fg4);font-weight:400;letter-spacing:.03em;line-height:1;margin-left:6px;}
+.sc-live{display:flex;align-items:center;gap:6px;padding-left:16px;border-left:1px solid var(--bdr2);flex-shrink:0;font-family:'DM Mono',monospace;font-size:11px;color:var(--fg4);}
+.sc-dot{width:7px;height:7px;border-radius:50%;background:#0891b2;display:inline-block;animation:pulse 2.4s ease-in-out infinite;}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+/* NAV (legacy — keep for inner content breadcrumb if needed) */
 .nav-title{margin-left:auto;font-size:13px;color:var(--fg3);font-family:'DM Mono',monospace;}
 
 /* CONTENT */
@@ -230,18 +231,17 @@ select.field-input{cursor:pointer;}
 <div class="app">
 
 <!-- SUITE CHROME -->
-<nav class="nav" style="gap:0; padding:0 28px;">
-  <a href="index.html" style="font-size:15px;font-weight:700;color:var(--fg);text-decoration:none;padding-right:20px;margin-right:4px;border-right:1px solid var(--bdr2);white-space:nowrap;display:flex;align-items:center;height:52px;flex-shrink:0;">House of O.M.</a>
-  <div style="display:flex;align-items:stretch;flex:1;overflow-x:auto;">
-    <a href="index.html"         style="padding:0 15px;height:52px;display:flex;align-items:center;font-size:13.5px;font-weight:500;color:var(--fg3);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .13s;">Home</a>
-    <a href="index.html#om"      style="padding:0 15px;height:52px;display:flex;align-items:center;font-size:13.5px;font-weight:600;color:var(--fg);text-decoration:none;border-bottom:2px solid var(--fg);margin-bottom:-1px;white-space:nowrap;">Order Management</a>
-    <a href="index.html#sf"      style="padding:0 15px;height:52px;display:flex;align-items:center;font-size:13.5px;font-weight:500;color:var(--fg3);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .13s;">Sales Finance</a>
-    <a href="index.html#acct"    style="padding:0 15px;height:52px;display:flex;align-items:center;font-size:13.5px;font-weight:500;color:var(--fg3);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .13s;">Accounting</a>
-    <a href="workbud.html"       style="padding:0 15px;height:52px;display:flex;align-items:center;font-size:13.5px;font-weight:500;color:var(--fg3);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .13s;">Work Bud</a>
-    <a href="index.html#resources" style="padding:0 15px;height:52px;display:flex;align-items:center;font-size:13.5px;font-weight:500;color:var(--fg3);text-decoration:none;border-bottom:2px solid transparent;margin-bottom:-1px;white-space:nowrap;transition:color .13s;">Resources</a>
+<div class="suite-chrome">
+  <a class="sc-brand" href="index.html">House of O.M.</a>
+  <div class="sc-tabs">
+    <a class="sc-tab" href="index.html">Home<span class="sc-tab-sub">OM Dashboard</span></a>
+    <a class="sc-tab" href="index.html">AMPL<span class="sc-tab-sub">FP&amp;A · SF · Acct · OM</span></a>
+    <a class="sc-tab" href="workbud.html">Work Bud<span class="sc-tab-sub">Private ops hub</span></a>
+    <a class="sc-tab" href="workbud-preview.html">Work Bud Preview<span class="sc-tab-sub">No-login demo</span></a>
+    <a class="sc-tab active" href="bookings.html">Bookings Checker<span class="sc-tab-sub">Deal validation</span></a>
   </div>
-  <div id="nav-date" style="margin-left:auto;font-family:'DM Mono',monospace;font-size:11px;color:var(--fg4);padding-left:20px;border-left:1px solid var(--bdr2);display:flex;align-items:center;flex-shrink:0;"></div>
-</nav>
+  <div class="sc-live" id="nav-date"></div>
+</div>
 
 <div class="content">
 

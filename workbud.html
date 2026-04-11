@@ -712,12 +712,12 @@
 
     /* ── IFRAME PANELS ── */
     .iframe-panel {
-      width: 100%; height: calc(100vh - 110px);
+      width: 100%; height: calc(100vh - 160px);
       border: none; border-radius: 0;
       display: block;
     }
-    #tab-bookings, #tab-preview {
-      margin: -36px -48px;
+    .sub-panel-fullpage {
+      margin: 0 -48px -36px;
     }
 
     @keyframes pulse {
@@ -779,16 +779,12 @@
     <span class="tb-icon">🛠</span>
     <span class="tb-label">Lovable Builds</span>
   </button>
-  <button class="tab-btn" onclick="switchTab('atr',this)">
+  <button class="tab-btn" onclick="switchTab('ops',this)">
     <span class="tb-icon">🔁</span>
-    <span class="tb-label">ATR</span>
-  </button>
-  <button class="tab-btn" onclick="switchTab('progress',this)">
-    <span class="tb-icon">📊</span>
-    <span class="tb-label">Progress</span>
+    <span class="tb-label">ATR &amp; Ops</span>
   </button>
   <div class="tab-dd" id="dd-ampl">
-    <button class="tab-dd-btn" id="dd-ampl-btn" onclick="toggleDD('ampl')">
+    <button class="tab-dd-btn" id="dd-ampl-btn" onclick="openAmplTab(this)">
       <span class="tb-icon">🏔</span>
       <span class="tb-label">My AMPL ▾</span>
     </button>
@@ -798,21 +794,9 @@
       <button class="tab-dd-item" onclick="switchAmpl('life')">☀️ Life at Amplitude</button>
     </div>
   </div>
-  <button class="tab-btn" onclick="switchTab('config',this)">
-    <span class="tb-icon">⚙️</span>
-    <span class="tb-label">Config</span>
-  </button>
   <button class="tab-btn" onclick="switchTab('settings',this)">
-    <span class="tb-icon">🔑</span>
+    <span class="tb-icon">⚙️</span>
     <span class="tb-label">Settings</span>
-  </button>
-  <button class="tab-btn" onclick="switchTab('bookings',this)">
-    <span class="tb-icon">✅</span>
-    <span class="tb-label">Booking Checker</span>
-  </button>
-  <button class="tab-btn" onclick="switchTab('preview',this)">
-    <span class="tb-icon">👁</span>
-    <span class="tb-label">Work Bud Preview</span>
   </button>
 </div>
 
@@ -1129,175 +1113,192 @@
   </div>
 
 
-  <!-- ══════ ATR ══════ -->
-  <div class="tab-panel" id="tab-atr">
-    <div class="page-h">
-      <h2>ATR</h2>
-      <p>Counter + Slack message generator · Vol Ramp ATR cleanup</p>
+  <!-- ══════ ATR & OPS ══════ -->
+  <div class="tab-panel" id="tab-ops">
+
+    <!-- Ops top sub-tabs -->
+    <div class="sub-tabs" style="margin-bottom:28px;">
+      <button class="sub-tab active" id="opstab-atr" onclick="switchOpsSub('atr',this)">🔁 ATR</button>
+      <button class="sub-tab" id="opstab-bookings" onclick="switchOpsSub('bookings',this)">✅ Bookings Checker</button>
+      <button class="sub-tab" id="opstab-progress" onclick="switchOpsSub('progress',this)">📊 Progress</button>
     </div>
 
-    <div class="counter-row">
-      <div class="counter-card primary">
-        <div class="ctr-label">ATR Cases Done Today</div>
-        <div class="ctr-val" id="cnt-atr">0</div>
-        <div class="ctr-btns">
-          <button class="ctr-btn" onclick="incCnt('atr')">+</button>
-          <button class="ctr-btn" onclick="decCnt('atr')">−</button>
-          <button class="ctr-reset" onclick="resetCounts()">Reset all</button>
+    <!-- ── ATR sub-panel ── -->
+    <div class="sub-panel active" id="sub-ops-atr">
+      <div class="page-h">
+        <h2>ATR</h2>
+        <p>Counter + Slack message generator · Vol Ramp ATR cleanup</p>
+      </div>
+
+      <div class="counter-row">
+        <div class="counter-card primary">
+          <div class="ctr-label">ATR Cases Done Today</div>
+          <div class="ctr-val" id="cnt-atr">0</div>
+          <div class="ctr-btns">
+            <button class="ctr-btn" onclick="incCnt('atr')">+</button>
+            <button class="ctr-btn" onclick="decCnt('atr')">−</button>
+            <button class="ctr-reset" onclick="resetCounts()">Reset all</button>
+          </div>
+        </div>
+        <div class="counter-card">
+          <div class="ctr-label">Bookings Done Today</div>
+          <div class="ctr-val" id="cnt-booking">0</div>
+          <div class="ctr-btns">
+            <button class="ctr-btn" onclick="incCnt('booking')">+</button>
+            <button class="ctr-btn" onclick="decCnt('booking')">−</button>
+          </div>
         </div>
       </div>
-      <div class="counter-card">
-        <div class="ctr-label">Bookings Done Today</div>
-        <div class="ctr-val" id="cnt-booking">0</div>
-        <div class="ctr-btns">
-          <button class="ctr-btn" onclick="incCnt('booking')">+</button>
-          <button class="ctr-btn" onclick="decCnt('booking')">−</button>
+
+      <div class="sub-tabs">
+        <button class="sub-tab active" onclick="switchSub('atr-std',this)">ATR Standard</button>
+        <button class="sub-tab" onclick="switchSub('atr-bulk',this)">ATR Bulk Intro</button>
+        <button class="sub-tab" onclick="switchSub('atr-book',this)">Booking Message</button>
+      </div>
+
+      <!-- ATR Standard -->
+      <div class="sub-panel active" id="sub-atr-std">
+        <div class="atr-form">
+          <div class="atr-row">
+            <div class="atr-field">
+              <label>Opportunity Name</label>
+              <input id="atr-opp" type="text" placeholder="e.g. Acme Corp Vol Ramp Renewal FY27">
+            </div>
+            <div class="atr-field">
+              <label>SFDC Case ID</label>
+              <input id="atr-sfdc" type="text" placeholder="e.g. 00001234">
+            </div>
+          </div>
+          <div class="atr-row">
+            <div class="atr-field">
+              <label>ARR Amount</label>
+              <input id="atr-arr" type="text" placeholder="e.g. $180,000">
+            </div>
+            <div class="atr-field">
+              <label>Correct ACV</label>
+              <input id="atr-correct" type="text" placeholder="e.g. $150,000">
+            </div>
+          </div>
+          <div class="atr-field">
+            <label>Issue Summary</label>
+            <input id="atr-issue" type="text" placeholder="e.g. Vol Ramp ACV inflated — contract value lower than booked">
+          </div>
+          <div class="atr-field">
+            <label>Additional Notes (optional)</label>
+            <textarea id="atr-other" placeholder="Any other context..."></textarea>
+          </div>
         </div>
+        <button class="copy-btn secondary" onclick="buildATRMsg()" style="margin-bottom:12px;">Generate Message</button>
+        <div class="atr-msg-box" id="atr-std-msg">Message will appear here after you click Generate.</div>
+        <button class="copy-btn" onclick="copyMsg('atr-std-msg')">Copy to Clipboard</button>
+      </div>
+
+      <!-- ATR Bulk Intro -->
+      <div class="sub-panel" id="sub-atr-bulk">
+        <div class="atr-form">
+          <div class="atr-row">
+            <div class="atr-field">
+              <label>Number of Cases</label>
+              <input id="bulk-count" type="text" placeholder="e.g. 12">
+            </div>
+            <div class="atr-field">
+              <label>Date Range</label>
+              <input id="bulk-dates" type="text" placeholder="e.g. Apr 1–Apr 11">
+            </div>
+          </div>
+          <div class="atr-field">
+            <label>Summary Note</label>
+            <textarea id="bulk-note" placeholder="e.g. All Vol Ramp deals — ACV adjusted to match contract value..."></textarea>
+          </div>
+        </div>
+        <button class="copy-btn secondary" onclick="buildBulkMsg()" style="margin-bottom:12px;">Generate Message</button>
+        <div class="atr-msg-box" id="atr-bulk-msg">Message will appear here after you click Generate.</div>
+        <button class="copy-btn" onclick="copyMsg('atr-bulk-msg')">Copy to Clipboard</button>
+      </div>
+
+      <!-- Booking Message -->
+      <div class="sub-panel" id="sub-atr-book">
+        <div class="atr-form">
+          <div class="atr-row">
+            <div class="atr-field">
+              <label>Opportunity Name</label>
+              <input id="book-opp" type="text" placeholder="e.g. Acme Corp New Business FY27">
+            </div>
+            <div class="atr-field">
+              <label>SFDC Opp ID</label>
+              <input id="book-sfdc" type="text" placeholder="e.g. 0060X00001abc">
+            </div>
+          </div>
+          <div class="atr-row">
+            <div class="atr-field">
+              <label>ACV</label>
+              <input id="book-acv" type="text" placeholder="e.g. $80,000">
+            </div>
+            <div class="atr-field">
+              <label>Deal Type</label>
+              <select id="book-type">
+                <option value="Direct">Direct</option>
+                <option value="Reseller">Reseller</option>
+                <option value="AWS Marketplace">AWS Marketplace</option>
+              </select>
+            </div>
+          </div>
+          <div class="atr-field">
+            <label>Notes (optional)</label>
+            <textarea id="book-notes" placeholder="Any booking notes..."></textarea>
+          </div>
+        </div>
+        <button class="copy-btn secondary" onclick="buildBookMsg()" style="margin-bottom:12px;">Generate Message</button>
+        <div class="atr-msg-box" id="book-std-msg">Message will appear here after you click Generate.</div>
+        <button class="copy-btn" onclick="copyMsg('book-std-msg')">Copy to Clipboard</button>
       </div>
     </div>
 
-    <div class="sub-tabs">
-      <button class="sub-tab active" onclick="switchSub('atr-std',this)">ATR Standard</button>
-      <button class="sub-tab" onclick="switchSub('atr-bulk',this)">ATR Bulk Intro</button>
-      <button class="sub-tab" onclick="switchSub('atr-book',this)">Booking</button>
+    <!-- ── Bookings Checker sub-panel ── -->
+    <div class="sub-panel sub-panel-fullpage" id="sub-ops-bookings">
+      <iframe src="bookings.html" class="iframe-panel" id="bookings-iframe"></iframe>
     </div>
 
-    <!-- ATR Standard -->
-    <div class="sub-panel active" id="sub-atr-std">
-      <div class="atr-form">
-        <div class="atr-row">
-          <div class="atr-field">
-            <label>Opportunity Name</label>
-            <input id="atr-opp" type="text" placeholder="e.g. Acme Corp Vol Ramp Renewal FY27">
-          </div>
-          <div class="atr-field">
-            <label>SFDC Case ID</label>
-            <input id="atr-sfdc" type="text" placeholder="e.g. 00001234">
-          </div>
-        </div>
-        <div class="atr-row">
-          <div class="atr-field">
-            <label>ARR Amount</label>
-            <input id="atr-arr" type="text" placeholder="e.g. $180,000">
-          </div>
-          <div class="atr-field">
-            <label>Correct ACV</label>
-            <input id="atr-correct" type="text" placeholder="e.g. $150,000">
-          </div>
-        </div>
-        <div class="atr-field">
-          <label>Issue Summary</label>
-          <input id="atr-issue" type="text" placeholder="e.g. Vol Ramp ACV inflated — contract value lower than booked">
-        </div>
-        <div class="atr-field">
-          <label>Additional Notes (optional)</label>
-          <textarea id="atr-other" placeholder="Any other context..."></textarea>
-        </div>
+    <!-- ── Progress sub-panel ── -->
+    <div class="sub-panel" id="sub-ops-progress">
+      <div class="page-h">
+        <h2>Vol Ramp ATR Progress</h2>
+        <p>138-deal tracker · Status and notes per deal · localStorage persisted</p>
       </div>
-      <button class="copy-btn secondary" onclick="buildATRMsg()" style="margin-bottom:12px;">Generate Message</button>
-      <div class="atr-msg-box" id="atr-std-msg">Message will appear here after you click Generate.</div>
-      <button class="copy-btn" onclick="copyMsg('atr-std-msg')">Copy to Clipboard</button>
-    </div>
 
-    <!-- ATR Bulk Intro -->
-    <div class="sub-panel" id="sub-atr-bulk">
-      <div class="atr-form">
-        <div class="atr-row">
-          <div class="atr-field">
-            <label>Number of Cases</label>
-            <input id="bulk-count" type="text" placeholder="e.g. 12">
-          </div>
-          <div class="atr-field">
-            <label>Date Range</label>
-            <input id="bulk-dates" type="text" placeholder="e.g. Apr 1–Apr 11">
-          </div>
-        </div>
-        <div class="atr-field">
-          <label>Summary Note</label>
-          <textarea id="bulk-note" placeholder="e.g. All Vol Ramp deals — ACV adjusted to match contract value..."></textarea>
-        </div>
+      <div class="deals-stat-row" id="deals-stats">
+        <div class="ds-cell"><div class="ds-label">Total</div><div class="ds-val" id="stat-total">138</div></div>
+        <div class="ds-cell"><div class="ds-label">Done</div><div class="ds-val green" id="stat-done">0</div></div>
+        <div class="ds-cell"><div class="ds-label">In Progress</div><div class="ds-val amber" id="stat-ip">0</div></div>
+        <div class="ds-cell"><div class="ds-label">Remaining</div><div class="ds-val red" id="stat-rem">138</div></div>
       </div>
-      <button class="copy-btn secondary" onclick="buildBulkMsg()" style="margin-bottom:12px;">Generate Message</button>
-      <div class="atr-msg-box" id="atr-bulk-msg">Message will appear here after you click Generate.</div>
-      <button class="copy-btn" onclick="copyMsg('atr-bulk-msg')">Copy to Clipboard</button>
-    </div>
 
-    <!-- Booking -->
-    <div class="sub-panel" id="sub-atr-book">
-      <div class="atr-form">
-        <div class="atr-row">
-          <div class="atr-field">
-            <label>Opportunity Name</label>
-            <input id="book-opp" type="text" placeholder="e.g. Acme Corp New Business FY27">
-          </div>
-          <div class="atr-field">
-            <label>SFDC Opp ID</label>
-            <input id="book-sfdc" type="text" placeholder="e.g. 0060X00001abc">
-          </div>
-        </div>
-        <div class="atr-row">
-          <div class="atr-field">
-            <label>ACV</label>
-            <input id="book-acv" type="text" placeholder="e.g. $80,000">
-          </div>
-          <div class="atr-field">
-            <label>Deal Type</label>
-            <select id="book-type">
-              <option value="Direct">Direct</option>
-              <option value="Reseller">Reseller</option>
-              <option value="AWS Marketplace">AWS Marketplace</option>
-            </select>
-          </div>
-        </div>
-        <div class="atr-field">
-          <label>Notes (optional)</label>
-          <textarea id="book-notes" placeholder="Any booking notes..."></textarea>
-        </div>
+      <div class="deals-filters">
+        <button class="filter-btn active" onclick="filterDeals('all',this)">All (138)</button>
+        <button class="filter-btn" onclick="filterDeals('open',this)">Open</button>
+        <button class="filter-btn" onclick="filterDeals('in-progress',this)">In Progress</button>
+        <button class="filter-btn" onclick="filterDeals('done',this)">Done</button>
+        <button class="filter-btn" onclick="filterDeals('flagged',this)">Flagged</button>
+        <button class="copy-btn secondary" style="margin-left:auto;font-size:.72rem;" onclick="copyProgressSlack()">Copy Slack Update</button>
       </div>
-      <button class="copy-btn secondary" onclick="buildBookMsg()" style="margin-bottom:12px;">Generate Message</button>
-      <div class="atr-msg-box" id="book-std-msg">Message will appear here after you click Generate.</div>
-      <button class="copy-btn" onclick="copyMsg('book-std-msg')">Copy to Clipboard</button>
-    </div>
-  </div>
 
-  <!-- ══════ PROGRESS ══════ -->
-  <div class="tab-panel" id="tab-progress">
-    <div class="page-h">
-      <h2>Vol Ramp ATR Progress</h2>
-      <p>138-deal tracker · Status and notes per deal · localStorage persisted</p>
-    </div>
-
-    <div class="deals-stat-row" id="deals-stats">
-      <div class="ds-cell"><div class="ds-label">Total</div><div class="ds-val" id="stat-total">138</div></div>
-      <div class="ds-cell"><div class="ds-label">Done</div><div class="ds-val green" id="stat-done">0</div></div>
-      <div class="ds-cell"><div class="ds-label">In Progress</div><div class="ds-val amber" id="stat-ip">0</div></div>
-      <div class="ds-cell"><div class="ds-label">Remaining</div><div class="ds-val red" id="stat-rem">138</div></div>
+      <div class="deals-table-wrap">
+        <table class="deals-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Account</th>
+              <th>Opportunity</th>
+              <th>ACV</th>
+              <th>Status</th>
+              <th>Notes</th>
+            </tr>
+          </thead>
+          <tbody id="deals-tbody"></tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="deals-filters">
-      <button class="filter-btn active" onclick="filterDeals('all',this)">All (138)</button>
-      <button class="filter-btn" onclick="filterDeals('open',this)">Open</button>
-      <button class="filter-btn" onclick="filterDeals('in-progress',this)">In Progress</button>
-      <button class="filter-btn" onclick="filterDeals('done',this)">Done</button>
-      <button class="filter-btn" onclick="filterDeals('flagged',this)">Flagged</button>
-      <button class="copy-btn secondary" style="margin-left:auto;font-size:.72rem;" onclick="copyProgressSlack()">Copy Slack Update</button>
-    </div>
-
-    <div class="deals-table-wrap">
-      <table class="deals-table">
-        <thead>
-          <tr>
-            <th>#</th>
-            <th>Account</th>
-            <th>Opportunity</th>
-            <th>ACV</th>
-            <th>Status</th>
-            <th>Notes</th>
-          </tr>
-        </thead>
-        <tbody id="deals-tbody"></tbody>
-      </table>
-    </div>
   </div>
 
   <!-- ══════ MY AMPL ══════ -->
@@ -1373,11 +1374,11 @@
 
   </div>
 
-  <!-- ══════ CONFIG ══════ -->
-  <div class="tab-panel" id="tab-config">
+  <!-- ══════ SETTINGS (merged Config + Settings) ══════ -->
+  <div class="tab-panel" id="tab-settings">
     <div class="page-h">
-      <h2>Config</h2>
-      <p>Cowork schedule · Slack channels · Automation prompts reference</p>
+      <h2>Settings</h2>
+      <p>Password · Bookings URL · Slack channels · Automation schedule · Master Cowork Prompt</p>
     </div>
 
     <div class="config-section">
@@ -1430,14 +1431,6 @@
         <div class="ch-item" style="cursor:pointer;" onclick="copyPromptSnippet('weekly')">Weekly Reset prompt <span style="font-family:var(--font-mono);font-size:.65rem;color:var(--mist);">click to copy</span></div>
         <div class="ch-item" style="cursor:pointer;" onclick="copyPromptSnippet('meeting')">Meeting Notes prompt <span style="font-family:var(--font-mono);font-size:.65rem;color:var(--mist);">click to copy</span></div>
       </div>
-    </div>
-  </div>
-
-  <!-- ══════ SETTINGS ══════ -->
-  <div class="tab-panel" id="tab-settings">
-    <div class="page-h">
-      <h2>Settings</h2>
-      <p>Password · Bookings URL · GitHub · Master Cowork Prompt</p>
     </div>
 
     <div class="config-section">
@@ -1534,15 +1527,6 @@ Scan #cfo-ai and #ai-week-2026 for action items, tool access updates, or present
     </div>
   </div>
 
-  <!-- ══════ BOOKING CHECKER (iframe) ══════ -->
-  <div class="tab-panel" id="tab-bookings">
-    <iframe src="bookings.html" class="iframe-panel" id="bookings-iframe"></iframe>
-  </div>
-
-  <!-- ══════ WB PREVIEW (iframe) ══════ -->
-  <div class="tab-panel" id="tab-preview">
-    <iframe src="workbud-preview.html" class="iframe-panel" id="preview-iframe"></iframe>
-  </div>
 
 </main>
 
@@ -1633,6 +1617,15 @@ Scan #cfo-ai and #ai-week-2026 for action items, tool access updates, or present
     }
   }
 
+  function openAmplTab(btn) {
+    // Activate AMPL panel + open the dropdown
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn, .tab-dd-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-ampl').classList.add('active');
+    btn.classList.add('active');
+    toggleDD('ampl');
+  }
+
   function switchAmpl(sub) {
     // Activate the AMPL tab panel
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
@@ -1643,9 +1636,16 @@ Scan #cfo-ai and #ai-week-2026 for action items, tool access updates, or present
     document.getElementById('dd-ampl-menu').classList.remove('open');
     // Highlight correct item
     document.querySelectorAll('.tab-dd-item').forEach(i => i.classList.remove('active'));
-    event.target.classList.add('active');
+    try { event.target.classList.add('active'); } catch(e) {}
     // Switch sub-panel within AMPL
     switchAMPLSub(sub, null);
+  }
+
+  function switchOpsSub(sub, btn) {
+    document.querySelectorAll('#tab-ops > .sub-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('#tab-ops > .sub-tabs .sub-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('sub-ops-'+sub).classList.add('active');
+    if (btn) btn.classList.add('active');
   }
 
   function switchAMPLSub(sub, btn) {

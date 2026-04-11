@@ -33,17 +33,16 @@ jobs:
             with urllib.request.urlopen(req, timeout=15) as r:
               return json.loads(r.read().decode())
 
-          # ── 1. Identify user + workspace ──────────────────────────────────
+          # ── 1. Identify user (for metadata only) ──────────────────────────
           me_data = get(
             'https://app.asana.com/api/1.0/users/me'
             '?opt_fields=gid,name,email,workspaces.gid,workspaces.name'
           )['data']
-          user_gid      = me_data['gid']
-          workspace     = me_data['workspaces'][0]
-          workspace_gid = workspace['gid']
-          print(f"User: {me_data['name']}  Workspace: {workspace['name']} ({workspace_gid})")
+          workspace = me_data['workspaces'][0]
+          print(f"User: {me_data['name']}  Workspace: {workspace['name']}")
 
-          # ── 2. Pull all incomplete tasks assigned to me ───────────────────
+          # ── 2. Pull all incomplete tasks from Deliverables project ────────
+          PROJECT_GID = '1213754127165438'
           fields = ','.join([
             'gid', 'name', 'due_on', 'completed', 'notes',
             'projects.name', 'projects.gid',
@@ -54,14 +53,13 @@ jobs:
           ])
           url = (
             f'https://app.asana.com/api/1.0/tasks'
-            f'?assignee={user_gid}'
-            f'&workspace={workspace_gid}'
+            f'?project={PROJECT_GID}'
             f'&completed_since=now'
             f'&opt_fields={fields}'
             f'&limit=100'
           )
-          tasks_raw = get(url)['data']
-          print(f"Fetched {len(tasks_raw)} open tasks")
+          tasks_raw = [t for t in get(url)['data'] if not t.get('completed')]
+          print(f"Fetched {len(tasks_raw)} open tasks from Deliverables project")
 
           # ── 3. Clean + categorise ─────────────────────────────────────────
           today = datetime.date.today()

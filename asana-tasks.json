@@ -1,0 +1,274 @@
+{
+  "synced_at": "2026-04-11T13:00:00Z",
+  "synced_date": "2026-04-11",
+  "user": "Kareem Powell",
+  "workspace": "Amplitude",
+  "source": "Deliverables project (1213754127165438)",
+  "counts": {
+    "total": 20,
+    "overdue": 9,
+    "today": 0,
+    "this_week": 9,
+    "later": 0
+  },
+  "tasks": [
+    {
+      "gid": "1213901024833879",
+      "name": "daily: ATR checks | fold in contract ACV values",
+      "due_on": "2026-04-09",
+      "bucket": "overdue",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Wednesday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213901024833885",
+      "name": "daily: A.I. week prep",
+      "due_on": "2026-04-09",
+      "bucket": "overdue",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Wednesday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213919809313385",
+      "name": "daily: trailhead",
+      "due_on": "2026-04-09",
+      "bucket": "overdue",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Wednesday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213985612642844",
+      "name": "daily: add to Case Record Enhancements",
+      "due_on": "2026-04-09",
+      "bucket": "overdue",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Wednesday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213985612642833",
+      "name": "daily: OM Checklist w/ KB",
+      "due_on": "2026-04-09",
+      "bucket": "overdue",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Wednesday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213985612642837",
+      "name": "daily: internal OM documentation formatting",
+      "due_on": "2026-04-09",
+      "bucket": "overdue",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Wednesday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213976871309774",
+      "name": "one-off: install Granola",
+      "due_on": "2026-04-10",
+      "bucket": "overdue",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Friday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213919809313399",
+      "name": "one-off: send PTO / OOO hours",
+      "due_on": "2026-04-10",
+      "bucket": "overdue",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Friday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213919809313390",
+      "name": "one-off: connect with Jordyn about AI SME role",
+      "due_on": "2026-04-10",
+      "bucket": "overdue",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Friday",
+      "notes": "Jordyn on Deal Desk is the AI SME. Explore installing similar agents for OM/Sales Finance.",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213995991371922",
+      "name": "one-off: find sales call recording to get overview of products",
+      "due_on": "2026-04-13",
+      "bucket": "this_week",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Wednesday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213995991371926",
+      "name": "one-off: automate ATR dump to Slack using previous artifact",
+      "due_on": "2026-04-13",
+      "bucket": "this_week",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Thursday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213919809313402",
+      "name": "one-off: send Matt \u2014 short-term goals",
+      "due_on": "2026-04-13",
+      "bucket": "this_week",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Thursday",
+      "notes": "AI SME role, Closed Lost process ownership, areas for exposure, internship goals.",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213834986097645",
+      "name": "one-off: contract change in may \u2014 notify team before summer internship about permissions",
+      "due_on": "2026-04-14",
+      "bucket": "this_week",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Thursday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213948256777356",
+      "name": "one-off: sort through starred docs",
+      "due_on": "2026-04-14",
+      "bucket": "this_week",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Thursday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213935509249926",
+      "name": "one-off: send Matt \u2014 long-term goals",
+      "due_on": "2026-04-14",
+      "bucket": "this_week",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Thursday",
+      "notes": "Long-term career direction and areas of interest.",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213919809313392",
+      "name": "one-off: edit class schedule",
+      "due_on": "2026-04-15",
+      "bucket": "this_week",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Friday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213834986097653",
+      "name": "one-off: onboarding doc validation",
+      "due_on": "2026-04-15",
+      "bucket": "this_week",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Friday",
+      "notes": "(1) validate all Q&A (2) organise by relevance (3) add missing content (4) fold in external docs",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213919809313382",
+      "name": "one-off: check out Asana teammates",
+      "due_on": "2026-04-15",
+      "bucket": "this_week",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Friday",
+      "notes": "",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1213985714095437",
+      "name": "daily: AI week project | Overage Anticipation & Alerting",
+      "due_on": null,
+      "bucket": "no_date",
+      "projects": [
+        "Deliverables"
+      ],
+      "section": "Wednesday",
+      "notes": "G&A AI Week Project \u2014 forward-looking consumption monitoring agent. Notifies AE, FLM, CSM, Accounting, Sales Finance 3\u20136 months before projected overage.",
+      "tags": [],
+      "modified": ""
+    },
+    {
+      "gid": "1214023959937547",
+      "name": "one-off: research transcription software for Zoom recordings",
+      "due_on": null,
+      "bucket": "no_date",
+      "projects": [],
+      "section": "My Tasks",
+      "notes": "Evaluate Otter.ai, Descript, OpenAI Whisper. Check for existing Amplitude enterprise licenses.",
+      "tags": [],
+      "modified": ""
+    }
+  ]
+}

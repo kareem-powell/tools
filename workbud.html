@@ -2273,7 +2273,7 @@ Scan #cfo-ai and #ai-week-2026 for action items, tool access updates, or present
     const container = document.getElementById('del-task-list');
     if (!tasks.length) {
       container.innerHTML = '<div style="padding:28px;text-align:center;color:var(--mist);font-family:var(--font-mono);font-size:12px;">' +
-        (isDone ? 'Nothing checked off yet.' : 'No tasks in this bucket — you're clear.') + '</div>';
+        (isDone ? 'Nothing checked off yet.' : "No tasks in this bucket \u2014 you're clear.") + '</div>';
       return;
     }
     const checked = checkedGids();

@@ -206,6 +206,56 @@
     .ph-label { font-family: var(--font-mono); font-size: 9.5px; text-transform: uppercase; letter-spacing: .1em; color: var(--mist); margin-bottom: 6px; }
     .ph-val { font-size: 1.4rem; font-weight: 700; color: var(--ink); }
 
+    /* ── SUITE CHROME TAB SUBTITLE ── */
+    .sc-tab-sub { font-family: var(--font-mono); font-size: 9px; color: var(--mist); font-weight: 400; letter-spacing: .03em; line-height: 1; margin-left: 6px; }
+
+    /* ── TAB DROPDOWN (My AMPL) ── */
+    .tab-dd { position: relative; }
+    .tab-dd-btn { display: flex; align-items: center; gap: 7px; padding: 9px 16px; border: none; background: none; font-family: var(--font-body); font-size: 13px; font-weight: 500; color: var(--stone); cursor: pointer; border-radius: 8px 8px 0 0; border-bottom: 2px solid transparent; margin-bottom: -1px; white-space: nowrap; transition: color .12s, background .12s; }
+    .tab-dd-btn:hover, .tab-dd-btn.active { background: var(--bg2); color: var(--ink); }
+    .tab-dd-btn.active { border-bottom-color: var(--bloom); font-weight: 600; background: var(--bg); }
+    .tab-dd-menu { display: none; position: absolute; top: calc(100% + 1px); left: 0; background: var(--bg); border: 1px solid var(--ash); border-radius: 0 8px 8px 8px; box-shadow: 0 8px 24px rgba(0,0,0,.08); z-index: 100; min-width: 200px; overflow: hidden; }
+    .tab-dd-menu.open { display: block; }
+    .tab-dd-item { display: block; width: 100%; padding: 11px 18px; text-align: left; border: none; background: none; font-family: var(--font-body); font-size: 13px; color: var(--stone); cursor: pointer; transition: background .1s, color .1s; }
+    .tab-dd-item:hover { background: var(--bg2); color: var(--ink); }
+    .tab-dd-item.active { color: var(--bloom); font-weight: 600; background: var(--bg2); }
+
+    /* ── ATR FORM ── */
+    .atr-form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+    .atr-field label { display: block; font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--mist); margin-bottom: 5px; }
+    .atr-field input, .atr-field select { width: 100%; padding: 9px 12px; border: 1px solid var(--ash); border-radius: 6px; font-family: var(--font-body); font-size: 13px; color: var(--ink); background: var(--bg); }
+    .demo-msg { background: var(--bg2); border: 1px solid var(--ash); border-radius: var(--r); padding: 16px 18px; font-family: var(--font-mono); font-size: 12px; color: var(--ink2); line-height: 1.8; white-space: pre-wrap; }
+    .counter-row { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+    .ctr-num { font-size: 48px; font-weight: 800; letter-spacing: -.04em; color: var(--ink); line-height: 1; }
+    .ctr-label { font-family: var(--font-mono); font-size: 10px; letter-spacing: .1em; text-transform: uppercase; color: var(--mist); }
+    .ctr-btns { display: flex; gap: 8px; }
+    .ctr-btn { width: 36px; height: 36px; border-radius: 50%; border: 1.5px solid var(--ash); background: var(--bg); font-size: 18px; font-weight: 700; color: var(--ink); cursor: not-allowed; display: flex; align-items: center; justify-content: center; opacity: .5; }
+
+    /* ── PROGRESS DEALS ── */
+    .deal-row { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1px; background: var(--ash); }
+    .deal-row > div { background: var(--bg); padding: 10px 14px; font-size: 12.5px; }
+    .deal-row.header > div { background: var(--bg2); font-family: var(--font-mono); font-size: 9.5px; letter-spacing: .08em; text-transform: uppercase; color: var(--mist); font-weight: 600; }
+    .status-done { background: var(--green-dim); color: var(--green); padding: 2px 8px; border-radius: 8px; font-size: 10px; font-weight: 600; font-family: var(--font-mono); }
+    .status-open { background: var(--amber-dim); color: var(--amber); padding: 2px 8px; border-radius: 8px; font-size: 10px; font-weight: 600; font-family: var(--font-mono); }
+
+    /* ── OKR SLIDERS ── */
+    .okr-block { border: 1px solid var(--ash); border-radius: var(--r); padding: 20px; margin-bottom: 16px; }
+    .okr-title { font-size: 14px; font-weight: 700; color: var(--ink); margin-bottom: 14px; }
+    .kr-row { display: flex; align-items: center; gap: 12px; margin-bottom: 10px; }
+    .kr-label { font-size: 12px; color: var(--stone); flex: 1; min-width: 0; }
+    .kr-score { font-family: var(--font-mono); font-size: 13px; font-weight: 600; color: var(--bloom); width: 32px; text-align: right; flex-shrink: 0; }
+    .kr-track { flex: 0 0 120px; height: 5px; background: var(--ash); border-radius: 3px; overflow: hidden; }
+    .kr-fill { height: 100%; background: var(--bloom); border-radius: 3px; }
+
+    /* ── CONFIG / SETTINGS ── */
+    .config-row { display: flex; align-items: center; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--ash); }
+    .config-row:last-child { border-bottom: none; }
+    .config-icon { font-size: 18px; flex-shrink: 0; }
+    .config-body { flex: 1; }
+    .config-title { font-size: 13.5px; font-weight: 600; color: var(--ink); margin-bottom: 2px; }
+    .config-desc { font-size: 12px; color: var(--stone); }
+    .config-val { font-family: var(--font-mono); font-size: 11px; color: var(--mist); flex-shrink: 0; }
+
     @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
   </style>
 </head>
@@ -221,10 +271,11 @@
 <div class="suite-chrome">
   <a class="sc-brand" href="index.html">House of O.M.</a>
   <div class="sc-tabs">
-    <a class="sc-tab" href="index.html">Home</a>
-    <a class="sc-tab" href="index.html">Order Management</a>
-    <a class="sc-tab active" href="workbud-preview.html">Work Bud</a>
-    <a class="sc-tab" href="bookings.html">Booking Checker</a>
+    <a class="sc-tab" href="index.html">Home<span class="sc-tab-sub">OM Dashboard</span></a>
+    <a class="sc-tab" href="index.html">AMPL<span class="sc-tab-sub">FP&amp;A · SF · Acct · OM</span></a>
+    <a class="sc-tab" href="workbud.html">Work Bud<span class="sc-tab-sub">Private ops hub</span></a>
+    <a class="sc-tab active" href="workbud-preview.html">Work Bud Preview<span class="sc-tab-sub">No-login demo</span></a>
+    <a class="sc-tab" href="bookings.html">Bookings Checker<span class="sc-tab-sub">Deal validation</span></a>
   </div>
   <div style="display:flex;align-items:center;gap:6px;padding-left:16px;border-left:1px solid var(--ash2);flex-shrink:0;">
     <span style="width:7px;height:7px;border-radius:50%;background:var(--bloom);display:inline-block;animation:pulse 2.4s ease-in-out infinite;"></span>
@@ -248,6 +299,31 @@
   </button>
   <button class="tab-btn" onclick="switchTab('builds',this)">
     <span class="tb-icon">🛠</span><span class="tb-label">Lovable Builds</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('atr',this)">
+    <span class="tb-icon">🔍</span><span class="tb-label">ATR</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('progress',this)">
+    <span class="tb-icon">📊</span><span class="tb-label">Progress</span>
+  </button>
+  <div class="tab-dd" id="dd-ampl">
+    <button class="tab-dd-btn" onclick="toggleDD('ampl')">
+      <span class="tb-icon">🏔</span><span class="tb-label">My AMPL ▾</span>
+    </button>
+    <div class="tab-dd-menu" id="dd-ampl-menu">
+      <button class="tab-dd-item" onclick="switchAmpl('career')">🎓 Career</button>
+      <button class="tab-dd-item" onclick="switchAmpl('okr')">🎯 Deliverables &amp; OKRs</button>
+      <button class="tab-dd-item" onclick="switchAmpl('life')">☀️ Life at Amplitude</button>
+    </div>
+  </div>
+  <button class="tab-btn" onclick="switchTab('config',this)">
+    <span class="tb-icon">⚙️</span><span class="tb-label">Config</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('settings',this)">
+    <span class="tb-icon">🔒</span><span class="tb-label">Settings</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('bookings',this)">
+    <span class="tb-icon">📋</span><span class="tb-label">Bookings Checker</span>
   </button>
 </div>
 

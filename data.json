@@ -57,11 +57,33 @@
     },
     "oldest_open_days": null,
     "closed_today": null,
+    "new_today": null,
+    "avg_age_days": null,
     "team": {
       "Matt": null,
       "KB": null,
       "Unassigned": null
+    },
+    "throughput": {
+      "opened_this_week": null,
+      "closed_this_week": null
     }
+  },
+  "om_bookings": {
+    "updated": "Apr 10, 2026",
+    "source": "Salesforce · Stage 7 Closed Won · MTD",
+    "arr_total": 5271873,
+    "arr_new": 1200000,
+    "arr_expand": 2100000,
+    "arr_renewal": 1971873
+  },
+  "om_channels": {
+    "updated": "Apr 10, 2026",
+    "source": "Salesforce · Closed Won MTD · booking channel",
+    "direct_pct": 68,
+    "dealdesk_pct": 22,
+    "reseller_pct": 7,
+    "aws_pct": 3
   },
   "sf_snapshot": {
     "updated": "Apr 10, 2026",

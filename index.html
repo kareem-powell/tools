@@ -185,6 +185,17 @@
     .feat-title { font-size: 14px; font-weight: 700; color: var(--fg); margin-bottom: 5px; }
     .feat-desc { font-size: 13px; color: var(--fg3); line-height: 1.68; }
 
+    /* ── TOP BANNER (thin, pink-black) ── */
+    .site-banner {
+      background: linear-gradient(90deg, #1c0a10 0%, #3d0f22 100%);
+      color: #fff; padding: 9px 28px;
+      display: flex; align-items: center; justify-content: space-between;
+      font-size: 12.5px; font-family: var(--font);
+    }
+    .site-banner strong { font-weight: 700; color: #f9a8c9; }
+    .site-banner a { color: #f9a8c9; text-decoration: none; font-weight: 600; font-family: var(--mono); font-size: 11px; }
+    .site-banner a:hover { text-decoration: underline; }
+
     /* ── HOME PANEL ── */
     .home-panel { padding: 36px 48px; max-width: 1080px; margin: 0 auto; }
     .home-strip { display: flex; align-items: center; gap: 14px; padding-bottom: 22px; margin-bottom: 22px; border-bottom: 1px solid var(--bdr); }
@@ -530,6 +541,12 @@
 
 <div class="shell">
 
+  <!-- THIN TOP BANNER -->
+  <div class="site-banner">
+    <span><strong>House of O.M.</strong> · Amplitude Revenue Operations · Order Management Dashboard</span>
+    <a href="workbud.html">Work Bud →</a>
+  </div>
+
   <!-- SUITE CHROME: single bar with brand + tabs -->
   <div class="suite-chrome">
     <a class="sc-brand" href="index.html">House of O.M.</a>
@@ -539,7 +556,7 @@
 
       <!-- AMPL — parent tab for all departments -->
       <div class="sc-dropdown">
-        <button class="sc-tab" id="t-ampl" onclick="go('ampl',this)">AMPL <span class="sc-caret">▾</span><span class="sc-tab-sub">Dept hub — FP&amp;A, Acct, SF, OM</span></button>
+        <button class="sc-tab" id="t-ampl" onclick="go('ampl',this)">AMPL<span class="sc-tab-sub">Dept hub — FP&amp;A, Acct, SF, OM</span></button>
         <div class="sc-dropdown-menu">
           <button class="sc-dropdown-item" onclick="go('ampl', document.getElementById('t-ampl'))">
             <span class="sdi-title">AMPL Overview</span>
@@ -570,7 +587,7 @@
 
       <!-- OM Resources -->
       <div class="sc-dropdown">
-        <button class="sc-tab" id="t-resources" onclick="go('resources',this)">OM Resources <span class="sc-caret">▾</span></button>
+        <button class="sc-tab" id="t-resources" onclick="go('resources',this)">OM Resources<span class="sc-tab-sub">Guides · Tools · Links</span></button>
         <div class="sc-dropdown-menu">
           <button class="sc-dropdown-item" onclick="go('resources', document.getElementById('t-resources'))">
             <span class="sdi-title">FP&amp;A · Sales Finance</span>
@@ -699,30 +716,30 @@
       </div>
 
       <!-- OM Quick Nav -->
-      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--bdr);border:1.5px solid var(--bdr);border-radius:var(--r);overflow:hidden;">
-        <button class="dept-tile dt-om" onclick="go('om', document.getElementById('t-ampl'))" style="padding:18px 20px;">
-          <div class="dt-label" style="color:var(--om-c);">Case Queue</div>
-          <div class="dt-title">Pipeline</div>
-          <div class="dt-desc">Stage 6.5 deals, queue counts, team load</div>
-          <div style="font-family:var(--mono);font-size:10px;color:var(--om-c);margin-top:10px;font-weight:600;">View →</div>
+      <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:4px;">
+        <button onclick="go('om', document.getElementById('t-ampl'))" style="background:linear-gradient(145deg,#eef2fc 0%,#e2e8fa 100%);border:1.5px solid #c7cbef;border-radius:var(--r);padding:20px;text-align:left;cursor:pointer;font-family:var(--font);border-left:4px solid var(--acct-c);">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--acct-c);opacity:.8;margin-bottom:8px;">Case Queue</div>
+          <div style="font-size:15px;font-weight:700;color:var(--fg);margin-bottom:5px;">Pipeline</div>
+          <div style="font-size:12px;color:var(--fg3);line-height:1.5;">Stage 6.5 deals, queue counts, team load</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--acct-c);margin-top:12px;font-weight:600;">View →</div>
         </button>
-        <button class="dept-tile dt-om" onclick="go('om', document.getElementById('t-ampl'))" style="padding:18px 20px;">
-          <div class="dt-label" style="color:var(--om-c);">H1 Initiative</div>
-          <div class="dt-title">ATR Cleanup</div>
-          <div class="dt-desc">138-deal Vol Ramp ATR verification</div>
-          <div style="font-family:var(--mono);font-size:10px;color:var(--amber);margin-top:10px;font-weight:600;">~60% done →</div>
+        <button onclick="go('om', document.getElementById('t-ampl'))" style="background:linear-gradient(145deg,var(--amber-bg) 0%,#fffcf0 100%);border:1.5px solid #fcd34d;border-radius:var(--r);padding:20px;text-align:left;cursor:pointer;font-family:var(--font);border-left:4px solid var(--amber);">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);opacity:.9;margin-bottom:8px;">H1 Initiative</div>
+          <div style="font-size:15px;font-weight:700;color:var(--fg);margin-bottom:5px;">ATR Cleanup</div>
+          <div style="font-size:12px;color:var(--fg3);line-height:1.5;">138-deal Vol Ramp ATR verification</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--amber);margin-top:12px;font-weight:600;">~60% done →</div>
         </button>
-        <a class="dept-tile dt-om" href="bookings.html" style="padding:18px 20px;text-decoration:none;display:block;">
-          <div class="dt-label" style="color:var(--om-c);">Deal Validation</div>
-          <div class="dt-title">Bookings Checker</div>
-          <div class="dt-desc">Direct, Reseller &amp; AWS booking checklists</div>
-          <div style="font-family:var(--mono);font-size:10px;color:var(--om-c);margin-top:10px;font-weight:600;">Open →</div>
+        <a href="workbud.html" style="background:linear-gradient(145deg,var(--green-bg) 0%,#edfaef 100%);border:1.5px solid #86efac;border-radius:var(--r);padding:20px;text-decoration:none;display:block;border-left:4px solid var(--green);">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--green);opacity:.9;margin-bottom:8px;">Deal Validation</div>
+          <div style="font-size:15px;font-weight:700;color:var(--fg);margin-bottom:5px;">Bookings Checker</div>
+          <div style="font-size:12px;color:var(--fg3);line-height:1.5;">Direct, Reseller &amp; AWS booking checklists</div>
+          <div style="font-family:var(--mono);font-size:10px;color:var(--green);margin-top:12px;font-weight:600;">Open in Work Bud →</div>
         </a>
-        <button class="dept-tile" onclick="go('ampl', document.getElementById('t-ampl'))" style="padding:18px 20px;border-left:3px solid var(--fg4);">
-          <div class="dt-label">Other Depts</div>
-          <div class="dt-title">AMPL</div>
-          <div class="dt-desc">FP&amp;A, Sales Finance, Accounting</div>
-          <div style="font-family:var(--mono);font-size:10px;color:var(--fg4);margin-top:10px;font-weight:600;">Enter →</div>
+        <button onclick="go('ampl', document.getElementById('t-ampl'))" style="background:linear-gradient(145deg,#1c0a10 0%,#171717 100%);border:none;border-radius:var(--r);padding:20px;text-align:left;cursor:pointer;font-family:var(--font);">
+          <div style="font-family:var(--mono);font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.4);margin-bottom:8px;">Other Depts</div>
+          <div style="font-size:15px;font-weight:700;color:#fff;margin-bottom:5px;">AMPL</div>
+          <div style="font-size:12px;color:rgba(255,255,255,.5);line-height:1.5;">FP&amp;A, Sales Finance, Accounting</div>
+          <div style="font-family:var(--mono);font-size:10px;color:rgba(255,255,255,.4);margin-top:12px;font-weight:600;">Enter →</div>
         </button>
       </div>
 
@@ -1742,6 +1759,7 @@ fetch('/tools/data.json?' + Date.now())
         const cwStr = '$' + (p.closed_won_mtd_arr / 1e6).toFixed(1) + 'M';
         set('om-cw-mtd-arr', cwStr);
         set('h-cw-mtd-arr',  cwStr);
+        set('hs-arr', cwStr);
       }
     }
 
@@ -1758,6 +1776,7 @@ fetch('/tools/data.json?' + Date.now())
       set('om-kpi-queue',        total);
       set('om-kpi-assigned',     s['Assigned'] || 0);
       set('h-queue-total-home',  total);
+      set('hs-queue', total);
       if (q.updated) set('om-queue-updated', 'Last updated: ' + q.updated);
       // Team load
       if (q.team) {
@@ -1783,8 +1802,10 @@ fetch('/tools/data.json?' + Date.now())
 
     // ── Vol Ramp ──
     if (d.sf_snapshot && d.sf_snapshot.vol_ramp_deals != null) {
-      set('om-vol-ramp-open',  d.sf_snapshot.vol_ramp_deals);
-      set('om-kpi-vol-ramp',   d.sf_snapshot.vol_ramp_deals);
+      set('om-vol-ramp-open',         d.sf_snapshot.vol_ramp_deals);
+      set('om-kpi-vol-ramp',          d.sf_snapshot.vol_ramp_deals);
+      set('home-vol-ramp-remaining',  d.sf_snapshot.vol_ramp_deals);
+      set('hs-atr',                   d.sf_snapshot.vol_ramp_deals);
     }
 
     // ── ARR by type (OM bookings section) ──

@@ -437,6 +437,292 @@
       letter-spacing: .14em; text-transform: uppercase;
       color: var(--mist); margin-bottom: 16px;
     }
+
+    /* ── DROPDOWN TAB (My AMPL) ── */
+    .tab-dd { position: relative; display: flex; align-items: stretch; }
+    .tab-dd-btn {
+      display: flex; flex-direction: column; align-items: center; justify-content: center;
+      gap: 3px; padding: 0 18px; min-height: 54px;
+      border: none; border-bottom: 2px solid transparent;
+      background: transparent; cursor: pointer;
+      font-family: var(--font-body); white-space: nowrap;
+      color: var(--stone); transition: color .14s, border-color .14s;
+      margin-bottom: -1px;
+    }
+    .tab-dd-btn .tb-icon { font-size: .95rem; opacity: .6; transition: opacity .14s; }
+    .tab-dd-btn .tb-label { font-size: .76rem; font-weight: 500; letter-spacing: .01em; }
+    .tab-dd-btn:hover { color: var(--ink2); border-bottom-color: var(--ash2); }
+    .tab-dd-btn.active { color: var(--ink); border-bottom-color: var(--bloom); }
+    .tab-dd-btn.active .tb-icon { opacity: 1; }
+    .tab-dd-btn.active .tb-label { font-weight: 700; }
+    .tab-dd-menu {
+      position: absolute; top: calc(100% + 1px); left: 0;
+      background: var(--bg); border: 1px solid var(--ash);
+      border-radius: var(--r); box-shadow: 0 8px 24px rgba(0,0,0,.1);
+      min-width: 180px; z-index: 300; display: none; overflow: hidden;
+    }
+    .tab-dd-menu.open { display: block; }
+    .tab-dd-item {
+      display: block; padding: 11px 16px;
+      font-size: .83rem; font-weight: 500; color: var(--ink2);
+      cursor: pointer; transition: background .1s; border: none;
+      background: none; width: 100%; text-align: left;
+      font-family: var(--font-body);
+    }
+    .tab-dd-item:hover { background: var(--bg2); }
+    .tab-dd-item.active { color: var(--bloom); font-weight: 700; background: var(--bg2); }
+
+    /* ── ATR COUNTER ── */
+    .counter-row {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-bottom: 28px;
+    }
+    .counter-card {
+      background: var(--bg2); border: 1px solid var(--ash);
+      border-radius: var(--r); padding: 22px 24px;
+    }
+    .counter-card.primary { background: var(--bloom-dark); border-color: transparent; color: #fff; }
+    .ctr-label {
+      font-family: var(--font-mono); font-size: 9px;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--mist); margin-bottom: 10px;
+    }
+    .counter-card.primary .ctr-label { color: rgba(255,255,255,.45); }
+    .ctr-val {
+      font-size: 3rem; font-weight: 800; letter-spacing: -.05em;
+      line-height: 1; color: var(--ink); margin-bottom: 14px;
+    }
+    .counter-card.primary .ctr-val { color: #fff; }
+    .ctr-btns { display: flex; gap: 8px; align-items: center; }
+    .ctr-btn {
+      width: 34px; height: 34px; border-radius: 50%;
+      border: 1.5px solid var(--ash2); background: var(--bg);
+      font-size: 1.1rem; font-weight: 700; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      color: var(--ink); transition: all .13s;
+    }
+    .ctr-btn:hover { border-color: var(--ink); background: var(--bg3); }
+    .counter-card.primary .ctr-btn { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.3); color: #fff; }
+    .counter-card.primary .ctr-btn:hover { background: rgba(255,255,255,.22); }
+    .ctr-reset {
+      font-family: var(--font-mono); font-size: .65rem;
+      letter-spacing: .06em; text-transform: uppercase;
+      color: var(--mist); background: none; border: none;
+      cursor: pointer; padding: 4px 0; margin-left: auto;
+    }
+    .ctr-reset:hover { color: var(--red); }
+
+    /* ── ATR FORM ── */
+    .atr-form { display: flex; flex-direction: column; gap: 14px; margin-bottom: 20px; }
+    .atr-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .atr-field { display: flex; flex-direction: column; gap: 5px; }
+    .atr-field label {
+      font-family: var(--font-mono); font-size: .65rem;
+      letter-spacing: .08em; text-transform: uppercase; color: var(--stone);
+    }
+    .atr-field input, .atr-field select, .atr-field textarea {
+      padding: 9px 12px; background: var(--bg2);
+      border: 1px solid var(--ash2); border-radius: var(--r);
+      color: var(--ink); font-size: .85rem; font-family: var(--font-body);
+      outline: none; transition: border-color .13s;
+    }
+    .atr-field input:focus, .atr-field select:focus, .atr-field textarea:focus { border-color: var(--ink); }
+    .atr-field textarea { resize: vertical; min-height: 72px; line-height: 1.55; }
+    .atr-msg-box {
+      background: var(--bg2); border: 1px solid var(--ash);
+      border-radius: var(--r); padding: 16px 18px;
+      font-family: var(--font-mono); font-size: .78rem; line-height: 1.7;
+      color: var(--ink2); white-space: pre-wrap; min-height: 80px;
+      margin-bottom: 10px;
+    }
+    .copy-btn {
+      display: inline-flex; align-items: center; gap: 6px;
+      padding: 8px 16px; border-radius: var(--r);
+      background: var(--ink); color: #fff; border: none;
+      font-size: .78rem; font-weight: 600; font-family: var(--font-body);
+      cursor: pointer; transition: opacity .13s; letter-spacing: .02em;
+    }
+    .copy-btn:hover { opacity: .82; }
+    .copy-btn.secondary { background: var(--bg2); color: var(--ink); border: 1px solid var(--ash2); }
+    .copy-btn.secondary:hover { background: var(--bg3); opacity: 1; }
+
+    /* ── PROGRESS / DEALS TABLE ── */
+    .deals-filters {
+      display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px;
+    }
+    .filter-btn {
+      padding: 6px 14px; border-radius: 20px;
+      border: 1px solid var(--ash2); background: var(--bg2);
+      font-size: .75rem; font-weight: 500; cursor: pointer;
+      font-family: var(--font-mono); letter-spacing: .04em;
+      color: var(--stone); transition: all .12s;
+    }
+    .filter-btn:hover { border-color: var(--ink); color: var(--ink); }
+    .filter-btn.active { background: var(--ink); color: #fff; border-color: var(--ink); }
+    .deals-stat-row {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px; background: var(--ash);
+      border: 1px solid var(--ash); border-radius: var(--r);
+      overflow: hidden; margin-bottom: 20px;
+    }
+    .ds-cell { background: var(--bg); padding: 16px 18px; }
+    .ds-label {
+      font-family: var(--font-mono); font-size: 9px;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--mist); margin-bottom: 6px;
+    }
+    .ds-val {
+      font-size: 1.5rem; font-weight: 800;
+      letter-spacing: -.04em; color: var(--ink);
+    }
+    .ds-val.green { color: var(--green); }
+    .ds-val.amber { color: var(--amber); }
+    .ds-val.red   { color: var(--red); }
+    .deals-table-wrap {
+      border: 1px solid var(--ash); border-radius: var(--r); overflow: hidden;
+    }
+    .deals-table {
+      width: 100%; border-collapse: collapse;
+      font-size: .82rem;
+    }
+    .deals-table th {
+      background: var(--bg2); padding: 10px 12px;
+      font-family: var(--font-mono); font-size: .65rem;
+      letter-spacing: .08em; text-transform: uppercase;
+      color: var(--stone); font-weight: 500;
+      border-bottom: 1px solid var(--ash); text-align: left;
+    }
+    .deals-table td {
+      padding: 10px 12px; border-bottom: 1px solid var(--ash);
+      vertical-align: middle; color: var(--ink2);
+    }
+    .deals-table tr:last-child td { border-bottom: none; }
+    .deals-table tr:hover td { background: var(--bg2); }
+    .ds-status {
+      padding: 3px 8px; border-radius: 3px;
+      font-family: var(--font-mono); font-size: .62rem;
+      letter-spacing: .05em; font-weight: 500; border: none;
+      cursor: pointer;
+    }
+    .ds-note { font-size: .75rem; color: var(--stone); font-style: italic; margin-top: 3px; }
+
+    /* ── OKR / AMPL ── */
+    .ampl-intro {
+      font-size: .85rem; color: var(--stone); font-weight: 300;
+      margin-bottom: 24px; padding: 14px 18px;
+      background: var(--bg2); border-radius: var(--r);
+      border-left: 3px solid var(--bloom);
+      line-height: 1.65;
+    }
+    .okr-block { margin-bottom: 28px; }
+    .okr-obj-title {
+      font-family: var(--font-display); font-size: 1rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 4px;
+    }
+    .okr-score-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
+    .okr-score-val {
+      font-family: var(--font-mono); font-size: .85rem; font-weight: 600;
+      color: var(--bloom); min-width: 36px;
+    }
+    .okr-track { flex: 1; height: 4px; background: var(--ash); border-radius: 2px; overflow: hidden; }
+    .okr-fill { height: 100%; border-radius: 2px; background: var(--bloom); transition: width .3s; }
+    .kr-item {
+      display: flex; flex-direction: column; gap: 6px;
+      padding: 14px 0; border-bottom: 1px solid var(--ash);
+    }
+    .kr-item:last-child { border-bottom: none; }
+    .kr-top { display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+    .kr-title { font-size: .85rem; font-weight: 500; color: var(--ink2); flex: 1; }
+    .kr-val-display {
+      font-family: var(--font-mono); font-size: .82rem; font-weight: 600;
+      color: var(--ink); min-width: 36px; text-align: right;
+    }
+    .kr-slider {
+      -webkit-appearance: none; appearance: none;
+      width: 100%; height: 3px; border-radius: 2px;
+      background: var(--ash); outline: none; cursor: pointer;
+    }
+    .kr-slider::-webkit-slider-thumb {
+      -webkit-appearance: none; width: 14px; height: 14px;
+      border-radius: 50%; background: var(--bloom); cursor: pointer;
+    }
+
+    /* Career / Life sections */
+    .ampl-card {
+      background: var(--bg2); border: 1px solid var(--ash);
+      border-radius: var(--r); padding: 22px 24px; margin-bottom: 16px;
+    }
+    .ampl-card h3 {
+      font-family: var(--font-display); font-size: .95rem; font-weight: 700;
+      color: var(--ink); margin-bottom: 8px;
+    }
+    .ampl-card p { font-size: .83rem; color: var(--ink2); line-height: 1.7; font-weight: 300; }
+    .ampl-card textarea {
+      width: 100%; padding: 10px 12px; margin-top: 12px;
+      background: var(--bg); border: 1px solid var(--ash2);
+      border-radius: var(--r); color: var(--ink);
+      font-size: .83rem; font-family: var(--font-body);
+      resize: vertical; min-height: 80px; outline: none;
+      transition: border-color .13s; line-height: 1.6;
+    }
+    .ampl-card textarea:focus { border-color: var(--ink); }
+
+    /* ── CONFIG / SETTINGS ── */
+    .config-section { margin-bottom: 32px; }
+    .config-section-title {
+      font-family: var(--font-mono); font-size: .68rem;
+      letter-spacing: .12em; text-transform: uppercase;
+      color: var(--stone); margin-bottom: 14px;
+      padding-bottom: 8px; border-bottom: 1px solid var(--ash);
+    }
+    .config-row {
+      display: flex; align-items: center; justify-content: space-between;
+      gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--ash);
+      flex-wrap: wrap;
+    }
+    .config-row:last-child { border-bottom: none; }
+    .config-label { font-size: .85rem; font-weight: 500; color: var(--ink); }
+    .config-sub { font-size: .75rem; color: var(--stone); margin-top: 2px; }
+    .config-input {
+      padding: 8px 12px; background: var(--bg2);
+      border: 1px solid var(--ash2); border-radius: var(--r);
+      color: var(--ink); font-size: .83rem; font-family: var(--font-body);
+      outline: none; transition: border-color .13s; min-width: 220px;
+    }
+    .config-input:focus { border-color: var(--ink); }
+    .ch-list { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .ch-item {
+      display: flex; align-items: center; justify-content: space-between;
+      background: var(--bg2); border: 1px solid var(--ash);
+      border-radius: var(--r); padding: 8px 14px;
+      font-family: var(--font-mono); font-size: .78rem; color: var(--ink2);
+    }
+    .ch-remove {
+      background: none; border: none; cursor: pointer;
+      color: var(--mist); font-size: .9rem; padding: 0 4px;
+      transition: color .12s;
+    }
+    .ch-remove:hover { color: var(--red); }
+    .prompt-box {
+      background: var(--bg2); border: 1px solid var(--ash);
+      border-radius: var(--r); padding: 18px 20px;
+      font-family: var(--font-mono); font-size: .73rem;
+      line-height: 1.75; color: var(--ink2); white-space: pre-wrap;
+      max-height: 320px; overflow-y: auto; margin-bottom: 12px;
+    }
+
+    /* ── IFRAME PANELS ── */
+    .iframe-panel {
+      width: 100%; height: calc(100vh - 110px);
+      border: none; border-radius: 0;
+      display: block;
+    }
+    #tab-bookings, #tab-preview {
+      margin: -36px -48px;
+    }
+
+    @keyframes pulse {
+      0%,100% { opacity: 1; } 50% { opacity: .35; }
+    }
   </style>
 </head>
 <body>
@@ -492,6 +778,41 @@
   <button class="tab-btn" onclick="switchTab('builds',this)">
     <span class="tb-icon">🛠</span>
     <span class="tb-label">Lovable Builds</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('atr',this)">
+    <span class="tb-icon">🔁</span>
+    <span class="tb-label">ATR</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('progress',this)">
+    <span class="tb-icon">📊</span>
+    <span class="tb-label">Progress</span>
+  </button>
+  <div class="tab-dd" id="dd-ampl">
+    <button class="tab-dd-btn" id="dd-ampl-btn" onclick="toggleDD('ampl')">
+      <span class="tb-icon">🏔</span>
+      <span class="tb-label">My AMPL ▾</span>
+    </button>
+    <div class="tab-dd-menu" id="dd-ampl-menu">
+      <button class="tab-dd-item" onclick="switchAmpl('career')">🎓 Career</button>
+      <button class="tab-dd-item" onclick="switchAmpl('okr')">🎯 Deliverables &amp; OKRs</button>
+      <button class="tab-dd-item" onclick="switchAmpl('life')">☀️ Life at Amplitude</button>
+    </div>
+  </div>
+  <button class="tab-btn" onclick="switchTab('config',this)">
+    <span class="tb-icon">⚙️</span>
+    <span class="tb-label">Config</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('settings',this)">
+    <span class="tb-icon">🔑</span>
+    <span class="tb-label">Settings</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('bookings',this)">
+    <span class="tb-icon">✅</span>
+    <span class="tb-label">Booking Checker</span>
+  </button>
+  <button class="tab-btn" onclick="switchTab('preview',this)">
+    <span class="tb-icon">👁</span>
+    <span class="tb-label">Work Bud Preview</span>
   </button>
 </div>
 
@@ -1051,6 +1372,400 @@
     </div>
   </div>
 
+
+  <!-- ══════ ATR ══════ -->
+  <div class="tab-panel" id="tab-atr">
+    <div class="page-h">
+      <h2>ATR</h2>
+      <p>Counter + Slack message generator · Vol Ramp ATR cleanup</p>
+    </div>
+
+    <div class="counter-row">
+      <div class="counter-card primary">
+        <div class="ctr-label">ATR Cases Done Today</div>
+        <div class="ctr-val" id="cnt-atr">0</div>
+        <div class="ctr-btns">
+          <button class="ctr-btn" onclick="incCnt('atr')">+</button>
+          <button class="ctr-btn" onclick="decCnt('atr')">−</button>
+          <button class="ctr-reset" onclick="resetCounts()">Reset all</button>
+        </div>
+      </div>
+      <div class="counter-card">
+        <div class="ctr-label">Bookings Done Today</div>
+        <div class="ctr-val" id="cnt-booking">0</div>
+        <div class="ctr-btns">
+          <button class="ctr-btn" onclick="incCnt('booking')">+</button>
+          <button class="ctr-btn" onclick="decCnt('booking')">−</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="sub-tabs">
+      <button class="sub-tab active" onclick="switchSub('atr-std',this)">ATR Standard</button>
+      <button class="sub-tab" onclick="switchSub('atr-bulk',this)">ATR Bulk Intro</button>
+      <button class="sub-tab" onclick="switchSub('atr-book',this)">Booking</button>
+    </div>
+
+    <!-- ATR Standard -->
+    <div class="sub-panel active" id="sub-atr-std">
+      <div class="atr-form">
+        <div class="atr-row">
+          <div class="atr-field">
+            <label>Opportunity Name</label>
+            <input id="atr-opp" type="text" placeholder="e.g. Acme Corp Vol Ramp Renewal FY27">
+          </div>
+          <div class="atr-field">
+            <label>SFDC Case ID</label>
+            <input id="atr-sfdc" type="text" placeholder="e.g. 00001234">
+          </div>
+        </div>
+        <div class="atr-row">
+          <div class="atr-field">
+            <label>ARR Amount</label>
+            <input id="atr-arr" type="text" placeholder="e.g. $180,000">
+          </div>
+          <div class="atr-field">
+            <label>Correct ACV</label>
+            <input id="atr-correct" type="text" placeholder="e.g. $150,000">
+          </div>
+        </div>
+        <div class="atr-field">
+          <label>Issue Summary</label>
+          <input id="atr-issue" type="text" placeholder="e.g. Vol Ramp ACV inflated — contract value lower than booked">
+        </div>
+        <div class="atr-field">
+          <label>Additional Notes (optional)</label>
+          <textarea id="atr-other" placeholder="Any other context..."></textarea>
+        </div>
+      </div>
+      <button class="copy-btn secondary" onclick="buildATRMsg()" style="margin-bottom:12px;">Generate Message</button>
+      <div class="atr-msg-box" id="atr-std-msg">Message will appear here after you click Generate.</div>
+      <button class="copy-btn" onclick="copyMsg('atr-std-msg')">Copy to Clipboard</button>
+    </div>
+
+    <!-- ATR Bulk Intro -->
+    <div class="sub-panel" id="sub-atr-bulk">
+      <div class="atr-form">
+        <div class="atr-row">
+          <div class="atr-field">
+            <label>Number of Cases</label>
+            <input id="bulk-count" type="text" placeholder="e.g. 12">
+          </div>
+          <div class="atr-field">
+            <label>Date Range</label>
+            <input id="bulk-dates" type="text" placeholder="e.g. Apr 1–Apr 11">
+          </div>
+        </div>
+        <div class="atr-field">
+          <label>Summary Note</label>
+          <textarea id="bulk-note" placeholder="e.g. All Vol Ramp deals — ACV adjusted to match contract value..."></textarea>
+        </div>
+      </div>
+      <button class="copy-btn secondary" onclick="buildBulkMsg()" style="margin-bottom:12px;">Generate Message</button>
+      <div class="atr-msg-box" id="atr-bulk-msg">Message will appear here after you click Generate.</div>
+      <button class="copy-btn" onclick="copyMsg('atr-bulk-msg')">Copy to Clipboard</button>
+    </div>
+
+    <!-- Booking -->
+    <div class="sub-panel" id="sub-atr-book">
+      <div class="atr-form">
+        <div class="atr-row">
+          <div class="atr-field">
+            <label>Opportunity Name</label>
+            <input id="book-opp" type="text" placeholder="e.g. Acme Corp New Business FY27">
+          </div>
+          <div class="atr-field">
+            <label>SFDC Opp ID</label>
+            <input id="book-sfdc" type="text" placeholder="e.g. 0060X00001abc">
+          </div>
+        </div>
+        <div class="atr-row">
+          <div class="atr-field">
+            <label>ACV</label>
+            <input id="book-acv" type="text" placeholder="e.g. $80,000">
+          </div>
+          <div class="atr-field">
+            <label>Deal Type</label>
+            <select id="book-type">
+              <option value="Direct">Direct</option>
+              <option value="Reseller">Reseller</option>
+              <option value="AWS Marketplace">AWS Marketplace</option>
+            </select>
+          </div>
+        </div>
+        <div class="atr-field">
+          <label>Notes (optional)</label>
+          <textarea id="book-notes" placeholder="Any booking notes..."></textarea>
+        </div>
+      </div>
+      <button class="copy-btn secondary" onclick="buildBookMsg()" style="margin-bottom:12px;">Generate Message</button>
+      <div class="atr-msg-box" id="book-std-msg">Message will appear here after you click Generate.</div>
+      <button class="copy-btn" onclick="copyMsg('book-std-msg')">Copy to Clipboard</button>
+    </div>
+  </div>
+
+  <!-- ══════ PROGRESS ══════ -->
+  <div class="tab-panel" id="tab-progress">
+    <div class="page-h">
+      <h2>Vol Ramp ATR Progress</h2>
+      <p>138-deal tracker · Status and notes per deal · localStorage persisted</p>
+    </div>
+
+    <div class="deals-stat-row" id="deals-stats">
+      <div class="ds-cell"><div class="ds-label">Total</div><div class="ds-val" id="stat-total">138</div></div>
+      <div class="ds-cell"><div class="ds-label">Done</div><div class="ds-val green" id="stat-done">0</div></div>
+      <div class="ds-cell"><div class="ds-label">In Progress</div><div class="ds-val amber" id="stat-ip">0</div></div>
+      <div class="ds-cell"><div class="ds-label">Remaining</div><div class="ds-val red" id="stat-rem">138</div></div>
+    </div>
+
+    <div class="deals-filters">
+      <button class="filter-btn active" onclick="filterDeals('all',this)">All (138)</button>
+      <button class="filter-btn" onclick="filterDeals('open',this)">Open</button>
+      <button class="filter-btn" onclick="filterDeals('in-progress',this)">In Progress</button>
+      <button class="filter-btn" onclick="filterDeals('done',this)">Done</button>
+      <button class="filter-btn" onclick="filterDeals('flagged',this)">Flagged</button>
+      <button class="copy-btn secondary" style="margin-left:auto;font-size:.72rem;" onclick="copyProgressSlack()">Copy Slack Update</button>
+    </div>
+
+    <div class="deals-table-wrap">
+      <table class="deals-table">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Account</th>
+            <th>Opportunity</th>
+            <th>ACV</th>
+            <th>Status</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="deals-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ══════ MY AMPL ══════ -->
+  <div class="tab-panel" id="tab-ampl">
+
+    <!-- Sub nav for AMPL sections -->
+    <div class="sub-tabs">
+      <button class="sub-tab active" onclick="switchAMPLSub('career',this)">🎓 Career</button>
+      <button class="sub-tab" onclick="switchAMPLSub('okr',this)">🎯 Deliverables &amp; OKRs</button>
+      <button class="sub-tab" onclick="switchAMPLSub('life',this)">☀️ Life at Amplitude</button>
+    </div>
+
+    <!-- Career -->
+    <div class="sub-panel active" id="sub-ampl-career">
+      <div class="page-h" style="margin-bottom:20px;">
+        <h2>Career</h2>
+        <p>Goals, growth areas, and career conversations at Amplitude</p>
+      </div>
+      <div class="ampl-intro">Where I want to go — short-term goals, long-term direction, and the conversations I'm having to get there.</div>
+
+      <div class="ampl-card">
+        <h3>Short-Term Goals</h3>
+        <p style="font-size:.75rem;color:var(--mist);margin-bottom:8px;">AI SME role · Closed Lost process · OM exposure areas</p>
+        <textarea id="goals-short" placeholder="What are your top 3 short-term goals right now?" onchange="saveAmplData()" oninput="saveAmplData()"></textarea>
+      </div>
+      <div class="ampl-card">
+        <h3>Long-Term Goals</h3>
+        <p style="font-size:.75rem;color:var(--mist);margin-bottom:8px;">Career direction, role interests, where this internship fits</p>
+        <textarea id="goals-long" placeholder="Where do you want to be in 2–3 years?" onchange="saveAmplData()" oninput="saveAmplData()"></textarea>
+      </div>
+      <div class="ampl-card">
+        <h3>PTO / OOO</h3>
+        <textarea id="goals-pto" placeholder="Upcoming PTO, planned days off, class schedule conflicts..." onchange="saveAmplData()" oninput="saveAmplData()"></textarea>
+      </div>
+    </div>
+
+    <!-- Deliverables & OKRs -->
+    <div class="sub-panel" id="sub-ampl-okr">
+      <div class="page-h" style="margin-bottom:20px;">
+        <h2>Deliverables &amp; OKRs</h2>
+        <p>Objectives and Key Results · Doerr framework · 0.7 = great</p>
+      </div>
+      <div class="ampl-intro">My OKRs for this internship — rated 0.0–1.0 using the Doerr framework where 0.7 is on-target. Scored honestly to drive real reflection.</div>
+
+      <div id="okr-container"></div>
+      <button class="copy-btn" style="margin-top:8px;" onclick="copyOKRReport()">Copy OKR Report</button>
+    </div>
+
+    <!-- Life at Amplitude -->
+    <div class="sub-panel" id="sub-ampl-life">
+      <div class="page-h" style="margin-bottom:20px;">
+        <h2>Life at Amplitude</h2>
+        <p>Culture, team, and the stuff that matters beyond the work</p>
+      </div>
+      <div class="ampl-intro">The people, moments, and culture notes that make this internship more than just a job.</div>
+
+      <div class="ampl-card">
+        <h3>Team Dynamics</h3>
+        <p>Notes on the team culture, working styles, and relationships.</p>
+        <textarea id="life-team" placeholder="What stands out about the OM / Sales Finance team culture?" onchange="saveAmplData()" oninput="saveAmplData()"></textarea>
+      </div>
+      <div class="ampl-card">
+        <h3>Standout Moments</h3>
+        <p>Wins, surprises, or things that meant something.</p>
+        <textarea id="life-moments" placeholder="What's a moment from this internship you'd want to remember?" onchange="saveAmplData()" oninput="saveAmplData()"></textarea>
+      </div>
+      <div class="ampl-card">
+        <h3>What I'm Learning</h3>
+        <p>Skills, mental models, and things I didn't expect to pick up.</p>
+        <textarea id="life-learning" placeholder="What's the most valuable thing you've learned so far?" onchange="saveAmplData()" oninput="saveAmplData()"></textarea>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ══════ CONFIG ══════ -->
+  <div class="tab-panel" id="tab-config">
+    <div class="page-h">
+      <h2>Config</h2>
+      <p>Cowork schedule · Slack channels · Automation prompts reference</p>
+    </div>
+
+    <div class="config-section">
+      <div class="config-section-title">Cowork Automation Schedule</div>
+      <div class="config-row">
+        <div>
+          <div class="config-label">Morning Briefing</div>
+          <div class="config-sub">Daily ATR count, queue health, Slack scan</div>
+        </div>
+        <span style="font-family:var(--font-mono);font-size:.78rem;color:var(--stone);">8:00 AM PT</span>
+      </div>
+      <div class="config-row">
+        <div>
+          <div class="config-label">EOD Recap</div>
+          <div class="config-sub">ATR done count, bookings done, Slack highlights</div>
+        </div>
+        <span style="font-family:var(--font-mono);font-size:.78rem;color:var(--stone);">5:30 PM PT</span>
+      </div>
+      <div class="config-row">
+        <div>
+          <div class="config-label">Weekly Reset</div>
+          <div class="config-sub">Counter reset, OKR prompt, deliverables review</div>
+        </div>
+        <span style="font-family:var(--font-mono);font-size:.78rem;color:var(--stone);">Mon 8:00 AM PT</span>
+      </div>
+      <div class="config-row">
+        <div>
+          <div class="config-label">Resources Monitor</div>
+          <div class="config-sub">Scan monitored channels for new threads</div>
+        </div>
+        <span style="font-family:var(--font-mono);font-size:.78rem;color:var(--stone);">Every 2 hrs</span>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-section-title">Monitored Slack Channels</div>
+      <div class="ch-list" id="wb-channels"></div>
+      <div style="display:flex;gap:8px;">
+        <input id="ch-new" class="config-input" type="text" placeholder="#channel-name" style="flex:1;" onkeydown="if(event.key==='Enter')addChannel()">
+        <button class="copy-btn" onclick="addChannel()">Add</button>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-section-title">Cowork Prompts Reference</div>
+      <p style="font-size:.8rem;color:var(--stone);margin-bottom:14px;line-height:1.7;">These are the prompts used in the Master Cowork Prompt. Copy and paste into Cowork to run manually.</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div class="ch-item" style="cursor:pointer;" onclick="copyPromptSnippet('morning')">Morning Briefing prompt <span style="font-family:var(--font-mono);font-size:.65rem;color:var(--mist);">click to copy</span></div>
+        <div class="ch-item" style="cursor:pointer;" onclick="copyPromptSnippet('eod')">EOD Recap prompt <span style="font-family:var(--font-mono);font-size:.65rem;color:var(--mist);">click to copy</span></div>
+        <div class="ch-item" style="cursor:pointer;" onclick="copyPromptSnippet('weekly')">Weekly Reset prompt <span style="font-family:var(--font-mono);font-size:.65rem;color:var(--mist);">click to copy</span></div>
+        <div class="ch-item" style="cursor:pointer;" onclick="copyPromptSnippet('meeting')">Meeting Notes prompt <span style="font-family:var(--font-mono);font-size:.65rem;color:var(--mist);">click to copy</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ══════ SETTINGS ══════ -->
+  <div class="tab-panel" id="tab-settings">
+    <div class="page-h">
+      <h2>Settings</h2>
+      <p>Password · Bookings URL · GitHub · Master Cowork Prompt</p>
+    </div>
+
+    <div class="config-section">
+      <div class="config-section-title">Change Password</div>
+      <div class="config-row">
+        <div>
+          <div class="config-label">New Password</div>
+          <div class="config-sub">Stored in localStorage — clears on browser data reset</div>
+        </div>
+        <div style="display:flex;gap:8px;align-items:center;">
+          <input id="pw-new" class="config-input" type="password" placeholder="New password" style="min-width:180px;">
+          <button class="copy-btn" onclick="changePW()">Save</button>
+        </div>
+      </div>
+      <div id="pw-msg" style="font-family:var(--font-mono);font-size:.7rem;color:var(--green);display:none;padding-top:6px;">Password updated.</div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-section-title">Bookings Apps Script URL</div>
+      <div class="config-row" style="flex-direction:column;align-items:flex-start;gap:10px;">
+        <div>
+          <div class="config-label">Google Apps Script endpoint</div>
+          <div class="config-sub">Used by Booking Checker to log deals to your Google Sheet</div>
+        </div>
+        <input id="bookings-url" class="config-input" type="text" placeholder="https://script.google.com/macros/s/..." style="width:100%;min-width:unset;">
+        <button class="copy-btn" onclick="saveBookingsURL()">Save URL</button>
+        <div id="url-msg" style="font-family:var(--font-mono);font-size:.7rem;color:var(--green);display:none;">URL saved.</div>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-section-title">GitHub Info</div>
+      <div class="config-row">
+        <div>
+          <div class="config-label">Repository</div>
+          <div class="config-sub">Tools site source code</div>
+        </div>
+        <a href="https://github.com/kareem-powell/tools" target="_blank" style="font-family:var(--font-mono);font-size:.78rem;color:var(--blue);">kareem-powell/tools ↗</a>
+      </div>
+      <div class="config-row">
+        <div>
+          <div class="config-label">Pages URL</div>
+          <div class="config-sub">Live site</div>
+        </div>
+        <a href="https://kareem-powell.github.io/tools/" target="_blank" style="font-family:var(--font-mono);font-size:.78rem;color:var(--blue);">kareem-powell.github.io/tools/ ↗</a>
+      </div>
+    </div>
+
+    <div class="config-section">
+      <div class="config-section-title">Master Cowork Prompt</div>
+      <p style="font-size:.8rem;color:var(--stone);margin-bottom:12px;line-height:1.7;">Full prompt for configuring Cowork automations. Copy and paste into Claude's Cowork settings.</p>
+      <div class="prompt-box" id="master-prompt-box">You are Work Bud, Kareem Powell's personal OM ops assistant at Amplitude. You run automated workflows across Slack, Salesforce, Google Sheets, and Asana on a defined schedule.
+
+AUTOMATION 1 — MORNING BRIEFING (8AM PT daily)
+Pull today's ATR case queue from #order-up and #order-processing. Summarize open cases, flag any with urgent language. Check Asana for today's active deliverables. Format as a short Slack-ready briefing.
+
+AUTOMATION 2 — EOD RECAP (5:30PM PT daily)
+Summarize what was completed today. ATR cases closed, bookings processed, Asana tasks updated. Flag anything that spilled to tomorrow. Output a brief Slack DM to Kareem.
+
+AUTOMATION 3 — WEEKLY RESET (Monday 8AM PT)
+Clear daily counters. Prompt OKR self-scoring review. Surface any deliverables marked open for 7+ days. Generate a weekly intention note.
+
+AUTOMATION 4 — MEETING NOTES
+After any calendar event ends, pull transcript from Granola if available. Summarize key decisions, action items, and follow-ups. Post structured summary as a note.
+
+AUTOMATION 5 — RESOURCES MONITOR (every 2 hours)
+Scan monitored Slack channels for new threads. Flag anything mentioning ATR, booking exceptions, Vol Ramp, or AI Week. Surface to Kareem as a digest.
+
+AUTOMATION 6 — AI WEEK SCAN
+During AI Week (Apr 7–11): Scan #cfo-ai and #ai-week-april-2026 every 30 minutes. Alert Kareem to any action items, tool access updates, or presentation schedule changes.</div>
+      <button class="copy-btn" onclick="copyCoworkPrompt()">Copy Master Prompt</button>
+    </div>
+  </div>
+
+  <!-- ══════ BOOKING CHECKER (iframe) ══════ -->
+  <div class="tab-panel" id="tab-bookings">
+    <iframe src="bookings.html" class="iframe-panel" id="bookings-iframe"></iframe>
+  </div>
+
+  <!-- ══════ WB PREVIEW (iframe) ══════ -->
+  <div class="tab-panel" id="tab-preview">
+    <iframe src="workbud-preview.html" class="iframe-panel" id="preview-iframe"></iframe>
+  </div>
+
 </main>
 
 <script>
@@ -1059,7 +1774,9 @@
 
   function checkPw() {
     const v = document.getElementById('pw-input').value;
-    if (v === WB_PW) {
+    let correctPw = WB_PW;
+    try { const ov = localStorage.getItem('kp_pw_override'); if (ov) correctPw = ov; } catch(e) {}
+    if (v === correctPw) {
       document.getElementById('pw-gate').style.display = 'none';
       loadCheckedTasks();
     } else {
@@ -1069,7 +1786,8 @@
 
   function switchTab(id, btn) {
     document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
-    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-btn, .tab-dd-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-dd-item').forEach(i => i.classList.remove('active'));
     document.getElementById('tab-' + id).classList.add('active');
     btn.classList.add('active');
   }
@@ -1124,6 +1842,544 @@
       });
     } catch(e) {}
   }
+
+  /* ── DROPDOWN TAB ── */
+  function toggleDD(name) {
+    const menu = document.getElementById('dd-'+name+'-menu');
+    const btn  = document.getElementById('dd-'+name+'-btn');
+    const isOpen = menu.classList.toggle('open');
+    btn.classList.toggle('active', isOpen);
+    if (isOpen) {
+      const close = (e) => { if (!document.getElementById('dd-'+name).contains(e.target)) { menu.classList.remove('open'); btn.classList.remove('active'); document.removeEventListener('click', close); } };
+      setTimeout(() => document.addEventListener('click', close), 0);
+    }
+  }
+
+  function switchAmpl(sub) {
+    // Activate the AMPL tab panel
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn, .tab-dd-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-ampl').classList.add('active');
+    document.getElementById('dd-ampl-btn').classList.add('active');
+    // Close dropdown
+    document.getElementById('dd-ampl-menu').classList.remove('open');
+    // Highlight correct item
+    document.querySelectorAll('.tab-dd-item').forEach(i => i.classList.remove('active'));
+    event.target.classList.add('active');
+    // Switch sub-panel within AMPL
+    switchAMPLSub(sub, null);
+  }
+
+  function switchAMPLSub(sub, btn) {
+    document.querySelectorAll('#tab-ampl .sub-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('#tab-ampl .sub-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('sub-ampl-'+sub).classList.add('active');
+    if (btn) btn.classList.add('active');
+    else {
+      document.querySelectorAll('#tab-ampl .sub-tab').forEach(b => {
+        if (b.textContent.toLowerCase().includes(sub)) b.classList.add('active');
+      });
+    }
+  }
+
+  /* ── ATR COUNTERS ── */
+  function incCnt(t) {
+    const el = document.getElementById('cnt-'+t);
+    const k = t==='atr' ? 'kp_atr_done' : 'kp_booking_done';
+    const n = parseInt(el.textContent||0) + 1;
+    el.textContent = n;
+    try { localStorage.setItem(k, n); } catch(e) {}
+  }
+  function decCnt(t) {
+    const el = document.getElementById('cnt-'+t);
+    const k = t==='atr' ? 'kp_atr_done' : 'kp_booking_done';
+    const n = Math.max(0, parseInt(el.textContent||0) - 1);
+    el.textContent = n;
+    try { localStorage.setItem(k, n); } catch(e) {}
+  }
+  function resetCounts() {
+    ['atr','booking'].forEach(t => {
+      document.getElementById('cnt-'+t).textContent = '0';
+      try { localStorage.setItem(t==='atr'?'kp_atr_done':'kp_booking_done','0'); } catch(e) {}
+    });
+  }
+  function loadCounters() {
+    try {
+      document.getElementById('cnt-atr').textContent = localStorage.getItem('kp_atr_done') || '0';
+      document.getElementById('cnt-booking').textContent = localStorage.getItem('kp_booking_done') || '0';
+    } catch(e) {}
+  }
+
+  /* ── ATR MESSAGES ── */
+  function buildATRMsg() {
+    const opp = document.getElementById('atr-opp').value.trim() || '[Opportunity]';
+    const sfdc = document.getElementById('atr-sfdc').value.trim() || '[Case ID]';
+    const arr = document.getElementById('atr-arr').value.trim() || '[ARR]';
+    const correct = document.getElementById('atr-correct').value.trim() || '[Correct ACV]';
+    const issue = document.getElementById('atr-issue').value.trim() || '[Issue summary]';
+    const other = document.getElementById('atr-other').value.trim();
+    const sfdcUrl = sfdc.match(/^\d+$/) ? `https://amplitude.lightning.force.com/lightning/r/Case/${sfdc}/view` : sfdc;
+    let msg = `🔁 *ATR Review — ${opp}*\n`;
+    msg += `• Case: <${sfdcUrl}|${sfdc}>\n`;
+    msg += `• Booked ARR: ${arr}\n`;
+    msg += `• Correct ACV: ${correct}\n`;
+    msg += `• Issue: ${issue}\n`;
+    if (other) msg += `• Notes: ${other}\n`;
+    msg += `\nTagging for ATR correction. LMK if anything looks off. 🙏`;
+    document.getElementById('atr-std-msg').textContent = msg;
+  }
+
+  function buildBulkMsg() {
+    const count = document.getElementById('bulk-count').value.trim() || '[N]';
+    const dates = document.getElementById('bulk-dates').value.trim() || '[date range]';
+    const note = document.getElementById('bulk-note').value.trim() || '';
+    let msg = `🔁 *ATR Bulk Review Update — ${dates}*\n`;
+    msg += `• Cases reviewed: ${count}\n`;
+    if (note) msg += `• Summary: ${note}\n`;
+    msg += `\nAll submitted for ATR correction. Pinging here so it's on record. 🙏`;
+    document.getElementById('atr-bulk-msg').textContent = msg;
+  }
+
+  function buildBookMsg() {
+    const opp = document.getElementById('book-opp').value.trim() || '[Opportunity]';
+    const sfdc = document.getElementById('book-sfdc').value.trim() || '[Opp ID]';
+    const acv = document.getElementById('book-acv').value.trim() || '[ACV]';
+    const type = document.getElementById('book-type').value;
+    const notes = document.getElementById('book-notes').value.trim();
+    const sfdcUrl = `https://amplitude.lightning.force.com/lightning/r/Opportunity/${sfdc}/view`;
+    let msg = `✅ *Booking Review — ${opp}*\n`;
+    msg += `• Opp: <${sfdcUrl}|${sfdc}>\n`;
+    msg += `• ACV: ${acv}\n`;
+    msg += `• Type: ${type}\n`;
+    if (notes) msg += `• Notes: ${notes}\n`;
+    msg += `\nReviewed and ready to close. Let me know if anything needs adjustment. 🙏`;
+    document.getElementById('book-std-msg').textContent = msg;
+  }
+
+  function copyMsg(id) {
+    const text = document.getElementById(id).textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target;
+      const orig = btn.textContent;
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = orig, 1600);
+    });
+  }
+
+  /* ── DEALS / PROGRESS ── */
+  const DEALS = [
+    {id:1,acct:'Acme Corp',opp:'Vol Ramp Renewal FY27',acv:'$180k'},
+    {id:2,acct:'Beta Systems',opp:'Vol Ramp New Business FY27',acv:'$95k'},
+    {id:3,acct:'Cornerstone Inc',opp:'Vol Ramp Expansion FY27',acv:'$210k'},
+    {id:4,acct:'Delta Analytics',opp:'Vol Ramp Renewal FY27',acv:'$72k'},
+    {id:5,acct:'Echo Dynamics',opp:'Vol Ramp New Business FY27',acv:'$145k'},
+    {id:6,acct:'Foxtrot Media',opp:'Vol Ramp Renewal FY27',acv:'$88k'},
+    {id:7,acct:'Gamma Health',opp:'Vol Ramp Expansion FY27',acv:'$320k'},
+    {id:8,acct:'Harbor Tech',opp:'Vol Ramp Renewal FY27',acv:'$55k'},
+    {id:9,acct:'Iris Software',opp:'Vol Ramp New Business FY27',acv:'$190k'},
+    {id:10,acct:'Jade Financial',opp:'Vol Ramp Renewal FY27',acv:'$410k'},
+    {id:11,acct:'Kestrel Labs',opp:'Vol Ramp Expansion FY27',acv:'$67k'},
+    {id:12,acct:'Lumen Digital',opp:'Vol Ramp Renewal FY27',acv:'$230k'},
+    {id:13,acct:'Magnet Retail',opp:'Vol Ramp New Business FY27',acv:'$115k'},
+    {id:14,acct:'Nova Logistics',opp:'Vol Ramp Renewal FY27',acv:'$88k'},
+    {id:15,acct:'Orbit Cloud',opp:'Vol Ramp Expansion FY27',acv:'$175k'},
+    {id:16,acct:'Pinnacle Data',opp:'Vol Ramp Renewal FY27',acv:'$92k'},
+    {id:17,acct:'Quorum Inc',opp:'Vol Ramp New Business FY27',acv:'$48k'},
+    {id:18,acct:'Radius Systems',opp:'Vol Ramp Renewal FY27',acv:'$265k'},
+    {id:19,acct:'Summit AI',opp:'Vol Ramp Expansion FY27',acv:'$380k'},
+    {id:20,acct:'Titan Media',opp:'Vol Ramp Renewal FY27',acv:'$105k'},
+    {id:21,acct:'Unity Cloud',opp:'Vol Ramp New Business FY27',acv:'$140k'},
+    {id:22,acct:'Vantage Analytics',opp:'Vol Ramp Renewal FY27',acv:'$78k'},
+    {id:23,acct:'Wavefront Tech',opp:'Vol Ramp Expansion FY27',acv:'$195k'},
+    {id:24,acct:'Xenon Digital',opp:'Vol Ramp Renewal FY27',acv:'$62k'},
+    {id:25,acct:'Yoke Systems',opp:'Vol Ramp New Business FY27',acv:'$220k'},
+    {id:26,acct:'Zenith Corp',opp:'Vol Ramp Renewal FY27',acv:'$155k'},
+    {id:27,acct:'Alpine Ventures',opp:'Vol Ramp Expansion FY27',acv:'$285k'},
+    {id:28,acct:'Beacon Health',opp:'Vol Ramp Renewal FY27',acv:'$95k'},
+    {id:29,acct:'Cascade Ops',opp:'Vol Ramp New Business FY27',acv:'$170k'},
+    {id:30,acct:'Drift Analytics',opp:'Vol Ramp Renewal FY27',acv:'$83k'},
+    {id:31,acct:'Edge Dynamics',opp:'Vol Ramp Expansion FY27',acv:'$245k'},
+    {id:32,acct:'Flux Technologies',opp:'Vol Ramp Renewal FY27',acv:'$118k'},
+    {id:33,acct:'Grove Digital',opp:'Vol Ramp New Business FY27',acv:'$66k'},
+    {id:34,acct:'Helix Systems',opp:'Vol Ramp Renewal FY27',acv:'$340k'},
+    {id:35,acct:'Ironclad Inc',opp:'Vol Ramp Expansion FY27',acv:'$125k'},
+    {id:36,acct:'Junction Cloud',opp:'Vol Ramp Renewal FY27',acv:'$90k'},
+    {id:37,acct:'Kinetic Data',opp:'Vol Ramp New Business FY27',acv:'$205k'},
+    {id:38,acct:'Lattice AI',opp:'Vol Ramp Renewal FY27',acv:'$72k'},
+    {id:39,acct:'Matrix Media',opp:'Vol Ramp Expansion FY27',acv:'$155k'},
+    {id:40,acct:'Nexus Corp',opp:'Vol Ramp Renewal FY27',acv:'$98k'},
+    {id:41,acct:'Onyx Analytics',opp:'Vol Ramp New Business FY27',acv:'$185k'},
+    {id:42,acct:'Prism Digital',opp:'Vol Ramp Renewal FY27',acv:'$74k'},
+    {id:43,acct:'Quantum Labs',opp:'Vol Ramp Expansion FY27',acv:'$290k'},
+    {id:44,acct:'Relay Systems',opp:'Vol Ramp Renewal FY27',acv:'$110k'},
+    {id:45,acct:'Signal Tech',opp:'Vol Ramp New Business FY27',acv:'$58k'},
+    {id:46,acct:'Threshold AI',opp:'Vol Ramp Renewal FY27',acv:'$225k'},
+    {id:47,acct:'Uplift Media',opp:'Vol Ramp Expansion FY27',acv:'$145k'},
+    {id:48,acct:'Vector Cloud',opp:'Vol Ramp Renewal FY27',acv:'$82k'},
+    {id:49,acct:'Warp Analytics',opp:'Vol Ramp New Business FY27',acv:'$195k'},
+    {id:50,acct:'Xero Dynamics',opp:'Vol Ramp Renewal FY27',acv:'$68k'},
+    {id:51,acct:'Yield Systems',opp:'Vol Ramp Expansion FY27',acv:'$310k'},
+    {id:52,acct:'Zeal Corp',opp:'Vol Ramp Renewal FY27',acv:'$92k'},
+    {id:53,acct:'Anchor Digital',opp:'Vol Ramp New Business FY27',acv:'$165k'},
+    {id:54,acct:'Blaze Analytics',opp:'Vol Ramp Renewal FY27',acv:'$78k'},
+    {id:55,acct:'Cipher Tech',opp:'Vol Ramp Expansion FY27',acv:'$235k'},
+    {id:56,acct:'Dawn Systems',opp:'Vol Ramp Renewal FY27',acv:'$105k'},
+    {id:57,acct:'Ember Cloud',opp:'Vol Ramp New Business FY27',acv:'$140k'},
+    {id:58,acct:'Forge Digital',opp:'Vol Ramp Renewal FY27',acv:'$88k'},
+    {id:59,acct:'Gale Analytics',opp:'Vol Ramp Expansion FY27',acv:'$175k'},
+    {id:60,acct:'Haven Tech',opp:'Vol Ramp Renewal FY27',acv:'$62k'},
+    {id:61,acct:'Impact AI',opp:'Vol Ramp New Business FY27',acv:'$250k'},
+    {id:62,acct:'Jolt Systems',opp:'Vol Ramp Renewal FY27',acv:'$95k'},
+    {id:63,acct:'Keen Analytics',opp:'Vol Ramp Expansion FY27',acv:'$185k'},
+    {id:64,acct:'Lift Digital',opp:'Vol Ramp Renewal FY27',acv:'$72k'},
+    {id:65,acct:'Merge Cloud',opp:'Vol Ramp New Business FY27',acv:'$115k'},
+    {id:66,acct:'Node Corp',opp:'Vol Ramp Renewal FY27',acv:'$205k'},
+    {id:67,acct:'Opal Systems',opp:'Vol Ramp Expansion FY27',acv:'$135k'},
+    {id:68,acct:'Pace Analytics',opp:'Vol Ramp Renewal FY27',acv:'$88k'},
+    {id:69,acct:'Quest Digital',opp:'Vol Ramp New Business FY27',acv:'$165k'},
+    {id:70,acct:'Roam Tech',opp:'Vol Ramp Renewal FY27',acv:'$78k'},
+    {id:71,acct:'Spark AI',opp:'Vol Ramp Expansion FY27',acv:'$295k'},
+    {id:72,acct:'Torque Systems',opp:'Vol Ramp Renewal FY27',acv:'$102k'},
+    {id:73,acct:'Union Analytics',opp:'Vol Ramp New Business FY27',acv:'$148k'},
+    {id:74,acct:'Vibe Cloud',opp:'Vol Ramp Renewal FY27',acv:'$75k'},
+    {id:75,acct:'Ward Digital',opp:'Vol Ramp Expansion FY27',acv:'$220k'},
+    {id:76,acct:'Xact Corp',opp:'Vol Ramp Renewal FY27',acv:'$95k'},
+    {id:77,acct:'Yarn Systems',opp:'Vol Ramp New Business FY27',acv:'$158k'},
+    {id:78,acct:'Zest Analytics',opp:'Vol Ramp Renewal FY27',acv:'$82k'},
+    {id:79,acct:'Ark Digital',opp:'Vol Ramp Expansion FY27',acv:'$265k'},
+    {id:80,acct:'Bolt Tech',opp:'Vol Ramp Renewal FY27',acv:'$112k'},
+    {id:81,acct:'Core AI',opp:'Vol Ramp New Business FY27',acv:'$185k'},
+    {id:82,acct:'Dune Systems',opp:'Vol Ramp Renewal FY27',acv:'$68k'},
+    {id:83,acct:'Echo Labs',opp:'Vol Ramp Expansion FY27',acv:'$195k'},
+    {id:84,acct:'Fable Cloud',opp:'Vol Ramp Renewal FY27',acv:'$88k'},
+    {id:85,acct:'Grid Analytics',opp:'Vol Ramp New Business FY27',acv:'$135k'},
+    {id:86,acct:'Halo Digital',opp:'Vol Ramp Renewal FY27',acv:'$72k'},
+    {id:87,acct:'Icon Systems',opp:'Vol Ramp Expansion FY27',acv:'$310k'},
+    {id:88,acct:'Jade Analytics',opp:'Vol Ramp Renewal FY27',acv:'$98k'},
+    {id:89,acct:'Key Corp',opp:'Vol Ramp New Business FY27',acv:'$175k'},
+    {id:90,acct:'Loop Tech',opp:'Vol Ramp Renewal FY27',acv:'$85k'},
+    {id:91,acct:'Mist Digital',opp:'Vol Ramp Expansion FY27',acv:'$240k'},
+    {id:92,acct:'Net Systems',opp:'Vol Ramp Renewal FY27',acv:'$105k'},
+    {id:93,acct:'Orb Analytics',opp:'Vol Ramp New Business FY27',acv:'$152k'},
+    {id:94,acct:'Peak Cloud',opp:'Vol Ramp Renewal FY27',acv:'$78k'},
+    {id:95,acct:'Query AI',opp:'Vol Ramp Expansion FY27',acv:'$195k'},
+    {id:96,acct:'Ridge Corp',opp:'Vol Ramp Renewal FY27',acv:'$92k'},
+    {id:97,acct:'Scale Digital',opp:'Vol Ramp New Business FY27',acv:'$168k'},
+    {id:98,acct:'Tide Systems',opp:'Vol Ramp Renewal FY27',acv:'$75k'},
+    {id:99,acct:'Unit Analytics',opp:'Vol Ramp Expansion FY27',acv:'$285k'},
+    {id:100,acct:'Volt Cloud',opp:'Vol Ramp Renewal FY27',acv:'$115k'},
+    {id:101,acct:'Wave Corp',opp:'Vol Ramp New Business FY27',acv:'$142k'},
+    {id:102,acct:'Xen Systems',opp:'Vol Ramp Renewal FY27',acv:'$88k'},
+    {id:103,acct:'Year Analytics',opp:'Vol Ramp Expansion FY27',acv:'$205k'},
+    {id:104,acct:'Zero Digital',opp:'Vol Ramp Renewal FY27',acv:'$68k'},
+    {id:105,acct:'Apex Tech',opp:'Vol Ramp New Business FY27',acv:'$175k'},
+    {id:106,acct:'Bloom Systems',opp:'Vol Ramp Renewal FY27',acv:'$95k'},
+    {id:107,acct:'Craft AI',opp:'Vol Ramp Expansion FY27',acv:'$255k'},
+    {id:108,acct:'Dusk Analytics',opp:'Vol Ramp Renewal FY27',acv:'$82k'},
+    {id:109,acct:'Ever Cloud',opp:'Vol Ramp New Business FY27',acv:'$128k'},
+    {id:110,acct:'Flow Corp',opp:'Vol Ramp Renewal FY27',acv:'$95k'},
+    {id:111,acct:'Gate Digital',opp:'Vol Ramp Expansion FY27',acv:'$185k'},
+    {id:112,acct:'Hunt Systems',opp:'Vol Ramp Renewal FY27',acv:'$72k'},
+    {id:113,acct:'Ink Analytics',opp:'Vol Ramp New Business FY27',acv:'$155k'},
+    {id:114,acct:'Jump Tech',opp:'Vol Ramp Renewal FY27',acv:'$88k'},
+    {id:115,acct:'Kind AI',opp:'Vol Ramp Expansion FY27',acv:'$320k'},
+    {id:116,acct:'Land Cloud',opp:'Vol Ramp Renewal FY27',acv:'$105k'},
+    {id:117,acct:'Mark Corp',opp:'Vol Ramp New Business FY27',acv:'$162k'},
+    {id:118,acct:'Neon Digital',opp:'Vol Ramp Renewal FY27',acv:'$78k'},
+    {id:119,acct:'Open Systems',opp:'Vol Ramp Expansion FY27',acv:'$235k'},
+    {id:120,acct:'Port Analytics',opp:'Vol Ramp Renewal FY27',acv:'$92k'},
+    {id:121,acct:'Quad Tech',opp:'Vol Ramp New Business FY27',acv:'$148k'},
+    {id:122,acct:'Ramp Corp',opp:'Vol Ramp Renewal FY27',acv:'$85k'},
+    {id:123,acct:'Seal Digital',opp:'Vol Ramp Expansion FY27',acv:'$275k'},
+    {id:124,acct:'Trail Systems',opp:'Vol Ramp Renewal FY27',acv:'$115k'},
+    {id:125,acct:'Undo Analytics',opp:'Vol Ramp New Business FY27',acv:'$158k'},
+    {id:126,acct:'View Cloud',opp:'Vol Ramp Renewal FY27',acv:'$82k'},
+    {id:127,acct:'Walk Corp',opp:'Vol Ramp Expansion FY27',acv:'$195k'},
+    {id:128,acct:'Xray Digital',opp:'Vol Ramp Renewal FY27',acv:'$68k'},
+    {id:129,acct:'Yard Systems',opp:'Vol Ramp New Business FY27',acv:'$175k'},
+    {id:130,acct:'Zone Analytics',opp:'Vol Ramp Renewal FY27',acv:'$95k'},
+    {id:131,acct:'Arch Tech',opp:'Vol Ramp Expansion FY27',acv:'$245k'},
+    {id:132,acct:'Base AI',opp:'Vol Ramp Renewal FY27',acv:'$88k'},
+    {id:133,acct:'Cast Cloud',opp:'Vol Ramp New Business FY27',acv:'$132k'},
+    {id:134,acct:'Deep Corp',opp:'Vol Ramp Renewal FY27',acv:'$75k'},
+    {id:135,acct:'Earn Digital',opp:'Vol Ramp Expansion FY27',acv:'$215k'},
+    {id:136,acct:'Feel Systems',opp:'Vol Ramp Renewal FY27',acv:'$102k'},
+    {id:137,acct:'Glow Analytics',opp:'Vol Ramp New Business FY27',acv:'$168k'},
+    {id:138,acct:'Hope Tech',opp:'Vol Ramp Renewal FY27',acv:'$85k'},
+  ];
+
+  const STATUS_STYLES = {
+    'open':        {bg:'var(--bg3)',       color:'var(--stone)'},
+    'in-progress': {bg:'var(--amber-dim)', color:'var(--amber)'},
+    'done':        {bg:'var(--green-dim)', color:'var(--green)'},
+    'flagged':     {bg:'var(--red-dim)',   color:'var(--red)'},
+  };
+
+  let dealsFilter = 'all';
+
+  function loadDealOverrides() {
+    try { return JSON.parse(localStorage.getItem('kp_deal_overrides') || '{}'); } catch(e) { return {}; }
+  }
+  function saveDealOverride(id, key, val) {
+    const ov = loadDealOverrides(); if (!ov[id]) ov[id] = {};
+    ov[id][key] = val;
+    try { localStorage.setItem('kp_deal_overrides', JSON.stringify(ov)); } catch(e) {}
+  }
+
+  function renderDeals() {
+    const ov = loadDealOverrides();
+    const tbody = document.getElementById('deals-tbody');
+    if (!tbody) return;
+    const filtered = DEALS.filter(d => {
+      const s = (ov[d.id] && ov[d.id].status) || 'open';
+      return dealsFilter === 'all' || s === dealsFilter;
+    });
+    let html = '';
+    filtered.forEach(d => {
+      const s = (ov[d.id] && ov[d.id].status) || 'open';
+      const note = (ov[d.id] && ov[d.id].note) || '';
+      const st = STATUS_STYLES[s] || STATUS_STYLES['open'];
+      html += `<tr>
+        <td style="font-family:var(--font-mono);font-size:.7rem;color:var(--mist);">${d.id}</td>
+        <td style="font-weight:500;">${d.acct}</td>
+        <td style="color:var(--stone);font-size:.78rem;">${d.opp}</td>
+        <td style="font-family:var(--font-mono);font-size:.78rem;">${d.acv}</td>
+        <td>
+          <select class="ds-status" style="background:${st.bg};color:${st.color};" onchange="setDS(${d.id},this)">
+            <option value="open" ${s==='open'?'selected':''}>Open</option>
+            <option value="in-progress" ${s==='in-progress'?'selected':''}>In Progress</option>
+            <option value="done" ${s==='done'?'selected':''}>Done</option>
+            <option value="flagged" ${s==='flagged'?'selected':''}>Flagged</option>
+          </select>
+        </td>
+        <td><input type="text" style="border:none;background:transparent;font-size:.75rem;color:var(--stone);width:100%;outline:none;" value="${note.replace(/"/g,'&quot;')}" placeholder="Add note..." onchange="setDN(${d.id},this.value)" onblur="setDN(${d.id},this.value)"></td>
+      </tr>`;
+    });
+    tbody.innerHTML = html;
+    updateDealStats();
+  }
+
+  function setDS(id, sel) {
+    const s = sel.value;
+    const st = STATUS_STYLES[s] || STATUS_STYLES['open'];
+    sel.style.background = st.bg; sel.style.color = st.color;
+    saveDealOverride(id, 'status', s);
+    updateDealStats();
+  }
+  function setDN(id, val) { saveDealOverride(id, 'note', val); }
+
+  function filterDeals(f, btn) {
+    dealsFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderDeals();
+  }
+
+  function updateDealStats() {
+    const ov = loadDealOverrides();
+    let done=0, ip=0;
+    DEALS.forEach(d => {
+      const s = (ov[d.id] && ov[d.id].status) || 'open';
+      if (s==='done') done++;
+      else if (s==='in-progress') ip++;
+    });
+    const rem = DEALS.length - done;
+    document.getElementById('stat-done').textContent = done;
+    document.getElementById('stat-ip').textContent = ip;
+    document.getElementById('stat-rem').textContent = rem;
+  }
+
+  function copyProgressSlack() {
+    const ov = loadDealOverrides();
+    let done=0, ip=0, flagged=0;
+    DEALS.forEach(d => {
+      const s = (ov[d.id] && ov[d.id].status) || 'open';
+      if (s==='done') done++;
+      else if (s==='in-progress') ip++;
+      else if (s==='flagged') flagged++;
+    });
+    const rem = DEALS.length - done;
+    const msg = `📊 *Vol Ramp ATR Progress Update*\n• Total deals: ${DEALS.length}\n• Done: ${done}\n• In Progress: ${ip}\n• Flagged: ${flagged}\n• Remaining: ${rem}\n\nProgress: ${Math.round((done/DEALS.length)*100)}% complete`;
+    navigator.clipboard.writeText(msg).then(() => { alert('Slack update copied!'); });
+  }
+
+  /* ── OKRs ── */
+  const DEFAULT_OKRS = [
+    { id:'o1', title:'Complete Vol Ramp ATR Cleanup', krs:[
+      {id:'k1', title:'Review all 138 Vol Ramp deals', val:.0},
+      {id:'k2', title:'Submit ATR corrections for all identified discrepancies', val:.0},
+      {id:'k3', title:'Document process for future prevention', val:.0},
+    ]},
+    { id:'o2', title:'Deliver AI Week Overage Anticipation Agent', krs:[
+      {id:'k1', title:'Functional agent built and demoed at offsite', val:.0},
+      {id:'k2', title:'Prediction logic validated against historical data', val:.0},
+      {id:'k3', title:'Alert routing to AE/FLM/CSM/Accounting/SF tested', val:.0},
+    ]},
+    { id:'o3', title:'Own OM Booking Operations Quality', krs:[
+      {id:'k1', title:'Zero booking errors on deals I process', val:.0},
+      {id:'k2', title:'Complete daily booking checklist every active day', val:.0},
+      {id:'k3', title:'Onboarding doc validated and finalized', val:.0},
+    ]},
+    { id:'o4', title:'Build Internal Credibility & Relationships', krs:[
+      {id:'k1', title:'1:1s scheduled and held with Matt, KB, and one cross-functional partner', val:.0},
+      {id:'k2', title:'Positive call-outs received and documented', val:.0},
+      {id:'k3', title:'Proactively shared at least one process improvement', val:.0},
+    ]},
+  ];
+
+  function loadOKRs() {
+    try { return JSON.parse(localStorage.getItem('kp_okrs')) || DEFAULT_OKRS; } catch(e) { return DEFAULT_OKRS; }
+  }
+  function saveOKRs(okrs) { try { localStorage.setItem('kp_okrs', JSON.stringify(okrs)); } catch(e) {} }
+
+  function renderOKRs() {
+    const okrs = loadOKRs();
+    const container = document.getElementById('okr-container');
+    if (!container) return;
+    container.innerHTML = okrs.map(obj => {
+      const avg = obj.krs.reduce((s,k)=>s+k.val,0) / obj.krs.length;
+      return `<div class="okr-block">
+        <div class="okr-obj-title">${obj.title}</div>
+        <div class="okr-score-bar">
+          <div class="okr-score-val">${avg.toFixed(2)}</div>
+          <div class="okr-track"><div class="okr-fill" style="width:${avg*100}%"></div></div>
+        </div>
+        ${obj.krs.map(kr=>`
+          <div class="kr-item">
+            <div class="kr-top">
+              <div class="kr-title">${kr.title}</div>
+              <div class="kr-val-display" id="krd-${obj.id}-${kr.id}">${kr.val.toFixed(1)}</div>
+            </div>
+            <input type="range" class="kr-slider" min="0" max="10" step="1" value="${Math.round(kr.val*10)}"
+              oninput="updateKR('${obj.id}','${kr.id}',this.value/10,this)">
+          </div>`).join('')}
+      </div>`;
+    }).join('<hr class="rule">');
+  }
+
+  function updateKR(oid, kid, val, slider) {
+    const okrs = loadOKRs();
+    const obj = okrs.find(o=>o.id===oid);
+    if (!obj) return;
+    const kr = obj.krs.find(k=>k.id===kid);
+    if (kr) kr.val = val;
+    saveOKRs(okrs);
+    document.getElementById(`krd-${oid}-${kid}`).textContent = parseFloat(val).toFixed(1);
+    // update avg
+    const avg = obj.krs.reduce((s,k)=>s+k.val,0)/obj.krs.length;
+    const fillEl = slider.closest('.okr-block').querySelector('.okr-fill');
+    const scoreEl = slider.closest('.okr-block').querySelector('.okr-score-val');
+    if (fillEl) fillEl.style.width = (avg*100)+'%';
+    if (scoreEl) scoreEl.textContent = avg.toFixed(2);
+  }
+
+  function copyOKRReport() {
+    const okrs = loadOKRs();
+    let report = '📊 *OKR Self-Assessment*\n\n';
+    okrs.forEach(obj => {
+      const avg = obj.krs.reduce((s,k)=>s+k.val,0)/obj.krs.length;
+      report += `*${obj.title}* — ${avg.toFixed(2)}\n`;
+      obj.krs.forEach(kr => report += `  • ${kr.title}: ${kr.val.toFixed(1)}\n`);
+      report += '\n';
+    });
+    navigator.clipboard.writeText(report).then(() => {
+      const btn = event.target;
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy OKR Report', 1600);
+    });
+  }
+
+  /* ── AMPL DATA ── */
+  function saveAmplData() {
+    const fields = ['goals-short','goals-long','goals-pto','life-team','life-moments','life-learning'];
+    const data = {};
+    fields.forEach(f => { const el = document.getElementById(f); if (el) data[f] = el.value; });
+    try { localStorage.setItem('kp_ampl_data', JSON.stringify(data)); } catch(e) {}
+  }
+  function loadAmplData() {
+    try {
+      const data = JSON.parse(localStorage.getItem('kp_ampl_data') || '{}');
+      Object.keys(data).forEach(f => { const el = document.getElementById(f); if (el) el.value = data[f]; });
+    } catch(e) {}
+  }
+
+  /* ── CONFIG — CHANNELS ── */
+  const DEFAULT_CHANNELS = ['#order-up','#order-processing','#sales-finance','#ai-week-april-2026','#cfo-ai'];
+  function loadChannels() {
+    try { return JSON.parse(localStorage.getItem('kp_wb_channels')) || DEFAULT_CHANNELS; } catch(e) { return DEFAULT_CHANNELS; }
+  }
+  function saveChannels(ch) { try { localStorage.setItem('kp_wb_channels', JSON.stringify(ch)); } catch(e) {} }
+  function renderChannels() {
+    const ch = loadChannels();
+    const el = document.getElementById('wb-channels');
+    if (!el) return;
+    el.innerHTML = ch.map((c,i)=>`<div class="ch-item">${c}<button class="ch-remove" onclick="removeChannel(${i})">✕</button></div>`).join('');
+  }
+  function addChannel() {
+    const inp = document.getElementById('ch-new');
+    const val = inp.value.trim();
+    if (!val) return;
+    const ch = loadChannels();
+    const name = val.startsWith('#') ? val : '#'+val;
+    if (!ch.includes(name)) { ch.push(name); saveChannels(ch); }
+    inp.value = '';
+    renderChannels();
+  }
+  function removeChannel(i) {
+    const ch = loadChannels();
+    ch.splice(i,1); saveChannels(ch); renderChannels();
+  }
+
+  /* ── SETTINGS ── */
+  function changePW() {
+    const v = document.getElementById('pw-new').value;
+    if (!v) return;
+    try { localStorage.setItem('kp_pw_override', v); } catch(e) {}
+    const msg = document.getElementById('pw-msg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 2500);
+  }
+
+  function saveBookingsURL() {
+    const v = document.getElementById('bookings-url').value.trim();
+    if (!v) return;
+    try { localStorage.setItem('kp_bookings_url', v); } catch(e) {}
+    const msg = document.getElementById('url-msg');
+    msg.style.display = 'block';
+    setTimeout(() => msg.style.display = 'none', 2500);
+  }
+
+  function copyCoworkPrompt() {
+    const text = document.getElementById('master-prompt-box').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = event.target;
+      btn.textContent = 'Copied!';
+      setTimeout(() => btn.textContent = 'Copy Master Prompt', 1600);
+    });
+  }
+
+  function copyPromptSnippet(type) {
+    const snippets = {
+      morning: 'Run Morning Briefing: Pull today\'s ATR case queue from #order-up and #order-processing. Summarize open cases, flag urgent items. Check Asana for today\'s active deliverables.',
+      eod: 'Run EOD Recap: Summarize what was completed today. ATR cases closed, bookings processed, Asana tasks updated. Flag anything spilling to tomorrow.',
+      weekly: 'Run Weekly Reset: Clear daily counters. Prompt OKR self-scoring review. Surface deliverables open for 7+ days. Generate weekly intention note.',
+      meeting: 'Run Meeting Notes: Pull Granola transcript if available. Summarize key decisions, action items, and follow-ups.'
+    };
+    navigator.clipboard.writeText(snippets[type] || '').then(() => { event.target.querySelector('span').textContent = '✓ copied'; setTimeout(()=>event.target.querySelector('span').textContent='click to copy',1800); });
+  }
+
+  /* ── INIT ── */
+  document.addEventListener('DOMContentLoaded', () => {
+    loadCounters();
+    renderDeals();
+    renderOKRs();
+    loadAmplData();
+    renderChannels();
+    // Load saved bookings URL
+    try { const url = localStorage.getItem('kp_bookings_url'); if(url && document.getElementById('bookings-url')) document.getElementById('bookings-url').value = url; } catch(e) {}
+    // Check for pw override
+    try { const pw = localStorage.getItem('kp_pw_override'); if(pw) { /* pw override set but still requires manual entry */ } } catch(e) {}
+  });
 </script>
 </body>
 </html>
